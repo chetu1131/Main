@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Application Form</title>
+  </head>
+  <style>
+    th,
+    td {
+      padding-top: 10px;
+      padding-bottom: 20px;
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+    body {
+      margin: auto;
+      background-color: aliceblue;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    fieldset {
+      border: 2px solid black;
+    }
+
+    #job_application {
+      text-align: center;
+    }
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .required,
+    .date_check,
+    .err_msg,
+    #email-err,
+    #mobile-number-err,
+    #last-name-err,
+    #first-name-err,
+    #designation-err,
+    #address1-err,
+    #city-err,
+    #gender-err,
+    #relation-err,
+    #dob_err,
+    #zipcode-err,
+    #hindi_err,
+    #english_err,
+    #gujrati_err {
+      color: red;
+    }
+    .addremove {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding-right: 220px;
+    }
+    .addremove input,
+    p {
+      padding: 8px;
+      margin: 4px;
+    }
+    #addrow1 {
+      background-color: green;
+      border: 2px solid black;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #removerow1 {
+      background-color: red;
+      border: 2px solid black;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .red {
+      color: red;
+    }
+    #submit {
+      margin: 6px;
+      padding: 8px;
+      background-color: green;
+      border: 2px solid black;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+
+  <body>
+    <h2 id="job_application">Job Application Form</h2>
+
+    <form
+      id="job_application"
+      name="job_application"
+      method="post"
+      action="/student/id"
+      target="_blank"
+      autocomplete="on"
+      onsubmit="return ValidateForm()"
+    >
+      <input type="hidden" value="<%= id %>" name="id" />
+      <fieldset>
+        <legend>Basic Detail</legend>
+        <table>
+          <div class="form-field">
+            <tr>
+              <td>
+                First Name<span class="required" value>*</span>
+                <input
+                  class="form_control"
+                  type="text"
+                  name="first_name"
+                  id="firstname"
+                  placeholder="Enter Your Good Name"
+                  <% if (result){
+                    if(result[0]){ %>
+                      value="<%= result[0].firstname %>"
+                  <%  }
+                  } %>
+                />
+                <span class="err_msg"></span>
+
+                <div id="first-name-err"></div>
+              </td>
+              <td>
+                Last Name<span class="required">*</span>
+                <input
+                  type="text"
+                  name="last_name"
+                  id="lastname"
+                  placeholder="Enter Your Last Name"
+                  <% if (result){
+                    if(result[0]){ %>
+                      value="<%= result[0].lastname %>"
+                  <%  }
+                  } %>
+                />
+                <span class="err_msg"></span>
+
+                <div id="last-name-err"></div>
+              </td>
+            </tr>
+          </div>
+          <tr>
+            <td>
+              Designation<span class="required">*</span>
+              <input
+                type="text"
+                name="_designation"
+                id="designation"
+                placeholder="Your Designation"
+                 
+                <% if (result){
+                  if(result[0]){ %>
+                    value="<%= result[0].designation %>"
+                <%  }
+                } %>
+              />
+              <span id="designation-err"></span>
+            </td>
+            <td>
+              Address 1<span class="required">*</span>
+              <input
+                type="text"
+                name="_address1"
+                id="address1"
+                placeholder="Permenent Address"
+                 
+                <% if (result){
+                  if(result[0]){ %>
+                    value="<%= result[0].address1 %>"
+                <%  }
+                } %>
+              />
+              <span id="address1-err"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Email<span class="required">*</span>
+              <input
+                type="text"
+                name="_email"
+                id="email"
+                placeholder="Your Email"
+             
+                <% if (result){
+                  if(result[0]){ %>
+                    value="<%= result[0].email %>"
+                <%  }
+                } %>
+              />
+              <span class="err_msg"></span>
+              <div id="email-err"></div>
+            </td>
+            <td>
+              Address 2
+              <input
+                type="text"
+                name="_address2"
+                id="address2"
+             
+                placeholder=" Temperory Address"
+                <% if (result){
+                  if(result[0]){ %>
+                    value="<%= result[0].address2 %>"
+                <%  }
+                } %>
+              />
+              <span class="err_msg"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Phone Number<span class="required">*</span>
+              <input
+                type="text"
+                name="_phonenumber"
+                id="phonenumber"
+  
+                placeholder="Enter your email"
+                <% if (result){
+                  if(result[0]){ %>
+                    value="<%= result[0].phonenumber %>"
+                <%  }
+                } %>
+              />
+              <span class="err_msg"></span>
+              <div id="mobile-number-err"></div>
+            </td>
+            <td>
+              City<span class="required">*</span>
+              <input
+                type="text"
+                name="_city"
+                id="city"
+             
+                placeholder="Enter your City"
+                <% if (result){
+                  if(result[0]){ %>
+                    value="<%= result[0].city %>"
+                <%  }
+                } %>
+              />
+
+              <span id="city-err"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="gender">Gender<span class="required">*</span></label>
+              <% if(result[0].gender == "male"){ %>
+              <input
+                type="radio"
+                value="male"
+                name="_gender"
+                id="male"
+                checked="true"
+              />
+              <label for="Male">Male</label>
+              <input type="radio" value="female" name="_gender" id="female" />
+              <label for="Female">Female</label>
+              <% } else if (result[0].gender == "female"){ %>
+              <input type="radio" value="male" name="_gender" id="male" />
+              <label for="Male">Male</label>
+              <input
+                type="radio"
+                value="female"
+                name="_gender"
+                id="female"
+                checked="true"
+              />
+              <label for="Female">Female</label>
+              <% } else {%>
+              <input type="radio" value="male" name="_gender" id="male" />
+              <label for="Male">Male</label>
+              <input type="radio" value="female" name="_gender" id="female" />
+              <label for="Female">Female</label>
+              <% } %>
+              <div id="gender-err"></div>
+            </td>
+
+            <td>
+              <label for="state">State</label>
+              <select id="state" name="_state">
+                <% var options
+                =["Gujrat","Delhi","Maharastra","Goa","Karnataka"]; for ( var i
+                = 0; i < options.length; i++ ) { var selected = ( result[0].state==
+                options[i] ) ? "selected" : ""; %>
+                <option
+                <% if (result){
+                  if(result[0]){ %>
+                    value="<%=options[ i ] %>" <%= selected %>
+                    ><%=options[i] %>
+                <%  }
+                } %>
+                </option>
+                <% } %>
+              </select>
+
+              <span class="err_msg"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="realtionship_status"
+                >RelationShip Status<span class="required">*</span></label
+              >
+              <select name="realtionship_status" id="realtionship">
+                <% var options =["Married","Unmarried"]; for ( var i = 0; i <
+                options.length; i++ ) { var selected = (
+                result[0].relationship_status == options[i] ) ? "selected" : ""; %>
+                <option
+                <% if (result){
+                  if(result[0]){ %>
+                     value="<%=options[ i ] %>" <%= selected %>
+                     ><%=options[i] %>
+                  <%  }
+                } %>
+                </option>
+                <% } %>
+              </select>
+              <span id="relation-err"></span>
+            </td>
+
+            <td>
+              Date of Birth<span class="required">*</span>
+              <input
+                type="text"
+                name="_dob"
+                id="dob"
+                placeholder="yyyy-mm-yy"
+                <% if (result){
+                  if(result[0]){ %>
+                    value="<%= result[0].dateofbirth %>"
+                <%  }
+                } %>
+              />
+              <span id="dob_err"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Zip Code<span class="required">*</span>
+
+              <input
+                type="text"
+                name="_zipcode"
+                id="zipcode"
+                <% if (result){
+                  if(result[0]){ %>
+                    value="<%= result[0].zipcode %>"
+                <%  }
+                } %>
+              />
+              <span id="zipcode-err"></span>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>Education Detail</legend>
+        <table>
+          <label for="SSC Result">SSC Result</label>
+          <tr>
+            <td>
+              Name Of Board<span class="required">*</span>
+             
+              <input
+                type="text"
+                name="nameofboard"
+                id="sscnameofboard"
+                placeholder="Enter your name of board"            
+                <% if (result2){
+                  if(result2[0]){ %>
+                    value="<%= result2[0].coursename %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Passing Year<span class="required">*</span>
+              <input
+                type="text"
+                name="passingyear"
+                id="sscpassingyear"
+                placeholder="Enter your passing year"
+                <% if (result2){
+                  if(result2[0]){ %>
+                    value="<%= result2[0].passingyear %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Percentage<span class="required">*</span>
+              <input
+                type="text"
+                name="percentage"
+                id="sscpercentage"
+                value="<%= result2[0].percentage %>"
+                placeholder="Enter your percentage"
+                <% if (result2){
+                  if(result2[0]){ %>
+                    value="<%= result2[0].percentage %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+          </tr>
+        </table>
+        <hr />
+        <table>
+          <label for="HSC Result">HSC Result</label>
+          <tr>
+            <td>
+              Name Of Board<span class="required">*</span>
+              <input
+                type="text"
+                name="nameofboard"
+                id="hscboard" 
+                placeholder="Enter your name of board"
+                <% if (result2){
+                  if(result2[1]){ %>
+                    value="<%= result2[1].coursename %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Passing Year<span class="required">*</span>
+              <input
+                type="text"
+                name="passingyear"
+                id="hscpassingyear"
+                placeholder="Enter your passing year"
+                <% if (result2){
+                  if(result2[1]){ %>
+                    value="<%= result2[1].passingyear %>"
+                <%  }
+                } %>
+             
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Percentage<span class="required">*</span>
+              <input
+                type="text"
+                name="percentage"
+                id="hscpercentage"
+                placeholder="Enter your percentage"
+                <% if (result2){
+                  if(result2[1]){ %>
+                    value="<%= result2[1].percentage %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+          </tr>
+        </table>
+        <hr />
+        <table>
+          <label for="Bechelor Degree">Bechelor Degree</label>
+          <tr>
+            <td>
+              Course Name<span class="required">*</span>
+              <input
+                type="text"
+                name="nameofboard"
+                id="degreecoursename"
+         
+                placeholder="Enter your course name"
+                <% if (result2){
+                  if(result2[2]){ %>
+                    value="<%= result2[2].coursename %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+
+            <td>
+              Passing Year<span class="required">*</span>
+              <input
+                type="text"
+                name="passingyear"
+                id="degreepassingyear"
+       
+                placeholder="Enter your passing year"
+                <% if (result2){
+                  if(result2[2]){ %>
+                    value="<%= result2[2].passingyear %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Percentage<span class="required">*</span>
+              <input
+                type="text"
+                name="percentage"
+                id="degreepercentage"
+                placeholder="Enter your percentage"
+                <% if (result2){
+                  if(result2[2]){ %>
+                    value="<%= result2[2].percentage %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+        <hr />
+        <table>
+          <label for="Master Degree">Master Degree</label>
+          <tr>
+            <td>
+              Course Name
+              <input
+                type="text"
+                name="nameofboard"
+                id="mastercoursename"
+              
+                placeholder="Enter your course name for master"
+                <% if (result2){
+                  if(result2[3]){ %>
+                    value="<%= result2[3].coursename %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+
+            <td>
+              Passing Year
+              <input
+                type="text"
+                name="passingyear"
+                id="masterpassingyear"
+ 
+                placeholder="Enter your passing year"
+                <% if (result2){
+                  if(result2[3]){ %>
+                    value="<%= result2[3].passingyear %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Percentage
+              <input
+                type="text"
+                name="percentage"
+                id="masterpercentage"
+                placeholder="Enter your percentage"
+                <% if (result2){
+                  if(result2[3]){ %>
+                    value="<%= result2[3].percentage %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>Work Experience</legend>
+
+        <table id="company_table">
+          <tr>
+            <td>
+              Company Name
+              <input
+                type="text"
+                name="companyname"
+                id="companyname_1"
+                <% if (result3){
+                  if(result3[0]){ %>
+                    value="<%= result3[0].company_name %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Designation
+              <input
+                type="text"
+                name="designation"
+                id="designation_1"
+                <% if (result3){
+                  if(result3[0]){ %>
+                    value="<%= result3[0].designation %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              From
+              <input
+                type="text"
+                name="fromdate"
+                id="fromdate_1"
+                <% if (result3){
+                  if(result3[0]){ %>
+                    value="<%= result3[0].from_date %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              TO
+              <input
+                type="text"
+                name="todate"
+                id="todate_1"
+                <% if (result3){
+                  if(result3[0]){ %>
+                    value="<%= result3[0].to_date %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Company Name
+              <input
+                type="text"
+                name="companyname"
+                id="companyname_1"
+                <% if (result3){
+                  if(result3[1]){ %>
+                    value="<%= result3[1].company_name %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Designation
+              <input
+                type="text"
+                name="designation"
+                id="designation_1"
+                <% if (result3){
+                  if(result3[1]){ %>
+                    value="<%= result3[1].designation %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              From
+              <input
+                type="text"
+                name="fromdate"
+                id="fromdate_1"
+                <% if (result3){
+                  if(result3[1]){ %>
+                    value="<%= result3[1].from_date %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              TO
+              <input
+                type="text"
+                name="todate"
+                id="todate_1" 
+                <% if (result3){
+                  if(result3[1]){ %>
+                    value="<%= result3[1].to_date %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Company Name
+              <input
+                type="text"
+                name="companyname"
+                id="companyname_1"
+                <% if (result3){
+                  if(result3[2]){ %>
+                    value="<%= result3[2].company_name %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Designation
+              <input
+                type="text"
+                name="designation"
+                id="designation_1" 
+                <% if (result3){
+                  if(result3[2]){ %>
+                    value="<%= result3[2].designation %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              From
+              <input
+                type="text"
+                name="fromdate"
+                id="fromdate_1" 
+                <% if (result3){
+                  if(result3[2]){ %>
+                    value="<%= result3[2].from_date %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              TO
+              <input
+                type="text"
+                name="todate"
+                id="todate_1" 
+                <% if (result3){
+                  if(result3[2]){ %>
+                    value="<%= result3[2].to_date %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <div class="addremove">
+              <p>Add Experience</p>
+              <input type="button" id="addrow1" value="+" onclick="addrow()" disabled />
+              <input
+                type="button"
+                id="removerow1"
+                value="-"
+                onclick="removerow()"
+                disabled
+              />
+            </div>
+          </tr>
+        </table>
+      </fieldset>
+      <div class="flex">
+        <fieldset>
+          <legend>Language Known</legend>
+          <table>
+            <tr>
+             
+              <td>
+                <span id="hindi_err"></span>
+                <input
+                  type="checkbox"
+                  name="languages"
+                  id="hindi_lang"
+                  <% if (result4){
+                    if(result4[0]){ %>
+                  value="hindi" <% if(result4[0].language_name.includes("hindi") ) {%> checked = "true" <%} %>/>Hindi :
+                  <%  }
+                } %>
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="hindi"
+                  id="hindi_read"
+                  <% if (result4){
+                    if(result4[0]){ %>
+                 value="read" <% if(result4[0].lang_check.includes("read") ) {%> checked = "true" <%} %>
+                 <%  }
+                } %>
+                />Read
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="hindi"
+                  id="hindi_write"
+                  <% if (result4){
+                    if(result4[0]){ %>
+                      value="write" <% if(result4[0].lang_check.includes("write") ) {%> checked = "true" <%} %>
+                  <%  }
+                  } %>
+                />Write
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="hindi"
+                  id="hindi_speak"
+                  <% if (result4){
+                    if(result4[0]){ %>
+                      value="speak" <% if(result4[0].lang_check.includes("speak") ) {%> checked = "true" <%} %>
+                  <%  }
+                  } %>
+                />Speak
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span id="english_err"></span>
+                <input
+                  type="checkbox"
+                  name="languages"
+                  id="english_lang"
+                  <% if (result4){
+                    if(result4[1]){ %>
+                  value="english" <% if(result4[1].language_name.includes("english") ) {%> checked = "true" <%} %>
+                  <%  }
+                } %>
+                />English :
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="english"
+                  id="english_read"
+                  <% if (result4){
+                    if(result4[1]){ %>
+                      value="read" <% if(result4[1].lang_check.includes("read") ) {%> checked = "true" <%} %>
+                  <%  }
+                  } %>
+                /> Read
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="english"
+                  id="english_write"
+                  <% if (result4){
+                    if(result4[1]){ %>
+                      value="write" <% if(result4[1].lang_check.includes("write") ) {%> checked = "true" <%} %>
+                  <%  }
+                  } %>
+                />Write
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="english"
+                  id="english_speak"
+                  <% if (result4){
+                    if(result4[1]){ %>
+                      value="speak" <% if(result4[1].lang_check.includes("speak") ) {%> checked = "true" <%} %>
+                  <%  }
+                  } %>
+                /> Speak
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span id="gujrati_err"></span>
+                <input
+                  type="checkbox"
+                  name="languages"
+                  id="gujrati_lang"
+                  <% if (result4){
+                    if(result4[2]){ %>
+                  value="gujrati" <% if(result4[2].language_name.includes("gujrati") ) {%> checked = "true" <%} %>
+                  <%  }
+                } %>
+                />Gujarati :
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="gujrati"
+                  id="gujrati_read"
+                  <% if (result4){
+                    if(result4[2]){ %>
+                      value="read" <% if(result4[2].lang_check.includes("read") ) {%> checked = "true" <%} %>
+                  <%  }
+                  } %>
+                />Read
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="gujrati"
+                  id="gujrati_write"
+                  <% if (result4){
+                    if(result4[2]){ %>
+                      value="write" <% if(result4[2].lang_check.includes("write") ) {%> checked = "true" <%} %>
+                  <%  }
+                  } %>
+                />Write
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="gujrati"
+                  id="gujrati_speak"
+                  <% if (result4){
+                    if(result4[2]){ %>
+                      value="speak" <% if(result4[2].lang_check.includes("speak") ) {%> checked = "true" <%} %>
+                  <%  }
+                  } %>
+                />Speak
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+        <fieldset>
+          <legend>Technologies You Know</legend>
+          <table>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="phplable"
+                  <% if (result5){
+                    if(result5[0]){ %>
+                  value="php" <% if(result5[0].language_name.includes("php") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />PHP
+                <span id="errorphp" class="red"></span>
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="php"
+                  id="phpbeginer"
+                  <% if (result5){
+                    if(result5[0]){ %>
+                  value="beginer" <% if(result5[0].ability.includes("beginer") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Beginer
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="php"
+                  id="phpmideator"
+                  <% if (result5){
+                    if(result5[0]){ %>
+                  value="mideator" <% if(result5[0].ability.includes("mideator") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Mideator
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="php"
+                  id="phpexpert"
+                  <% if (result5){
+                    if(result5[0]){ %>
+                  value="expert" <% if(result5[0].ability.includes("expert") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Expert
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="mysqllable"
+                  <% if (result5){
+                    if(result5[1]){ %>
+                  value="mysql" <% if(result5[1].language_name.includes("mysql") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Mysql
+                <span id="errormysql" class="red"></span>
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="mysql"
+                  id="mysql"
+                  <% if (result5){
+                    if(result5[1]){ %>
+                  value="beginer" <% if(result5[1].ability.includes("beginer") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Beginer
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="mysql"
+                  id="mysql"
+                  <% if (result5){
+                    if(result5[1]){ %>
+                  value="mideator" <% if(result5[1].ability.includes("mideator") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Mideator
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="mysql"
+                  id="mysql"
+                  <% if (result5){
+                    if(result5[1]){ %>
+                  value="expert" <% if(result5[1].ability.includes("expert") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Expert
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="laravellable"
+                  <% if (result5){
+                    if(result5[2]){ %>
+                  value="laravel" <% if(result5[2].language_name.includes("laravel") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Laravel
+                <span id="errorlaravel" class="red"></span>
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="laravel"
+                  id="laravel"
+                  <% if (result5){
+                    if(result5[2]){ %>
+                  value="beginer" <% if(result5[2].ability.includes("beginer") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Beginer
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="laravel"
+                  id="laravel"
+                  <% if (result5){
+                    if(result5[2]){ %>
+                  value="mideator" <% if(result5[2].ability.includes("mideator") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Mideator
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="laravel"
+                  id="laravel"
+                  <% if (result5){
+                    if(result5[2]){ %>
+                  value="expert" <% if(result5[2].ability.includes("expert") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Expert
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="oraclelable"
+                  <% if (result5){
+                    if(result5[3]){ %>
+                  value="oracle" <% if(result5[3].language_name.includes("oracle") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Oarcle
+                <span id="errororacle" class="red"></span>
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="oracle"
+                  id="oracle"
+                  <% if (result5){
+                    if(result5[3]){ %>
+                  value="beginer" <% if(result5[3].ability.includes("beginer") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Beginer
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="oracle"
+                  id="oracle"
+                  <% if (result5){
+                    if(result5[3]){ %>
+                  value="mideator" <% if(result5[3].ability.includes("mideator") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Mideator
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="oracle"
+                  id="oracle"
+                  <% if (result5){
+                    if(result5[3]){ %>
+                  value="expert" <% if(result5[3].ability.includes("expert") ) {%> checked = "true" <%} %> 
+                  <%  }
+                } %>
+                />Expert
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+      </div>
+      <fieldset>
+        <legend>Reference Contact</legend>
+        <table>
+          <tr>
+            <td>
+              Name<span class="required">*</span>
+              <input
+                type="text"
+                name="contactname"
+                id="contactname"
+           
+                <% if (result6){
+                  if(result6[0]){ %>
+                    value="<%= result6[0].contact_name %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Contact Number<span class="required">*</span>
+              <input
+                type="text"
+                name="contactnumber"
+                id="contactnumber"
+                value="<%= result6[0].contact_number%>"
+                <% if (result6){
+                  if(result6[0]){ %>
+                    value="<%= result6[0].contact_number %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Relation<span class="required">*</span>
+              <input
+                type="text"
+                name="contactrealtion"
+                id="contactrealtion"
+                value="<%= result6[0].contact_relation%>"
+                <% if (result6){
+                  if(result6[0]){ %>
+                    value="<%= result6[0].contact_relation%>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Name
+              <input
+                type="text"
+                name="contactname"
+              
+                <% if (result6){
+                  if(result6[1]){ %>
+                    value="<%= result6[1].contact_name %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Contact Number
+              <input
+                type="text"
+                name="contactnumber"
+                id="contactnumber"
+                <% if (result6){
+                  if(result6[1]){ %>
+                    value="<%= result6[1].contact_number %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Relation
+              <input
+                type="text"
+                name="contactrealtion"
+                id="contactrealtion"
+                <% if (result6){
+                  if(result6[1]){ %>
+                    value="<%= result6[1].contact_relation %>"
+                <%  }
+                } %>
+              />
+              <span class="allfield_req red"></span>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>Preferances</legend>
+        <table>
+          <tr>
+            <td>
+              <label for="location"
+                >Preferd location<span class="required">*</span></label
+              >
+              <span id="location_err" class="red"></span>
+              <select name="location" id="location" multiple>
+                <% var options
+                =["Surat","Ahmedabad","Baroda"]; for ( var i
+                = 0; i < options.length; i++ ) { var selected = ( result7[0].prefered_location==
+                options[i] ) ? "selected" : ""; %>
+                <option value="<%=options[ i ] %>" <%= selected %>
+                   ><%=options[i] %>
+                </option>
+                <% } %>
+                 
+              </select>
+            </td>
+            <td>
+              Notice Period
+              <input type="text" name="noticeperiod" id="noticeperiod"
+              <% if (result7){
+                if(result7[0]){ %>
+                  value="<%= result7[0].notice_period %>"
+              <%  }
+              } %>
+            </td>
+            <td>
+              <label for="department">
+                Department<span class="required">*</span></label
+              >
+              <select name="department" id="department" >
+                <% var options
+                =["Developmnet","Design","Marketing"]; for ( var i
+                = 0; i < options.length; i++ ) { var selected = ( result7[0].department==
+                options[i] ) ? "selected" : ""; %>
+                <option value="<%=options[ i ] %>" <%= selected %>
+                  ><%=options[i] %>
+                </option>
+                <% } %>
+               
+              </select>
+              <span id="department_err" class="red"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Expected CTC<span class="required">*</span>
+              <input type="text" name="expectedctc" id="expectedctc" 
+              <% if (result7){
+                if(result7[0]){ %>
+                  value="<%= result7[0].expected_ctc %>"
+              <%  }
+              } %>
+             
+              />
+              <span id="expectedctc_err" class="red"></span>
+            </td>
+            <td>
+              Current CTC
+              
+              <input type="text" name="currentctc" id="currentctc" 
+              
+              <% if (result7){
+                if(result7[0]){ %>
+                  value="<%= result7[0].current_ctc %>"
+              <%  }
+              } %>
+             />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <input type="submit" id="submit" value="Edit" />
+    </form>
+  </body>
+
+  <script>
+ 
+ 
+    function addrow() {
+      var table = document.getElementById("company_table");
+      var row = document.createElement("tr");
+      var result = `
+           <td>
+              Company Name
+              <input type="text" name="companyname" id="companyname_1" />
+              <span class="allfield_req"></span>
+            </td>
+            <td>
+              Designation
+              <input type="text" name="designation" id="designation_1" />
+              <span class="allfield_req"></span>
+            </td>
+            <td>
+              From <input type="text" name="fromdate" id="fromdate_1" />
+              <span class="allfield_req"></span>
+            </td>
+            <td>
+              TO <input type="text" name="todate" id="todate_1" />
+              <span class="allfield_req"></span>
+            </td>
+      `;
+      row.innerHTML = result;
+      table.appendChild(row);
+       
+    }
+
+    function removerow() {
+      var table = document.getElementById("company_table");
+      var row = table.getElementsByTagName("tr");
+      console.log(row.length);
+      if (row.length <= 1) {
+        return;
+      }
+      var tr = table.lastElementChild;
+      table.removeChild(tr);
+    }
+
+    const form = document.querySelector("#job_application");
+
+    const firstname = document.querySelector("#firstname");
+    const lastname = document.querySelector("#lastname");
+    const emailval = document.querySelector("#email");
+    const mobileNumber = document.querySelector("#phonenumber");
+    const designation = document.querySelector("#designation");
+    // const gender = document.getElementsByName("gender");
+    const dob = document.querySelector("#dob");
+    const address1 = document.querySelector("#address1");
+    const address2 = document.querySelector("#address2");
+    const city = document.querySelector("#city");
+    const relation = document.querySelector("#realtionship");
+    const zipcode = document.querySelector("#zipcode");
+    // const form_control = document.querySelector(".form_control");
+    form.addEventListener("submit", function (e) {
+      // prevent the form from submitting
+      e.preventDefault();
+    });
+
+    var firstnameValidation = function () {
+      firstnameValue = firstname.value.trim();
+      validFirstName = /^[A-Za-z]+$/;
+      firstNameErr = document.getElementById("first-name-err");
+      if (firstnameValue == "") {
+        firstNameErr.innerHTML = "First Name is required";
+        firstname.focus();
+      } else if (!validFirstName.test(firstnameValue)) {
+        firstNameErr.innerHTML =
+          "First Name must be only string without white spaces";
+      } else {
+        firstNameErr.innerHTML = "";
+        return true;
+      }
+    };
+
+    firstname.oninput = function () {
+      firstnameValidation();
+    };
+
+    var lastnameValidation = function () {
+      lastnameValue = lastname.value.trim();
+      validLastName = /^[A-Za-z]+$/;
+      lastNameErr = document.getElementById("last-name-err");
+      if (lastnameValue == "") {
+        lastNameErr.innerHTML = "Last Name is required";
+        lastname.focus();
+      } else if (!validLastName.test(lastnameValue)) {
+        lastNameErr.innerHTML =
+          "Last Name must be only string without white spaces";
+      } else {
+        lastNameErr.innerHTML = "";
+        return true;
+      }
+    };
+
+    lastname.oninput = function () {
+      lastnameValidation();
+    };
+
+    var designationValidation = function () {
+      let designationVal = designation.value.trim();
+      let designationErr = document.getElementById("designation-err");
+
+      if (designationVal == "" || designationVal == null) {
+        designationErr.innerHTML = "Designation is required";
+        designation.focus();
+      } else {
+        designationErr.innerHTML = "";
+        return true;
+      }
+    };
+
+    designation.oninput = function () {
+      designationValidation();
+    };
+
+    var address1Validation = function () {
+      let address1Val = address1.value.trim();
+      let address1Err = document.getElementById("address1-err");
+      if (address1Val == "" || address1Val == null) {
+        address1Err.innerHTML = "Address1 is required";
+        address1.focus();
+      } else {
+        address1Err.innerHTML = "";
+        return true;
+      }
+    };
+
+    address1.oninput = function () {
+      address1Validation();
+    };
+
+    var cityValidation = function () {
+      let cityVal = city.value.trim();
+      let cityErr = document.getElementById("city-err");
+      if (cityVal == "" || cityVal == null) {
+        cityErr.innerHTML = "City is required";
+        city.focus();
+      } else {
+        cityErr.innerHTML = "";
+        return true;
+      }
+    };
+    city.oninput = function () {
+      cityValidation();
+    };
+
+    var genderValidate = function () {
+      var genders = document.getElementsByName("_gender");
+
+      genderErr = document.getElementById("gender-err");
+      if (genders[0].checked == true) {
+        genderErr.innerHTML = " you have selected male";
+        genderErr.style.color = "green";
+      } else if (genders[1].checked == true) {
+        genderErr.innerHTML = "you have selected female";
+        genderErr.style.color = "green";
+      } else {
+        genderErr.innerHTML = "gender is required";
+        genderErr.focus();
+      }
+      return true;
+    };
+
+    var emailValidation = function () {
+      emailAddressValue = emailval.value.trim();
+      validEmailAddress = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      emailAddressErr = document.getElementById("email-err");
+      if (emailAddressValue == "") {
+        emailAddressErr.innerHTML = "Email Address is required";
+        emailval.focus();
+      } else if (!validEmailAddress.test(emailAddressValue)) {
+        emailAddressErr.innerHTML =
+          "Email Addre must be in valid formate with @ symbol";
+      } else {
+        emailAddressErr.innerHTML = "";
+        return true;
+      }
+    };
+    emailval.oninput = function () {
+      emailValidation();
+    };
+
+    var mobileNumberValidation = function () {
+      mobileNumberValue = mobileNumber.value.trim();
+      validMobileNumber = /^[0-9]*$/;
+      mobileNumberErr = document.getElementById("mobile-number-err");
+      if (mobileNumberValue == "") {
+        mobileNumberErr.innerHTML = "Mobile Number is required";
+        mobileNumber.focus();
+      } else if (!validMobileNumber.test(mobileNumberValue)) {
+        mobileNumberErr.innerHTML = "Mobile Number must be a number";
+      } else if (mobileNumberValue.length != 10) {
+        mobileNumberErr.innerHTML = "Mobile Number must have 10 digits";
+      } else {
+        mobileNumberErr.innerHTML = "";
+        return true;
+      }
+    };
+    mobileNumber.oninput = function () {
+      mobileNumberValidation();
+    };
+
+    var relationValidation = function () {
+      let realtionVal = relation.value;
+      let relationErr = document.getElementById("relation-err");
+      if (realtionVal == 0) {
+        relationErr.innerHTML = "please select one option";
+        relation.focus();
+      } else {
+        relationErr.innerHTML = "";
+        return true;
+      }
+    };
+    relation.oninput = function () {
+      relationValidation();
+    };
+
+    var dobValidation = function () {
+      let dobval = dob.value;
+      let dobErr = document.getElementById("dob_err");
+      var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
+      // var pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+      if (dobval == null || dobval == "" || !pattern.test(dobval)) {
+        dobErr.innerHTML = "Invalid format of date of birth ";
+        dob.focus();
+        return false;
+      } else {
+        dobErr.innerHTML = " ";
+        return true;
+      }
+    };
+
+    dob.oninput = function () {
+      dobValidation();
+    };
+
+    var zipcodeValidation = function () {
+      let zipcodeVal = zipcode.value;
+      let zipcodeErr = document.getElementById("zipcode-err");
+      if (zipcodeVal == "" || zipcodeVal == null) {
+        zipcodeErr.innerHTML = "zipcode is required";
+        zipcode.focus();
+      } else {
+        zipcodeErr.innerHTML = "";
+        return true;
+      }
+    };
+    zipcode.oninput = function () {
+      zipcodeValidation();
+    };
+
+    const preferedlocation = document.getElementById("location");
+    var preferedlocationValidation = function () {
+      let preferedlocationVal = preferedlocation.value;
+      let preferedlocationErr = document.getElementById("location_err");
+      if (preferedlocationVal == 0) {
+        preferedlocationErr.innerHTML = "please select one option";
+        preferedlocation.focus();
+      } else {
+        preferedlocationErr.innerHTML = "";
+        return true;
+      }
+    };
+    preferedlocation.oninput = function () {
+      preferedlocationValidation();
+    };
+
+    const department = document.getElementById("department");
+    var departmentValidation = function () {
+      let departmentVal = department.value;
+      let departmentErr = document.getElementById("department_err");
+      if (departmentVal == 0) {
+        departmentErr.innerHTML = "please select one option";
+        department.focus();
+      } else {
+        departmentErr.innerHTML = "";
+        return true;
+      }
+    };
+    department.oninput = function () {
+      departmentValidation();
+    };
+
+    const expectedctc = document.getElementById("expectedctc");
+
+    var expectedctcValidation = function () {
+      let expectedctcVal = expectedctc.value;
+
+      let expectedctcErr = document.getElementById("expectedctc_err");
+      if (
+        expectedctcVal == null ||
+        expectedctcVal == 0 ||
+        isNaN(expectedctcVal)
+      ) {
+        expectedctcErr.innerHTML = "please enter valid input";
+        expectedctc.focus();
+        return false;
+      } else {
+        expectedctcErr.innerHTML = "";
+        return true;
+      }
+    };
+    expectedctc.oninput = function () {
+      expectedctcValidation();
+    };
+
+    function ValidateForm() {
+      lastnameValidation();
+      firstnameValidation();
+      designationValidation();
+      address1Validation();
+      cityValidation();
+      genderValidate();
+      emailValidation();
+      mobileNumberValidation();
+      relationValidation();
+      dobValidation();
+      zipcodeValidation();
+      // sscnameofboardValidation();
+      // sscpassingyearValidate();
+      // hscboardValidation();
+      // hscpassingyearValidate();
+      // hscpercentageValidate();
+      // degreecoursenameValidate();
+      // degreepassingyearValidate();
+      // degreepercentageValidation();
+      // mastercoursenameValidate();
+      // masterpassingyearValidate();
+      // masterpercentageValidation();
+
+      // hindi
+      var checklang = document.querySelector(
+        'input[id="hindi_lang"]:checked'
+      );
+
+      var checkread = document.querySelector(
+        'input[id="hindi_read"]:checked'
+      );
+      var checkwrite = document.querySelector(
+        'input[id="hindi_write"]:checked'
+      );
+
+      var checkspeak = document.querySelector(
+        'input[id="hindi_speak"]:checked'
+      );
+      var hindi_err = document.getElementById("hindi_err");
+
+      if (checkread && !checklang) {
+        hindi_err.innerHTML = "select valid input";
+        return false;
+      }
+      if (checkwrite && !checklang) {
+        hindi_err.innerHTML = "select valid input";
+        return false;
+      }
+      if (checkspeak && !checklang) {
+        hindi_err.innerHTML = "select valid input";
+        return false;
+      }
+      hindi_err.innerHTML = "";
+
+
+ 
+       
+      // english
+      var checklang = document.querySelector(
+        'input[id="english_lang"]:checked'
+      );
+
+      var checkread = document.querySelector(
+        'input[id="english_read"]:checked'
+      );
+      var checkwrite = document.querySelector(
+        'input[id="english_write"]:checked'
+      );
+
+      var checkspeak = document.querySelector(
+        'input[id="english_speak"]:checked'
+      );
+      var english_err = document.getElementById("english_err");
+
+      if (checkread && !checklang) {
+        english_err.innerHTML = "select valid input";
+        return false;
+      }
+      if (checkwrite && !checklang) {
+        english_err.innerHTML = "select valid input";
+        return false;
+      }
+      if (checkspeak && !checklang) {
+        english_err.innerHTML = "select valid input";
+        return false;
+      }
+      english_err.innerHTML = "";
+
+      // gujrati
+      var checklang = document.querySelector(
+        'input[id="gujrati_lang"]:checked'
+      );
+
+      var checkread = document.querySelector(
+        'input[id="gujrati_read"]:checked'
+      );
+      var checkwrite = document.querySelector(
+        'input[id="gujrati_write"]:checked'
+      );
+
+      var checkspeak = document.querySelector(
+        'input[id="gujrati_speak"]:checked'
+      );
+      var gujrati_err = document.getElementById("gujrati_err");
+
+      if (checkread && !checklang) {
+        gujrati_err.innerHTML = "select valid input";
+        return false;
+      }
+      if (checkwrite && !checklang) {
+        gujrati_err.innerHTML = "select valid input";
+        return false;
+      }
+      if (checkspeak && !checklang) {
+        gujrati_err.innerHTML = "select valid input";
+        return false;
+      }
+      gujrati_err.innerHTML = "";
+
+      // technologies
+      let techarr = ["php", "mysql", "laravel", "oracle"];
+      for (var i = 0; i < techarr.length; i++) {
+        var techradio = document.querySelector(
+          "input[id=" + techarr[i] + "lable]:checked"
+        );
+        var techcheck = document.querySelector(
+          "input[name=" + techarr[i] + "]:checked"
+        );
+
+        if (techradio && !techcheck) {
+          document.getElementById("error" + techarr[i]).innerHTML =
+            "please select technoloy";
+          document.getElementById(techarr[i] + "lable").focus();
+          return false;
+        }
+        document.getElementById("error" + techarr[i]).innerHTML = " ";
+      }
+      // education
+      var alledu = [
+        ["sscnameofboard", "sscpassingyear", "sscpercentage"],
+        ["hscboard", "hscpassingyear", "hscpercentage"],
+        ["degreecoursename", "degreepassingyear", "degreepercentage"],
+        ["mastercoursename", "masterpassingyear", "masterpercentage"],
+      ];
+      for (var i = 0; i < alledu.length; i++) {
+        let a = document.getElementById(alledu[i][0]);
+        let b = document.getElementById(alledu[i][1]);
+        let c = document.getElementById(alledu[i][2]);
+
+        if (
+          (a.value === "" || b.value === "" || c.value === "") &&
+          (a.value != "" || b.value != "" || c.value != "")
+        ) {
+          if (a.value == "" || a.value == null) {
+            a.focus();
+          }
+          if (b.value == "" || b.value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            b.focus();
+          }
+          if (c.value == "" || c.value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            c.focus();
+          }
+
+          return false;
+        }
+        // return true;
+        document.getElementsByClassName("allfield_req").innerHTML = "";
+      }
+
+      // Compnay details
+
+      let a = document.getElementsByName("companyname");
+      let b = document.getElementsByName("designation");
+      let c = document.getElementsByName("fromdate");
+      let d = document.getElementsByName("todate");
+
+      for (var i = 0; i < a.length; i++) {
+        if (
+          (a[i].value === "" ||
+            b[i].value === "" ||
+            c[i].value === "" ||
+            d[i].value === "") &&
+          (a[i].value != "" ||
+            b[i].value != "" ||
+            c[i].value != "" ||
+            d[i].value != "")
+        ) {
+          if (a[i].value == "" || a[i].value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            a[i].focus();
+          }
+          if (b[i].value == "" || b[i].value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            b[i].focus();
+          }
+          if (c[i].value == "" || c[i].value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            c[i].focus();
+          }
+          if (d[i].value == "" || d[i].value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            d[i].focus();
+          }
+
+          return false;
+        }
+        // return true;
+        document.getElementsByClassName("allfield_req").innerHTML = "";
+      }
+
+      let contactname = document.getElementsByName("contactname");
+      let contactnumber = document.getElementsByName("contactnumber");
+      let contactrealtion = document.getElementsByName("contactrealtion");
+
+      for (var i = 0; i < contactname.length; i++) {
+        if (
+          (contactname[i].value === "" ||
+            contactnumber[i].value === "" ||
+            contactrealtion[i].value === "") &&
+          (contactname[i].value != "" ||
+            contactnumber[i].value != "" ||
+            contactrealtion[i].value != "")
+        ) {
+          if (contactname[i].value == "" || contactname[i].value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            contactname[i].focus();
+            return false;
+          }
+          if (contactnumber[i].value == "" || contactnumber[i].value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            contactnumber[i].focus();
+            return false;
+          }
+          if (
+            contactrealtion[i].value == "" ||
+            contactrealtion[i].value == null
+          ) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            contactrealtion[i].focus();
+            return false;
+          }
+
+          return false;
+        }
+      }
+
+      preferedlocationValidation();
+      departmentValidation();
+      expectedctcValidation();
+
+      if (
+        firstnameValidation() == true &&
+        lastnameValidation() == true &&
+        designationValidation() == true &&
+        emailValidation() == true &&
+        mobileNumberValidation() == true &&
+        address1Validation() == true &&
+        cityValidation() == true &&
+        genderValidate() == true &&
+        relationValidation() == true &&
+        dobValidation() == true &&
+        zipcodeValidation() == true &&
+        // sscnameofboardValidation() == true &&
+        // sscpassingyearValidate() == true &&
+        // hscboardValidation() == true &&
+        // hscpassingyearValidate() == true &&
+        // hscpercentageValidate() == true &&
+        // degreecoursenameValidate() == true &&
+        // degreepercentageValidation() == true &&
+        // degreepassingyearValidate() == true &&
+        // mastercoursenameValidate() == true &&
+        // masterpassingyearValidate() == true &&
+        // masterpercentageValidation() == true &&
+        // referencecontactnameValidate() == true &&
+        // contactnumberValidation() == true &&
+        // contactrealtionValidate() == true &&
+        preferedlocationValidation() == true &&
+        departmentValidation() == true &&
+        expectedctcValidation() == true
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  </script>
+</html>

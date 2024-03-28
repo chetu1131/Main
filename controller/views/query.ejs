@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    thead {
+      background-color: #47d3b5;
+    }
+    th,
+    td {
+      padding: 5px;
+    }
+    table,
+    th,
+    td {
+      text-align: center;
+      border: 1px solid black;
+      border-radius: 5px;
+    }
+th{
+  cursor: pointer;
+}
+    h1 {
+      text-align: center;
+    }
+    .query {
+      height: 40%;
+      width: 60%;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px;
+    }
+    .pagination a,
+    p {
+      outline: none;
+      text-decoration: none;
+      padding: 12px;
+      margin: 3px;
+      border: 2px solid black;
+      border-radius: 12px;
+      cursor: pointer;
+      background-color: #67bdb8;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px;
+      background-color: rgb(40, 156, 160);
+    }
+    .disabled {
+      pointer-events: none;
+      opacity: 0.8;
+      background-color: rgb(151, 171, 172);
+    }
+    .search {
+      width: 400px;
+      height: 60px;
+    }
+  </style>
+  <body>
+    <form name="table" method="post" action="/query">
+      <input class="search" type="text" name="search" />
+      <input type="submit" value="Try it!" />
+    </form>
+    <% if(data == true) {%>
+    <div class="pagination">
+      <% if(currentPage == 1) { %>
+      <a href="#" class="disabled"><<</a>
+      <a href="#" class="disabled"><</a>
+      <% } else{ %>
+      <a href="<%=url %>?page=1&len=<%=len%>"><<</a>
+      <a href="<%=url %>?page=<%= currentPage-1 %>&len=<%=len%>"><</a>
+      <% } %>
+
+      <p><%= currentPage %></p>
+
+      <% if(currentPage*recordperpage < len) { %>
+      <a href="<%=url %>?page=<%=++currentPage %>&len=<%=len%>">></a>
+      <%if((len%recordperpage)==0){ %>
+      <a href="<%=url %>?page=<%= parseInt(len/recordperpage) %>&len=<%=len%>"
+        >>></a
+      >
+      <% } else{ %>
+      <a href="<%=url %>?page=<%= parseInt(len/recordperpage)+1 %>&len=<%=len%>"
+        >>></a
+      >
+      <% } %> <% }else{%>
+
+      <a href="#" class="disabled">></a>
+      <a href="#" class="disabled">>></a>
+      <% } %>
+    </div>
+
+    <table id="myTable2">
+      <thead>
+        <tr> 
+          <% for(var i=0;i<fields.length; i++){ %>
+          <th onclick="sortTable(`<%= i %>`)"><%=fields[i].name %></th>
+          <% }; %>
+        </tr>
+      </thead>
+      <% result.forEach(function (data){ %>
+      <tr>
+        <% fields.forEach(function(name){ %>
+        <td><%=data[name.name] %></td>
+        <% }); %> <% }); %>
+      </tr>
+    </table>
+    <%}%>
+  </body>
+  <script>
+    function sortTable(n) {
+      var table,
+        rows,
+        switching,
+        i,
+        x,
+        y,
+        shouldSwitch,
+        dir,
+        switchcount = 0;
+      table = document.getElementById("myTable2");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      /* Make a loop that will continue until
+      no switching has been done: */
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 1; i < rows.length - 1; i++) {
+          // Start by saying there should be no switching:
+          shouldSwitch = false;
+          /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          /* Check if the two rows should switch place,
+          based on the direction, asc or desc: */
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          // Each time a switch is done, increase this count by 1:
+          switchcount++;
+        } else {
+          /* If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again. */
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+  </script>
+</html>

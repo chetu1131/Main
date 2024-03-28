@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch API</title>
+  </head>
+  <style>
+    th,
+    td {
+      border: 2px solid black;
+    }
+    .btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #moredetail {
+      width: 100px;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1>Posts</h1>
+      <div class="search">
+        <input
+          type="text"
+          placeholder="search"
+          id="searchInput"
+          onkeyup="search()"
+        />
+      </div>
+      <div class="btns">
+        <button id="homebutton" name="homebutton" onclick="homebtn()">
+          <<
+        </button>
+        <button id="prevbutton" name="prevbutton" onclick="prevbtn()"><</button>
+        <p id="pageno"></p>
+        <button id="nextbutton" name="nextbutton" onclick="nextbtn()">></button>
+        <button id="lastbutton" name="lastbutton" onclick="lastbtn()">
+          >>
+        </button>
+      </div>
+      <table id="myTable">
+        <tr>
+          <th>User Id</th>
+          <th>Id</th>
+          <th>title</th>
+          <th>Body</th>
+          <th>More Details</th>
+        </tr>
+        <tbody id="table-data"></tbody>
+      </table>
+    </div>
+  </body>
+
+  <script>
+    var itemperpage = 10;
+    var currentpage = 1;
+    var alldata = [];
+    var length = 0;
+    var pageno = document.getElementById("pageno");
+    var api = "https://jsonplaceholder.typicode.com/posts";
+
+    const getdata = async () => {
+      try {
+        const response = await fetch(api);
+        const data = response.json();
+        console.log(data);
+        return data;
+      } catch {
+        console.error("Error fetching data", error);
+      }
+    };
+
+    async function Showdata() {
+      const data = await getdata();
+      alldata = data;
+      let dataResult = "";
+      length = alldata.length;
+      pageno.innerHTML = Math.ceil(currentpage);
+      var indexoflastpage = currentpage * itemperpage;
+      var indexoffirstpage = indexoflastpage - itemperpage;
+      var currentitems = alldata.slice(indexoffirstpage, indexoflastpage);
+
+      currentitems.map((element) => {
+        dataResult += `<tr>
+            <td>${element.userId}</td>
+            <td>${element.id}</td>
+            <td>${element.title.slice(0, 20)}</td>
+            <td>${element.body.slice(0, 20)}</td>    
+             <td><a href="/user/alldetails?id=${element.id}" id="moredetail">
+             <button id="moredetail">More</button></a></td>
+          </tr>`;
+      });
+      document.getElementById("table-data").innerHTML = dataResult;
+    }
+
+    function homebtn() {
+      if (currentpage == 1) {
+        document.getElementById("homebutton").disable = true;
+      }
+      document.getElementById("homebutton").disable = false;
+      currentpage = 1;
+      Showdata();
+    }
+    function prevbtn() {
+      if (currentpage == 1) {
+        document.getElementById("prevbutton").disable = true;
+      } else if (currentpage > 1) {
+        currentpage--;
+      }
+      document.getElementById("prevbutton").disable = false;
+      Showdata();
+    }
+    function nextbtn() {
+      if (currentpage * itemperpage > length) {
+        document.getElementById("nextbutton").disable = true;
+      } else if (currentpage < length / itemperpage) {
+        currentpage++;
+      }
+      document.getElementById("nextbutton").disable = false;
+      Showdata();
+    }
+    function lastbtn() {
+      if (currentpage * itemperpage > length) {
+        document.getElementById("nextbutton").disable = true;
+      }
+      currentpage = length / itemperpage;
+      document.getElementById("nextbutton").disable = false;
+      Showdata();
+    }
+
+    function search() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("searchInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      let rows = Object.values(tr);
+
+      rows.forEach((element) => {
+        let td = element.getElementsByTagName("td");
+        let cols = Object.values(td);
+        let allTextContent = "";
+
+        cols.forEach((data) => {
+          allTextContent += data.innerText;
+        });
+
+        if (allTextContent) {
+          if (allTextContent.toUpperCase().indexOf(filter) > -1) {
+            element.style.display = "";
+          } else {
+            element.style.display = "none";
+          }
+        }
+      });
+    }
+
+    Showdata();
+  </script>
+</html>

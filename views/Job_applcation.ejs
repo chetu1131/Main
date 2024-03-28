@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Application Form</title>
+  </head>
+  <style>
+    th,
+    td {
+      padding-top: 10px;
+      padding-bottom: 20px;
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+    body {
+      margin: auto;
+      background-color: aliceblue;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    fieldset {
+      border: 2px solid black;
+    }
+
+    #job_application {
+      text-align: center;
+    }
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+  </style>
+
+  <!-- 
+
+   -- What to use in this form --
+    reset done
+    tabindex done
+    autocomplete   done
+    minlengtd  done
+    maxlength  done
+    encrtype done
+    required  done
+    placeholder done
+    datalist done
+    get and post done
+    checked done
+    disables done 
+    target done
+    hidden done
+    ERC don't know
+    drop down with class label like A-Ramesh, A-Rajesh ,B-Monoj B-Mihir
+
+ -->
+  <body>
+    <h2 id="job_application">Job Application Form</h2>
+    <form
+      name="job_application"
+      method="get"
+      action="post"
+      enctype="multipart/form-data"
+      autocomplete="on"
+      target="_blank"
+    >
+      <fieldset>
+        <legend>Basic Detail</legend>
+        <table>
+          <tr>
+            <td tabindex="0">
+              First Name
+              <input
+                type="text"
+                name="firstname"
+                id="firstname"
+                placeholder="Enter Your Good Name"
+                maxlength="40"
+                required
+              />
+            </td>
+            <td tabindex="1">
+              Last Name
+              <input
+                type="text"
+                name="lastname"
+                id="lastname"
+                placeholder="Enter Your Last Name"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="2">
+              Designation
+              <input
+                type="text"
+                name="designation"
+                id="designation"
+                placeholder="Your Designation"
+              />
+            </td>
+            <td tabindex="3">
+              Address 1
+              <input
+                type="text"
+                name="address1"
+                id="address1"
+                placeholder="Permenent Address"
+                minlength="8"
+                autocomplete="address-line1"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="4">
+              Email
+              <input
+                type="text"
+                name="email"
+                id="email"
+                placeholder="Your Email"
+                autocomplete="email"
+              />
+            </td>
+            <td tabindex="5">
+              Address 2
+              <input
+                type="text"
+                name="address2"
+                id="address2"
+                placeholder="Temperory Address"
+                autocomplete="address-level2"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="6">
+              Phone Number
+              <input
+                type="text"
+                name="phonenumber"
+                id="phonenumber"
+                placeholder="Enter your email"
+              />
+            </td>
+            <td tabindex="7">
+              City
+              <input
+                type="text"
+                name="city"
+                id="city"
+                placeholder="Enter your City"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="8">
+              <label for="gender">Gender</label>
+              <input type="radio" value="male" name="gender" id="gender" />
+              <label for="Male">Male</label>
+              <input type="radio" value="female" name="gender" id="gender" />
+              <label for="Male">Female</label>
+            </td>
+
+            <td tabindex="9">
+              <label for="state">State</label>
+              <input list="states" id="state" name="state" />
+              <datalist id="states">
+                <option value="Gujrat"></option>
+                <option value="Delhi"></option>
+                <option value="Maharastra"></option>
+                <option value="Goa"></option>
+                <option value="Karnataka"></option>
+              </datalist>
+            </td>
+          </tr>
+          <tr>
+            <td tabindex="10">
+              <label for="realtionshipstatus">RelationShip Status</label>
+              <input
+                list="realtionship"
+                id="realtionshipstatus"
+                name="realtionshipstatus"
+              />
+              <datalist id="realtionship">
+                <option value="Married"></option>
+                <option value="Unmarried"></option>
+              </datalist>
+            </td>
+            <td tabindex="11">
+              Date of Birth <input type="text" name="dob" id="dob" />
+            </td>
+          </tr>
+          <tr>
+            <td>Zip Code <input type="text" name="zipcode" id="zipcode" /></td>
+          </tr>
+        </table>
+      </fieldset>
+
+      <fieldset>
+        <legend>Education Detail</legend>
+        <table>
+          <label for="SSC Result">SSC Result</label>
+          <tr>
+            <td>
+              Name Of Board
+              <input
+                type="text"
+                name="sscnameofboard"
+                id="sscnameofboard"
+                placeholder="Enter your name of board"
+              />
+            </td>
+            <td>
+              Passing Year
+              <input
+                type="text"
+                name="sscpassingyear"
+                id="sscpassingyear"
+                placeholder="Enter your passing year"
+              />
+            </td>
+            <td>
+              Percentage
+              <input
+                type="text"
+                name="sscpercentage"
+                id="sscpercentage"
+                placeholder="Enter your percentage"
+              />
+            </td>
+          </tr>
+        </table>
+        <hr />
+        <table>
+          <label for="HSC Result">HSC Result</label>
+          <tr>
+            <td>
+              Name Of Board
+              <input
+                type="text"
+                name="hscboard"
+                id="hscboard"
+                placeholder="Enter your name of board"
+              />
+            </td>
+            <td>
+              Passing Year
+              <input
+                type="text"
+                name="hscpassingyear"
+                id="hscpassingyear"
+                placeholder="Enter your passing year"
+              />
+            </td>
+            <td>
+              Percentage
+              <input
+                type="text"
+                name="hscpercentage"
+                id="hscpercentage"
+                placeholder="Enter your percentage"
+              />
+            </td>
+          </tr>
+        </table>
+        <hr />
+        <table>
+          <label for="Bechelor Degree">Bechelor Degree</label>
+          <tr>
+            <td>
+              Course Name
+              <input
+                type="text"
+                name="degreecoursename"
+                id="degreecoursename"
+                placeholder="Enter your course name"
+              />
+            </td>
+            <td>
+              University
+              <input
+                type="text"
+                name="degreeuniversity"
+                id="degreeuniversity"
+                placeholder="Enter your university name"
+              />
+            </td>
+            <td>
+              Passing Year
+              <input
+                type="text"
+                name="degreepassingyear"
+                id="degreepassingyear"
+                placeholder="Enter your passing year"
+              />
+            </td>
+            <td>
+              Percentage
+              <input
+                type="text"
+                name="degreepercentage"
+                id="degreepercentage"
+                placeholder="Enter your percentage"
+              />
+            </td>
+            <td></td>
+          </tr>
+        </table>
+        <hr />
+        <table>
+          <label for="Master Degree">Master Degree</label>
+          <tr>
+            <td>
+              Course Name
+              <input
+                type="text"
+                name="mastercoursename"
+                id="mastercoursename"
+                placeholder="Enter your course name for master"
+              />
+            </td>
+            <td>
+              University
+              <input
+                type="text"
+                name="masteruniversity"
+                id="masteruniversity"
+                placeholder="Enter your university name"
+              />
+            </td>
+            <td>
+              Passing Year
+              <input
+                type="text"
+                name="masterpassingyear"
+                id="masterpassingyear"
+                placeholder="Enter your passing year"
+              />
+            </td>
+            <td>
+              Percentage
+              <input
+                type="text"
+                name="masterpercentage"
+                id="masterpercentage"
+                placeholder="Enter your percentage"
+              />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+
+      <fieldset>
+        <legend>Work Experience</legend>
+        <table>
+          <tr>
+            <td>
+              Company Name
+              <input
+                type="text"
+                name="companyname"
+                id="companyname"
+                placeholder="Enter your company name"
+              />
+            </td>
+            <td>
+              Designation
+              <input
+                type="text"
+                name="designation"
+                id="designation"
+                placeholder="Enter your designation"
+              />
+            </td>
+            <td>
+              From
+              <input
+                type="text"
+                name="fromdate"
+                id="fromdate"
+                placeholder="Enter your Joining data"
+              />
+            </td>
+            <td>
+              TO
+              <input
+                type="text"
+                name="todate"
+                id="todate"
+                placeholder="Enter your last date of work"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Company Name
+              <input
+                type="text"
+                name="companyname"
+                id="companyname"
+                placeholder="Enter your company name"
+              />
+            </td>
+            <td>
+              Designation
+              <input
+                type="text"
+                name="designation"
+                id="designation"
+                placeholder="Enter your designation"
+              />
+            </td>
+            <td>
+              From
+              <input
+                type="text"
+                name="fromdate"
+                id="fromdate"
+                placeholder="Enter your Joining data"
+              />
+            </td>
+            <td>
+              TO
+              <input
+                type="text"
+                name="todate"
+                id="todate"
+                placeholder="Enter your last date of work"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Company Name
+              <input
+                type="text"
+                name="companyname"
+                id="companyname"
+                placeholder="Enter your company name"
+              />
+            </td>
+            <td>
+              Designation
+              <input
+                type="text"
+                name="designation"
+                id="designation"
+                placeholder="Enter your designation"
+              />
+            </td>
+            <td>
+              From
+              <input
+                type="text"
+                name="fromdate"
+                id="fromdate"
+                placeholder="Enter your Joining data"
+              />
+            </td>
+            <td>
+              TO
+              <input
+                type="text"
+                name="todate"
+                id="todate"
+                placeholder="Enter your last date of work"
+              />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <div class="flex">
+        <fieldset>
+          <legend>Language Known</legend>
+          <table>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  name="hindi"
+                  id="hindi"
+                  autocomplete="language"
+                />
+                <label for="hindi">Hindi : </label>
+                <input type="checkbox" name="hindi" id="hindi" />
+                <label for="read">Read</label>
+                <input type="checkbox" name="hindi" id="hindi" />
+                <label for="write">Write</label>
+                <input type="checkbox" name="hindi" id="hindi" />
+                <label for="speak">Speak</label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  name="english"
+                  id="english"
+                  autocomplete="language"
+                />
+                <label for="english">English : </label>
+                <input type="checkbox" name="english" id="english" />
+                <label for="read">Read</label>
+                <input type="checkbox" name="english" id="english" />
+                <label for="write">Write</label>
+                <input type="checkbox" name="english" id="english" />
+                <label for="speak">Speak</label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  name="gujarati"
+                  id="gujarati"
+                  checked
+                  autocapitalize="language"
+                />
+                <label for="gujarati">Gujarati : </label>
+                <input type="checkbox" name="gujarati" id="gujarati" />
+                <label for="read">Read</label>
+                <input type="checkbox" name="gujarati" id="gujarati" />
+                <label for="write">Write</label>
+                <input
+                  type="checkbox"
+                  name="gujarati"
+                  id="gujarati"
+                  checked="true"
+                />
+                <label for="speak">Speak</label>
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+
+        <fieldset>
+          <legend>Technologies You Know</legend>
+          <table>
+            <tr>
+              <td>
+                <input type="checkbox" name="php" id="php" />
+                <label for="php">PHP :</label>
+                <input type="radio" name="php" id="php" />
+                <label for="beginer">Beginer</label>
+                <input type="radio" name="php" id="php" />
+                <label for="mideator">Mediator</label>
+                <input type="radio" name="php" id="php" />
+                <label for="expert">Expert</label>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <input type="checkbox" name="mysql" id="mysql" />
+                <label for="mysql">Mysql :</label>
+                <input type="radio" name="mysql" id="mysql" checkbox="none" />
+                <label for="beginer">Beginer</label>
+                <input type="radio" name="mysql" id="mysql" />
+                <label for="mideator">Mediator</label>
+                <input type="radio" name="mysql" id="mysql" />
+                <label for="expert">Expert</label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="checkbox" name="laravel" id="laravel" />
+                <label for="laravel">Laravel :</label>
+                <input type="radio" name="laravel" id="laravel" />
+                <label for="beginer">Beginer</label>
+                <input type="radio" name="laravel" id="laravel" />
+                <label for="mideator">Mediator</label>
+                <input type="radio" name="laravel" id="laravel" disabled />
+                <label for="expert">Expert</label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="checkbox" name="oracle" id="oracle" />
+                <label for="oracle">Oracle :</label>
+                <input type="radio" name="oracle" id="oracle" />
+                <label for="beginer">Beginer</label>
+                <input type="radio" name="oracle" id="oracle" />
+                <label for="mideator">Mediator</label>
+                <input type="radio" name="oracle" id="oracle" />
+                <label for="expert">Expert</label>
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+      </div>
+      <fieldset>
+        <legend>Reference Contact</legend>
+        <table>
+          <tr>
+            <td>
+              Name <input type="text" name="contactname" id="contactname" />
+            </td>
+            <td>
+              Contact Number
+              <input type="text" name="contactnumber" id="contactname" />
+            </td>
+            <td>
+              Relation
+              <input type="text" name="contactrealtion" id="contactrealtion" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Name <input type="text" name="contactname" id="contactname" />
+            </td>
+            <td>
+              Contact Number
+              <input type="text" name="contactnumber" id="contactname" />
+            </td>
+            <td>
+              Relation
+              <input type="text" name="contactrealtion" id="contactrealtion" />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+
+      <fieldset>
+        <legend>Preferances</legend>
+        <table>
+          <tr>
+            <td>
+              <label for="location">Preferd location</label>
+              <select name="location" id="location">
+                <option value="Surat">Surat</option>
+                <option value="Ahmedabad">Ahmedabad</option>
+                <option value="Baroda">Baroda</option>
+              </select>
+            </td>
+            <td>
+              Notice Period
+              <input type="text" name="noticeperiod" id="noticeperiod" />
+            </td>
+            <td>
+              <label for="department"> Department</label>
+              <select name="department" id="department">
+                <option value="Developmnet">Developmnet</option>
+                <option value="design">Design</option>
+                <option value="marketing">Marketing</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Expected CTC
+              <input type="text" name="expectedctc" id="expectedctc" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Current CTC
+              <input type="text" name="currentctc" id="currentctc" />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <input type="submit" value="Submit" />
+      <input type="reset" value="Reset" />
+    </form>
+  </body>
+</html>

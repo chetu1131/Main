@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p id="mydate"> </p>
+    <div class="time">
+      select time1
+      <select name="time1" id="time1" onchange="changeTime1()">
+        <option value="default">select</option>
+      </select>
+      <p class="result1" id="result1"></p>
+      select time2
+      <select name="time2" id="time2" onchange="changeTime2()">
+        <option value="select">select</option>
+      </select>
+      <p class="result2" id="result2"></p>
+    </div>
+  </body>
+
+  <script>
+    var aryIanaTimeZones = Intl.supportedValuesOf("timeZone");
+    aryIanaTimeZones.forEach((element) => {
+      data = ` <option value="${element}">${element}</option>`;
+      time1.innerHTML += data;
+    });
+
+    let date = new Date();
+    let mytime = document.getElementById("mydate").innerHTML = "My Time : "+date;
+    function changeTime1() {
+      var time1 = document.getElementById("time1").value;
+      if (time1 != "default") {
+        let output =
+          time1 +
+          " " +
+          date.toLocaleString("en-us", {
+            timeZone: time1,
+          });
+        var result1 = document.getElementById("result1");
+        result1.innerHTML = output;
+      }
+    }
+
+    aryIanaTimeZones.forEach((element) => {
+      data = ` <option value="${element}">${element}</option>`;
+      time2.innerHTML += data;
+    });
+
+    function changeTime2() {
+      var time2 = document.getElementById("time2").value;
+      let output2 =
+        time2 +
+        " " +
+        date.toLocaleString("en-us", {
+          timeZone: time2,
+        });
+      var result2 = document.getElementById("result2");
+      result2.innerHTML = output2;
+    }
+  </script>
+</html>

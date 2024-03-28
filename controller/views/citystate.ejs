@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+ 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Country State City Dependent Dropdown in Node js</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center text-primary mt-3 mb-3">
+        Country State City Dependent Dropdown in Node js
+      </h1>
+
+      <div class="card">
+        <div class="card-header">Dynamic Dropdown</div>
+        <div class="card-body">
+          <div class="mb-3">
+            <select
+              name="state"
+              id="state"
+              class="form-control"
+              onchange="stateChange()"
+            >
+              <option value="default">Select State</option>
+              <%state_data.forEach(state =>{ %>
+              <option value="<%=state.id %>"><%= state.statename%></option>
+              <%});%>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <select name="city" id="city" class="form-control"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  var state = document.getElementById("state");
+  var city = document.getElementById("city");
+  city.disable = true;
+
+  function stateChange() {
+    const xhttp = new XMLHttpRequest();
+
+    if (state.value != "default") {
+      city.disable = false;
+      id = document.getElementById("state").value;
+      xhttp.open("GET", `citystate/getcities/${id}`);
+      xhttp.send();
+
+      let data, data2;
+
+      xhttp.onload = function () {
+        data=JSON.parse(xhttp.responseText);
+        data.forEach((element) => {
+          data2 += `
+            <option value="${element.name}">
+                ${element.name}
+              </option>
+            `;
+        });
+        city.innerHTML = data2;
+      };
+    } else {
+      city.disable = true;
+      city.innerHTML = `
+      <option value="default">Select City</option>`;
+    }
+  }
+</script>

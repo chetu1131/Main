@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+   th{
+    background-color: #47d3b5;
+   }
+     th,td{
+        padding: 5px;
+    }
+   th , td {
+      text-align: center;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+    .section{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px;
+     
+    }
+    th{
+      cursor: pointer;
+    }
+ 
+ .section #search{
+  
+  height: 40px;
+  width: 70%;
+ }
+   
+#result{
+  margin-left: 8px;
+  text-decoration: none;
+  padding: 12px;
+  cursor: pointer;
+  background-color: #47d3b5;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+  h1{
+    text-align: center;
+  }
+ 
+ 
+  </style>
+  <body>
+    <h1>Student Master Search</h1>
+      <form name="studentDetail" method="post" action="/delimeter"  >
+       
+        <table class="section">
+          <h4 class="section">Search By using this Delimeters</h4>
+          <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+          </tr>
+          <tr>
+            <td>_</td>
+            <td>^</td>
+            <td>$</td>
+            <td>{</td>
+            <td>:</td>
+          </tr>
+        </table>
+         <div class="section">
+          <input id="search" value="<%= search %>" tabindex="1" type="text" name="search"  
+           placeholder="search in Student Master">
+          <input type="submit" id="result" value="get result" 
+         >   
+        </div>
+        <table id="myTable2">
+            <thead>
+              <tr> 
+                <% for(var i=0;i<fields.length; i++){ %>
+                <th ><%=fields[i].name %></th>
+                <% }; %>
+              </tr>
+            </thead>
+            <% result.forEach(function (data){ %>
+            <tr>
+              <% fields.forEach(function(name){ %>
+              <td><%=data[name.name] %></td>
+              <% }); %> <% }); %>
+            </tr>
+          </table>
+        </form>
+  </body>
+  <script>
+  </script>
+</html>
+

@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+   thead{
+    background-color: #47d3b5;
+   }
+     th,td{
+        padding: 5px;
+    }
+    table , th , td {
+      text-align: center;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+    .section{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px;
+     
+    }
+    .section p{
+      outline: none;
+      text-decoration: none;
+      padding: 12px;
+      border: 2px solid black;
+      border-radius: 12px;
+      cursor: pointer;
+      background-color: #67bdb8;
+    }
+  h1{
+    text-align: center;
+  }
+ 
+  </style>
+  <body>
+ 
+      
+    <main ><h1>Exam Result - Details </h1>
+      <form name="ExamDetails" method="post" action="/ResultDetail">
+   
+        <table  >
+          <thead>
+            <tr>
+            
+             
+                <th>Subject Code</th>
+                <th>SubjectName</th>
+                <th colspan="2">Terminal</th>
+                <th colspan="2" >Prelime</th>
+                <th colspan="2" >Final</th>
+           
+            
+            </tr>
+
+            <tr>
+            
+               
+              <td></td>
+              <td></td>
+              <td> Theory Marks</td>
+              <td> Practical Marks</td>
+              <td> Theory Marks</td>
+              <td> Practical Marks</td>
+              <td> Theory Marks</td>
+              <td> Practical Marks</td>
+             
+           
+          </tr>
+ 
+          </thead>
+          <tbody >
+            <tr>
+              <% for( var i=0; i<result.length; i++) { %>
+                  <tr>
+
+                    <td><%=result[i].SubjectID%></td>
+                    <td><%=result[i].SubjectName%></td>
+                    <td><%=result[i].theory%></td>  
+                    <td><%=result[i].Practical%></td>  
+                    <td><%=result2[i].theory%></td=>  
+                    <td><%=result2[i].Practical%></td>  
+                    <td><%=result3[i].theory%></td=>  
+                    <td><%=result3[i].Practical%></td>  
+
+                  </tr>
+                 <% }%>
+               
+          </tr>
+        </tbody>
+        </table>
+        <div class="section">
+          <% for( var i=0; i<result4.length; i++) { %>
+          <h4>Total Present :</h4>
+          <p><%=result4[i].PresentPercentage%>%</p> 
+          <% }%>
+        </div>
+        <div class="section">
+          <% for( var i=0; i<result5.length; i++) { %>
+            <h4>Percentage</h4>
+            <p><%=result5[i].Percentage%>%</p> 
+          <% }%>
+        </div>
+        </form>
+  </body>
+  <script>
+     
+  </script>
+  
+</html>
+
+
+ 

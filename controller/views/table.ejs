@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    thead {
+      background-color: #47d3b5;
+    }
+    th,
+    td {
+      padding: 5px;
+    }
+    table,
+    th,
+    td {
+      text-align: center;
+      border: 1px solid black;
+      border-radius: 5px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+    .query {
+      height: 40%;
+      width: 60%;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px;
+    }
+    .pagination a,
+    p {
+      outline: none;
+      text-decoration: none;
+      padding: 12px;
+      margin: 3px;
+      border: 2px solid black;
+      border-radius: 12px;
+      cursor: pointer;
+      background-color: #67bdb8;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px;
+      background-color: rgb(40, 156, 160);
+    }
+    .disabled {
+      pointer-events: none;
+      opacity: 0.8;
+      background-color: rgb(151, 171, 172);
+    }
+  </style>
+  <body>
+    <form name="table" method="post" action="/query">
+      <input class="query" type="text" name="search" placeholder="Your Query" />
+      <input type="submit" value="Try it!" />
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <% fields.forEach(function (field){ %>
+          <th><%=field.name %><</th>
+          <% }); %>
+        </tr>
+      </thead>
+      <% result.forEach(function (data){ %>
+      <tr>
+        <% fields.forEach(function(name){ %>
+        <td><%=data[name.name] %></td>
+        <% }); %> <% }); %>
+      </tr>
+    </table>
+  </body>
+  <script></script>
+</html>

@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+   thead{
+    background-color: #47d3b5;
+   }
+     th,td{
+        padding: 5px;
+    }
+    table , th , td {
+      text-align: center;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+    .section{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px;
+     
+    }
+    .section a,p{
+      outline: none;
+      text-decoration: none;
+      padding: 12px;
+      margin: 3px;
+      border: 2px solid black;
+      border-radius: 12px;
+      cursor: pointer;
+      background-color: #67bdb8;
+    }
+  h1{
+    text-align: center;
+  }
+ button{
+  margin: 5px;
+  padding: 10px;
+  background-color: rgb(40, 156, 160);
+ }
+ .disabled{
+  pointer-events: none;
+  opacity: 0.8;
+  background-color: rgb(151, 171, 172);
+ }
+  </style>
+  <body>
+    <main ><h1>Attendance Master </h1>
+      <form name="attedanceDetails" method="post" action="/totalattendace">
+        <table  >
+          <thead>
+            <tr>
+              <td>Student ID</td>
+                <!-- <td> -->
+                  <!-- <a href="/allstudent/?page=<% currentPage%>&sortBy=2">&#8616;</a> -->
+                  <!-- First Name</td> -->
+                <!-- <td>Last Name</td> -->
+                <!-- <td>Date of Attend</td> -->
+                <td>Attendance Count</td>
+                <td>Total Present</td>
+                 
+            </tr>
+          </thead>
+          <tbody >
+            <tr>
+              <% days.forEach(function (student){ %>
+                  <tr>
+                    <td><%=student.StudentID%></td>
+                    <!-- <td><%=student.FirstName%></td> -->
+                    <!-- <td><%=student.LastName%></td> -->
+                    <!-- <td><%=student.DateOfAttend%></td> -->
+                    <!-- <td><%=student.Present%></td>   -->
+                    <td><%=student.TotalAttendance%></td>  
+                    <td><a href="/allattendance">View more</a></td>
+                    <!-- <td><a href="/student?StudentID=<%=student.StudentID %>">View more</a></td> -->
+                  </tr>
+                 <% }); %>
+          </tr>
+        </tbody>
+        </table>
+       
+        </form>
+  </body>
+  <script>
+     
+  </script>
+  
+</html>
+

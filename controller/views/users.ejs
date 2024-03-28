@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch API</title>
+  </head>
+  <style>
+    th,
+    td {
+      border: 2px solid black;
+    }
+    .btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1>Users Details</h1>
+      <div class="search">
+        <input
+          type="text"
+          placeholder="search"
+          id="searchInput"
+          onkeyup="search()"
+        />
+      </div>
+      <div class="btns">
+        <button id="homebutton" name="homebutton" onclick="homebtn()">
+          <<
+        </button>
+        <button id="prevbutton" name="prevbutton" onclick="prevbtn()"><</button>
+        <p id="pageno"></p>
+        <button id="nextbutton" name="nextbutton" onclick="nextbtn()">></button>
+        <button id="lastbutton" name="lastbutton" onclick="lastbtn()">
+          >>
+        </button>
+      </div>
+      <table id="myTable">
+        <tr>
+          <th>Id</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Date of Birth</th>
+          <th colspan="2">Login</th>
+          <th colspan="3">address</th>
+          <th>Phone Number</th>
+          <th>Website</th>
+          <th>Company</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>username</th>
+          <th>password</th>
+          <th>Street</th>
+          <th>City</th>
+          <th>Zipcode</th>
+          <th></th>
+          <th></th>
+          <th>Company Name</th>
+        </tr>
+        <tbody id="table-data"></tbody>
+      </table>
+    </div>
+  </body>
+
+  <script>
+    var itemperpage = 1;
+    var currentpage = 1;
+    var data = [];
+    var length = 0;
+    var pageno = document.getElementById("pageno");
+    var api = "https://jsonplaceholder.org/users";
+    const getdata = async () => {
+      try {
+        const response = await fetch(api);
+        const data = await response;
+        return data.json();
+        console.log(data);
+      } catch {
+        console.error("Error fetching data", error);
+      }
+    };
+
+    async function Showdata() {
+      const data = await getdata();
+
+      length = data.length;
+      pageno.innerHTML = Math.ceil(currentpage);
+
+      var indexoflastpage = currentpage * itemperpage;
+      var indexoffirstpage = indexoflastpage - itemperpage;
+      var currentitems = data.slice(indexoffirstpage, indexoflastpage);
+
+      let dataResult = "";
+
+      data.map((element) => {
+        dataResult += `<tr>
+          <td>${element.id}</td>
+          <td>${element.firstname}</td>
+          <td>${element.lastname}</td>
+          <td>${element.email}</td>
+          <td>${element.birthDate}</td>
+          <td>${element.login.username}</td>
+          <td>${element.login.password}</td>
+          <td>${element.address.street}</td>
+          <td>${element.address.city}</td>
+          <td>${element.address.zipcode}</td>
+          <td>${element.phone}</td>
+          <td>${element.website}</td>
+          <td>${element.company.name}</td>
+        </tr>`;
+      });
+      document.getElementById("table-data").innerHTML = dataResult;
+    }
+    function homebtn() {
+      if (currentpage == 1) {
+        document.getElementById("homebutton").disable = true;
+      }
+      document.getElementById("homebutton").disable = false;
+      currentpage = 1;
+      Showdata();
+    }
+    function prevbtn() {
+      if (currentpage == 1) {
+        document.getElementById("prevbutton").disable = true;
+      } else if (currentpage > 1) {
+        currentpage--;
+      }
+      document.getElementById("prevbutton").disable = false;
+      Showdata();
+    }
+    function nextbtn() {
+      if (currentpage * itemperpage > length) {
+        document.getElementById("nextbutton").disable = true;
+      } else if (currentpage < length / itemperpage) {
+        currentpage++;
+      }
+      document.getElementById("nextbutton").disable = false;
+      Showdata();
+      search();
+    }
+    function lastbtn() {
+      if (currentpage * itemperpage > length) {
+        document.getElementById("nextbutton").disable = true;
+      }
+      currentpage = length / itemperpage;
+      document.getElementById("nextbutton").disable = false;
+      Showdata();
+    }
+
+    function search() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("searchInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        let td = tr[i].getElementsByTagName("td");
+        let allTextContent = "";
+        for (let j = 0; j < td.length; j++) {
+          allTextContent += td[j].innerText;
+        }
+
+        if (allTextContent) {
+          if (allTextContent.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+
+    Showdata();
+  </script>
+</html>

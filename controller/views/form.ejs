@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Application Form</title>
+  </head>
+  <style>
+    th,
+    td {
+      padding-top: 10px;
+      padding-bottom: 20px;
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+    body {
+      margin: auto;
+      background-color: aliceblue;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    fieldset {
+      border: 2px solid black;
+    }
+
+    #job_application {
+      text-align: center;
+    }
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .required,
+    .date_check,
+    .err_msg,
+    #email-err,
+    #mobile-number-err,
+    #last-name-err,
+    #first-name-err,
+    #designation-err,
+    #address1-err,
+    #city-err,
+    #gender-err,
+    #relation-err,
+    #dob_err,
+    #zipcode-err,
+    #hindi_err,
+    #english_err,
+    #gujrati_err {
+      color: red;
+    }
+    .addremove {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding-right: 220px;
+    }
+    .addremove input,
+    p {
+      padding: 8px;
+      margin: 4px;
+    }
+    #addrow1 {
+      background-color: green;
+      border: 2px solid black;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #removerow1 {
+      background-color: red;
+      border: 2px solid black;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .red {
+      color: red;
+    }
+    #submit {
+      margin: 6px;
+      padding: 8px;
+      background-color: green;
+      border: 2px solid black;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+
+  <body>
+    <h2 id="job_application">Job Application Form</h2>
+
+    <form
+      id="job_application"
+      name="job_application"
+      method="post"
+      action="/"
+      target="_blank"
+      autocomplete="on"
+      onsubmit="return ValidateForm()"
+    >
+      <fieldset>
+        <legend>Basic Detail</legend>
+        <table>
+          <div class="form-field">
+            <tr>
+              <td>
+                First Name<span class="required">*</span>
+                <input
+                  class="form_control"
+                  type="text"
+                  name="first_name"
+                  id="firstname"
+                  placeholder="Enter Your Good Name"
+                />
+                <span class="err_msg"></span>
+
+                <div id="first-name-err"></div>
+              </td>
+              <td>
+                Last Name<span class="required">*</span>
+                <input
+                  type="text"
+                  name="last_name"
+                  id="lastname"
+                  placeholder="Enter Your Last Name"
+                />
+                <span class="err_msg"></span>
+
+                <div id="last-name-err"></div>
+              </td>
+            </tr>
+          </div>
+          <tr>
+            <td>
+              Designation<span class="required">*</span>
+              <input
+                type="text"
+                name="_designation"
+                id="designation"
+                placeholder="Your Designation"
+              />
+              <span id="designation-err"></span>
+            </td>
+            <td>
+              Address 1<span class="required">*</span>
+              <input
+                type="text"
+                name="_address1"
+                id="address1"
+                placeholder="Permenent Address"
+              />
+              <span id="address1-err"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Email<span class="required">*</span>
+              <input
+                type="text"
+                name="_email"
+                id="email"
+                placeholder="Your Email"
+              />
+              <span class="err_msg"></span>
+              <div id="email-err"></div>
+            </td>
+            <td>
+              Address 2
+              <input
+                type="text"
+                name="_address2"
+                id="address2"
+                placeholder=" Temperory Address"
+              />
+              <span class="err_msg"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Phone Number<span class="required">*</span>
+              <input
+                type="text"
+                name="_phonenumber"
+                id="phonenumber"
+                placeholder="Enter your email"
+              />
+              <span class="err_msg"></span>
+              <div id="mobile-number-err"></div>
+            </td>
+            <td>
+              City<span class="required">*</span>
+              <input
+                type="text"
+                name="_city"
+                id="city"
+                placeholder="Enter your City"
+              />
+
+              <span id="city-err"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="gender">Gender<span class="required">*</span></label>
+              <input type="radio" value="male" name="_gender" id="male" />
+              <label for="Male">Male</label>
+              <input type="radio" value="female" name="_gender" id="female" />
+              <label for="Female">Female</label>
+
+              <div id="gender-err"></div>
+            </td>
+
+            <td>
+              <label for="state">State</label>
+              <select name="_state" id="state">
+                <option value="select state">Select</option>
+                <option value="Gujrat">Gujrat</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Maharastra">Maharastra</option>
+                <option value="Goa">Goa</option>
+                <option value="Karnataka">Karnataka</option>
+              </select>
+              <span class="err_msg"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="realtionship_status"
+                >RelationShip Status<span class="required">*</span></label
+              >
+              <select name="realtionship_status" id="realtionship">
+                <option value="0">Select</option>
+                <option value="Married">Married</option>
+                <option value="Unmarried">Unmarried</option>
+              </select>
+              <span id="relation-err"></span>
+            </td>
+            <td>
+              Date of Birth<span class="required">*</span>
+              <input
+                type="text"
+                name="_dob"
+                id="dob"
+                placeholder="yyyy-mm-yy"
+              />
+              <span id="dob_err"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Zip Code<span class="required">*</span>
+              <input type="text" name="_zipcode" id="zipcode" />
+              <span id="zipcode-err"></span>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>Education Detail</legend>
+        <table>
+          <label for="SSC Result">SSC Result</label>
+          <tr>
+            <td>
+              Name Of Board<span class="required">*</span>
+              <input
+                type="text"
+                name="nameofboard"
+                id="sscnameofboard"
+               
+                placeholder="Enter your name of board"
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Passing Year<span class="required">*</span>
+              <input
+                type="text"
+                name="passingyear"
+                id="sscpassingyear"
+                placeholder="Enter your passing year"
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Percentage<span class="required">*</span>
+              <input
+                type="text"
+                name="percentage"
+                id="sscpercentage"
+                placeholder="Enter your percentage"
+              />
+              <span class="allfield_req red"></span>
+            </td>
+          </tr>
+        </table>
+        <hr />
+        <table>
+          <label for="HSC Result">HSC Result</label>
+          <tr>
+            <td>
+              Name Of Board<span class="required">*</span>
+              <input
+                type="text"
+                name="nameofboard"
+                id="hscboard"
+                placeholder="Enter your name of board"
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Passing Year<span class="required">*</span>
+              <input
+                type="text"
+                name="passingyear"
+                id="hscpassingyear"
+                placeholder="Enter your passing year"
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Percentage<span class="required">*</span>
+              <input
+                type="text"
+                name="percentage"
+                id="hscpercentage"
+                placeholder="Enter your percentage"
+              />
+              <span class="allfield_req red"></span>
+            </td>
+          </tr>
+        </table>
+        <hr />
+        <table>
+          <label for="Bechelor Degree">Bechelor Degree</label>
+          <tr>
+            <td>
+              Course Name<span class="required">*</span>
+              <input
+                type="text"
+                name="nameofboard"
+                id="degreecoursename"
+                placeholder="Enter your course name"
+              />
+              <span class="allfield_req red"></span>
+            </td>
+
+            <td>
+              Passing Year<span class="required">*</span>
+              <input
+                type="text"
+                name="passingyear"
+                id="degreepassingyear"
+                placeholder="Enter your passing year"
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Percentage<span class="required">*</span>
+              <input
+                type="text"
+                name="percentage"
+                id="degreepercentage"
+                placeholder="Enter your percentage"
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+        <hr />
+        <table>
+          <label for="Master Degree">Master Degree</label>
+          <tr>
+            <td>
+              Course Name
+              <input
+                type="text"
+                name="nameofboard"
+                id="mastercoursename"
+                placeholder="Enter your course name for master"
+              />
+              <span class="allfield_req red"></span>
+            </td>
+
+            <td>
+              Passing Year
+              <input
+                type="text"
+                name="passingyear"
+                id="masterpassingyear"
+                placeholder="Enter your passing year"
+              />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Percentage
+              <input
+                type="text"
+                name="percentage"
+                id="masterpercentage"
+                placeholder="Enter your percentage"
+              />
+              <span class="allfield_req red"></span>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>Work Experience</legend>
+
+        <table id="company_table">
+          <tr>
+            <td>
+              Company Name
+              <input type="text" name="companyname" id="companyname_1" />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Designation
+              <input type="text" name="designation" id="designation_1" />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              From <input type="text" name="fromdate" id="fromdate_1" />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              TO <input type="text" name="todate" id="todate_1" />
+              <span class="allfield_req red"></span>
+            </td>
+            <div class="addremove">
+              <p>Add Experience</p>
+              <input type="button" id="addrow1" value="+" onclick="addrow()" />
+              <input
+                type="button"
+                id="removerow1"
+                value="-"
+                onclick="removerow()"
+              />
+            </div>
+          </tr>
+        </table>
+      </fieldset>
+      <div class="flex">
+        <fieldset>
+          <legend>Language Known</legend>
+          <table>
+            <tr>
+              <td>
+                <span id="hindi_err"></span>
+                <input
+                  type="checkbox"
+                  name="languages"
+                  id="hindi"
+                  value="hindi"
+                />Hindi :
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="hindi"
+                  id="read"
+                  value="read"
+                />Read
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="hindi"
+                  id="write"
+                  value="write"
+                />Write
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="hindi"
+                  id="speak"
+                  value="speak"
+                />Speak
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span id="english_err"></span>
+                <input
+                  type="checkbox"
+                  name="languages"
+                  id="english"
+                  value="english"
+                />English :
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="english"
+                  id="read"
+                  value="read"
+                />Read
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="english"
+                  id="write"
+                  value="write"
+                />Write
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="english"
+                  id="speak"
+                  value="speak"
+                />Speak
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span id="gujrati_err"></span>
+                <input
+                  type="checkbox"
+                  name="languages"
+                  id="gujrati"
+                  value="gujrati"
+                />Gujarati :
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="gujrati"
+                  id="read"
+                  value="read"
+                />Read
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="gujrati"
+                  id="write"
+                  value="write"
+                />Write
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="gujrati"
+                  id="speak"
+                  value="speak"
+                />Speak
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+        <fieldset>
+          <legend>Technologies You Know</legend>
+          <table>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="phplable"
+                  value="php"
+                />PHP
+                <span id="errorphp" class="red"></span>
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="php"
+                  id="phpbeginer"
+                  value="beginer"
+                />Beginer
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="php"
+                  id="phpmideator"
+                  value="mideator"
+                />Mideator
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="php"
+                  id="phpexpert"
+                  value="expert"
+                />Expert
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="mysqllable"
+                  value="mysql"
+                />Mysql
+                <span id="errormysql" class="red"></span>
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="mysql"
+                  id="mysql"
+                  value="beginer"
+                />Beginer
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="mysql"
+                  id="mysql"
+                  value="mideator"
+                />Mideator
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="mysql"
+                  id="mysql"
+                  value="expert"
+                />Expert
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="laravellable"
+                  value="laravel"
+                />Laravel
+                <span id="errorlaravel" class="red"></span>
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="laravel"
+                  id="laravel"
+                  value="beginer"
+                />Beginer
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="laravel"
+                  id="laravel"
+                  value="mideator"
+                />Mideator
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="laravel"
+                  id="laravel"
+                  value="expert"
+                />Expert
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  name="technology"
+                  id="oraclelable"
+                  value="oracle"
+                />Oarcle
+                <span id="errororacle" class="red"></span>
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="oracle"
+                  id="oracle"
+                  value="beginer"
+                />Beginer
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="oracle"
+                  id="oracle"
+                  value="mideator"
+                />Mideator
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  name="oracle"
+                  id="oracle"
+                  value="expert"
+                />Expert
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+      </div>
+      <fieldset>
+        <legend>Reference Contact</legend>
+        <table>
+          <tr>
+            <td>
+              Name<span class="required">*</span>
+              <input type="text" name="contactname" id="contactname" />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Contact Number<span class="required">*</span>
+              <input type="text" name="contactnumber" id="contactnumber" />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Relation<span class="required">*</span>
+              <input type="text" name="contactrealtion" id="contactrealtion" />
+              <span class="allfield_req red"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Name <input type="text" name="contactname" id="contactname" />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Contact Number
+              <input type="text" name="contactnumber" id="contactnumber" />
+              <span class="allfield_req red"></span>
+            </td>
+            <td>
+              Relation
+              <input type="text" name="contactrealtion" id="contactrealtion" />
+              <span class="allfield_req red"></span>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>Preferances</legend>
+        <table>
+          <tr>
+            <td>
+              <label for="location"
+                >Preferd location<span class="required">*</span></label
+              >
+              <span id="location_err" class="red"></span>
+              <select name="location" id="location" multiple>
+                <option value="0">select</option>
+                <option value="Surat">Surat</option>
+                <option value="Ahmedabad">Ahmedabad</option>
+                <option value="Baroda">Baroda</option>
+              </select>
+            </td>
+            <td>
+              Notice Period
+              <input type="text" name="noticeperiod" id="noticeperiod" />
+            </td>
+            <td>
+              <label for="department">
+                Department<span class="required">*</span></label
+              >
+              <select name="department" id="department">
+                <option value="0" selected>select</option>
+                <option value="Developmnet">Developmnet</option>
+                <option value="design">Design</option>
+                <option value="marketing">Marketing</option>
+              </select>
+              <span id="department_err" class="red"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Expected CTC<span class="required">*</span>
+              <input type="text" name="expectedctc" id="expectedctc" />
+              <span id="expectedctc_err" class="red"></span>
+            </td>
+            <td>
+              Current CTC
+              <input type="text" name="currentctc" id="currentctc" />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <input type="submit" id="submit" value="Submit" />
+    </form>
+  </body>
+
+  <script>
+    function addrow() {
+      var table = document.getElementById("company_table");
+      var row = document.createElement("tr");
+      var result = `
+           <td>
+              Company Name
+              <input type="text" name="companyname" id="companyname_1" />
+              <span class="allfield_req"></span>
+            </td>
+            <td>
+              Designation
+              <input type="text" name="designation" id="designation_1" />
+              <span class="allfield_req"></span>
+            </td>
+            <td>
+              From <input type="text" name="fromdate" id="fromdate_1" />
+              <span class="allfield_req"></span>
+            </td>
+            <td>
+              TO <input type="text" name="todate" id="todate_1" />
+              <span class="allfield_req"></span>
+            </td>
+      `;
+      row.innerHTML = result;
+      table.appendChild(row);
+    }
+
+    function removerow() {
+      var table = document.getElementById("company_table");
+      var row = table.getElementsByTagName("tr");
+      if (row.length <= 1) {
+        return;
+      }
+      var tr = table.lastElementChild;
+      table.removeChild(tr);
+    }
+
+    const form = document.querySelector("#job_application");
+    const firstname = document.querySelector("#firstname");
+    const lastname = document.querySelector("#lastname");
+    const emailval = document.querySelector("#email");
+    const mobileNumber = document.querySelector("#phonenumber");
+    const designation = document.querySelector("#designation");
+ 
+    const dob = document.querySelector("#dob");
+    const address1 = document.querySelector("#address1");
+    const address2 = document.querySelector("#address2");
+    const city = document.querySelector("#city");
+    const relation = document.querySelector("#realtionship");
+    const zipcode = document.querySelector("#zipcode");
+ 
+    form.addEventListener("submit", function (e) {
+      // prevent the form from submitting
+      e.preventDefault();
+    });
+
+    var firstnameValidation = function () {
+      firstnameValue = firstname.value.trim();
+      validFirstName = /^[A-Za-z]+$/;
+      firstNameErr = document.getElementById("first-name-err");
+      if (firstnameValue == "") {
+        firstNameErr.innerHTML = "First Name is required";
+        firstname.focus();
+      } else if (!validFirstName.test(firstnameValue)) {
+        firstNameErr.innerHTML =
+          "First Name must be only string without white spaces";
+      } else {
+        firstNameErr.innerHTML = "";
+        return true;
+      }
+    };
+
+    firstname.oninput = function () {
+      firstnameValidation();
+    };
+
+    var lastnameValidation = function () {
+      lastnameValue = lastname.value.trim();
+      validLastName = /^[A-Za-z]+$/;
+      lastNameErr = document.getElementById("last-name-err");
+      if (lastnameValue == "") {
+        lastNameErr.innerHTML = "Last Name is required";
+        lastname.focus();
+      } else if (!validLastName.test(lastnameValue)) {
+        lastNameErr.innerHTML =
+          "Last Name must be only string without white spaces";
+      } else {
+        lastNameErr.innerHTML = "";
+        return true;
+      }
+    };
+
+    lastname.oninput = function () {
+      lastnameValidation();
+    };
+
+    var designationValidation = function () {
+      let designationVal = designation.value.trim();
+      let designationErr = document.getElementById("designation-err");
+
+      if (designationVal == "" || designationVal == null) {
+        designationErr.innerHTML = "Designation is required";
+        designation.focus();
+      } else {
+        designationErr.innerHTML = "";
+        return true;
+      }
+    };
+
+    designation.oninput = function () {
+      designationValidation();
+    };
+
+    var address1Validation = function () {
+      let address1Val = address1.value.trim();
+      let address1Err = document.getElementById("address1-err");
+      if (address1Val == "" || address1Val == null) {
+        address1Err.innerHTML = "Address1 is required";
+        address1.focus();
+      } else {
+        address1Err.innerHTML = "";
+        return true;
+      }
+    };
+
+    address1.oninput = function () {
+      address1Validation();
+    };
+
+    var cityValidation = function () {
+      let cityVal = city.value.trim();
+      let cityErr = document.getElementById("city-err");
+      if (cityVal == "" || cityVal == null) {
+        cityErr.innerHTML = "City is required";
+        city.focus();
+      } else {
+        cityErr.innerHTML = "";
+        return true;
+      }
+    };
+    city.oninput = function () {
+      cityValidation();
+    };
+
+    var genderValidate = function () {
+      var genders = document.getElementsByName("_gender");
+
+      genderErr = document.getElementById("gender-err");
+      if (genders[0].checked == true) {
+        genderErr.innerHTML = " you have selected male";
+        genderErr.style.color = "green";
+      } else if (genders[1].checked == true) {
+        genderErr.innerHTML = "you have selected female";
+        genderErr.style.color = "green";
+      } else {
+        genderErr.innerHTML = "gender is required";
+        genderErr.focus();
+      }
+      return true;
+    };
+
+    var emailValidation = function () {
+      emailAddressValue = emailval.value.trim();
+      validEmailAddress = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      emailAddressErr = document.getElementById("email-err");
+      if (emailAddressValue == "") {
+        emailAddressErr.innerHTML = "Email Address is required";
+        emailval.focus();
+      } else if (!validEmailAddress.test(emailAddressValue)) {
+        emailAddressErr.innerHTML =
+          "Email Addre must be in valid formate with @ symbol";
+      } else {
+        emailAddressErr.innerHTML = "";
+        return true;
+      }
+    };
+    emailval.oninput = function () {
+      emailValidation();
+    };
+
+    var mobileNumberValidation = function () {
+      mobileNumberValue = mobileNumber.value.trim();
+      validMobileNumber = /^[0-9]*$/;
+      mobileNumberErr = document.getElementById("mobile-number-err");
+      if (mobileNumberValue == "") {
+        mobileNumberErr.innerHTML = "Mobile Number is required";
+        mobileNumber.focus();
+      } else if (!validMobileNumber.test(mobileNumberValue)) {
+        mobileNumberErr.innerHTML = "Mobile Number must be a number";
+      } else if (mobileNumberValue.length != 10) {
+        mobileNumberErr.innerHTML = "Mobile Number must have 10 digits";
+      } else {
+        mobileNumberErr.innerHTML = "";
+        return true;
+      }
+    };
+    mobileNumber.oninput = function () {
+      mobileNumberValidation();
+    };
+
+    var relationValidation = function () {
+      let realtionVal = relation.value;
+      let relationErr = document.getElementById("relation-err");
+      if (realtionVal == 0) {
+        relationErr.innerHTML = "please select one option";
+        relation.focus();
+      } else {
+        relationErr.innerHTML = "";
+        return true;
+      }
+    };
+    relation.oninput = function () {
+      relationValidation();
+    };
+
+    var dobValidation = function () {
+      let dobval = dob.value;
+      let dobErr = document.getElementById("dob_err");
+      var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
+      // var pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+      if (dobval == null || dobval == "" || !pattern.test(dobval)) {
+        dobErr.innerHTML = "Invalid format of date of birth ";
+        dob.focus();
+        return false;
+      } else {
+        dobErr.innerHTML = " ";
+        return true;
+      }
+    };
+
+    dob.oninput = function () {
+      dobValidation();
+    };
+
+    var zipcodeValidation = function () {
+      let zipcodeVal = zipcode.value;
+      let zipcodeErr = document.getElementById("zipcode-err");
+      if (zipcodeVal == "" || zipcodeVal == null) {
+        zipcodeErr.innerHTML = "zipcode is required";
+        zipcode.focus();
+      } else {
+        zipcodeErr.innerHTML = "";
+        return true;
+      }
+    };
+    zipcode.oninput = function () {
+      zipcodeValidation();
+    };
+
+    const preferedlocation = document.getElementById("location");
+    var preferedlocationValidation = function () {
+      let preferedlocationVal = preferedlocation.value;
+      let preferedlocationErr = document.getElementById("location_err");
+      if (preferedlocationVal == 0) {
+        preferedlocationErr.innerHTML = "please select one option";
+        preferedlocation.focus();
+      } else {
+        preferedlocationErr.innerHTML = "";
+        return true;
+      }
+    };
+    preferedlocation.oninput = function () {
+      preferedlocationValidation();
+    };
+
+    const department = document.getElementById("department");
+    var departmentValidation = function () {
+      let departmentVal = department.value;
+      let departmentErr = document.getElementById("department_err");
+      if (departmentVal == 0) {
+        departmentErr.innerHTML = "please select one option";
+        department.focus();
+      } else {
+        departmentErr.innerHTML = "";
+        return true;
+      }
+    };
+    department.oninput = function () {
+      departmentValidation();
+    };
+
+    const expectedctc = document.getElementById("expectedctc");
+
+    var expectedctcValidation = function () {
+      let expectedctcVal = expectedctc.value;
+
+      let expectedctcErr = document.getElementById("expectedctc_err");
+      if (
+        expectedctcVal == null ||
+        expectedctcVal == 0 ||
+        isNaN(expectedctcVal)
+      ) {
+        expectedctcErr.innerHTML = "please enter valid input";
+        expectedctc.focus();
+        return false;
+      } else {
+        expectedctcErr.innerHTML = "";
+        return true;
+      }
+    };
+    expectedctc.oninput = function () {
+      expectedctcValidation();
+    };
+
+    function ValidateForm() {
+      lastnameValidation();
+      firstnameValidation();
+      designationValidation();
+      address1Validation();
+      cityValidation();
+      genderValidate();
+      emailValidation();
+      mobileNumberValidation();
+      relationValidation();
+      dobValidation();
+      zipcodeValidation();
+      // sscnameofboardValidation();
+      // sscpassingyearValidate();
+      // hscboardValidation();
+      // hscpassingyearValidate();
+      // hscpercentageValidate();
+      // degreecoursenameValidate();
+      // degreepassingyearValidate();
+      // degreepercentageValidation();
+      // mastercoursenameValidate();
+      // masterpassingyearValidate();
+      // masterpercentageValidation();
+
+      // hindi
+      var checklang = document.querySelector(
+        'input[name="hindi_lang"]:checked'
+      );
+
+      var checkread = document.querySelector(
+        'input[name="hindi_read"]:checked'
+      );
+      var checkwrite = document.querySelector(
+        'input[name="hindi_write"]:checked'
+      );
+
+      var checkspeak = document.querySelector(
+        'input[name="hindi_speak"]:checked'
+      );
+      var hindi_err = document.getElementById("hindi_err");
+
+      if (checkread && !checklang) {
+        hindi_err.innerHTML = "select valid input";
+        return false;
+      }
+      if (checkwrite && !checklang) {
+        hindi_err.innerHTML = "select valid input";
+        return false;
+      }
+      if (checkspeak && !checklang) {
+        hindi_err.innerHTML = "select valid input";
+        return false;
+      }
+      hindi_err.innerHTML = "";
+
+      // english
+      var checklang = document.querySelector(
+        'input[name="english_lang"]:checked'
+      );
+
+      var checkread = document.querySelector(
+        'input[name="english_read"]:checked'
+      );
+      var checkwrite = document.querySelector(
+        'input[name="english_write"]:checked'
+      );
+
+      var checkspeak = document.querySelector(
+        'input[name="english_speak"]:checked'
+      );
+      var english_err = document.getElementById("english_err");
+
+      if (checkread && !checklang) {
+        english_err.innerHTML = "select valid input";
+        return false;
+      }
+      if (checkwrite && !checklang) {
+        english_err.innerHTML = "select valid input";
+        return false;
+      }
+      if (checkspeak && !checklang) {
+        english_err.innerHTML = "select valid input";
+        return false;
+      }
+      english_err.innerHTML = "";
+
+      // gujrati
+      var checklang = document.querySelector(
+        'input[name="gujrati_lang"]:checked'
+      );
+
+      var checkread = document.querySelector(
+        'input[name="gujrati_read"]:checked'
+      );
+      var checkwrite = document.querySelector(
+        'input[name="gujrati_write"]:checked'
+      );
+
+      var checkspeak = document.querySelector(
+        'input[name="gujrati_speak"]:checked'
+      );
+      var gujrati_err = document.getElementById("gujrati_err");
+
+      if (checkread && !checklang) {
+        gujrati_err.innerHTML = "select valid input";
+        return false;
+      }
+      if (checkwrite && !checklang) {
+        gujrati_err.innerHTML = "select valid input";
+        return false;
+      }
+      if (checkspeak && !checklang) {
+        gujrati_err.innerHTML = "select valid input";
+        return false;
+      }
+      gujrati_err.innerHTML = "";
+
+      // technologies
+      let techarr = ["php", "mysql", "laravel", "oracle"];
+      for (var i = 0; i < techarr.length; i++) {
+        var techradio = document.querySelector(
+          "input[id=" + techarr[i] + "lable]:checked"
+        );
+        var techcheck = document.querySelector(
+          "input[name=" + techarr[i] + "]:checked"
+        );
+
+        if (techradio && !techcheck) {
+          document.getElementById("error" + techarr[i]).innerHTML =
+            "please select technoloy";
+          document.getElementById(techarr[i] + "lable").focus();
+          return false;
+        }
+        document.getElementById("error" + techarr[i]).innerHTML = " ";
+      }
+      // education
+      var alledu = [
+        ["sscnameofboard", "sscpassingyear", "sscpercentage"],
+        ["hscboard", "hscpassingyear", "hscpercentage"],
+        ["degreecoursename", "degreepassingyear", "degreepercentage"],
+        ["mastercoursename", "masterpassingyear", "masterpercentage"],
+      ];
+      for (var i = 0; i < alledu.length; i++) {
+        let a = document.getElementById(alledu[i][0]);
+        let b = document.getElementById(alledu[i][1]);
+        let c = document.getElementById(alledu[i][2]);
+
+        if (
+          (a.value === "" || b.value === "" || c.value === "") &&
+          (a.value != "" || b.value != "" || c.value != "")
+        ) {
+          if (a.value == "" || a.value == null) {
+            a.focus();
+          }
+          if (b.value == "" || b.value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            b.focus();
+          }
+          if (c.value == "" || c.value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            c.focus();
+          }
+
+          return false;
+        }
+        // return true;
+        document.getElementsByClassName("allfield_req").innerHTML = "";
+      }
+
+      // Compnay details
+
+      let a = document.getElementsByName("companyname");
+      let b = document.getElementsByName("designation");
+      let c = document.getElementsByName("fromdate");
+      let d = document.getElementsByName("todate");
+
+      for (var i = 0; i < a.length; i++) {
+        if (
+          (a[i].value === "" ||
+            b[i].value === "" ||
+            c[i].value === "" ||
+            d[i].value === "") &&
+          (a[i].value != "" ||
+            b[i].value != "" ||
+            c[i].value != "" ||
+            d[i].value != "")
+        ) {
+          if (a[i].value == "" || a[i].value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            a[i].focus();
+          }
+          if (b[i].value == "" || b[i].value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            b[i].focus();
+          }
+          if (c[i].value == "" || c[i].value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            c[i].focus();
+          }
+          if (d[i].value == "" || d[i].value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            d[i].focus();
+          }
+
+          return false;
+        }
+        // return true;
+        document.getElementsByClassName("allfield_req").innerHTML = "";
+      }
+
+      let contactname = document.getElementsByName("contactname");
+      let contactnumber = document.getElementsByName("contactnumber");
+      let contactrealtion = document.getElementsByName("contactrealtion");
+
+      for (var i = 0; i < contactname.length; i++) {
+        if (
+          (contactname[i].value === "" ||
+            contactnumber[i].value === "" ||
+            contactrealtion[i].value === "") &&
+          (contactname[i].value != "" ||
+            contactnumber[i].value != "" ||
+            contactrealtion[i].value != "")
+        ) {
+          if (contactname[i].value == "" || contactname[i].value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            contactname[i].focus();
+            return false;
+          }
+          if (contactnumber[i].value == "" || contactnumber[i].value == null) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            contactnumber[i].focus();
+            return false;
+          }
+          if (
+            contactrealtion[i].value == "" ||
+            contactrealtion[i].value == null
+          ) {
+            document.getElementsByClassName("allfield_req").innerHTML =
+              "please fill this field";
+            contactrealtion[i].focus();
+            return false;
+          }
+
+          return false;
+        }
+      }
+
+      preferedlocationValidation();
+      departmentValidation();
+      expectedctcValidation();
+
+      if (
+        firstnameValidation() == true &&
+        lastnameValidation() == true &&
+        designationValidation() == true &&
+        emailValidation() == true &&
+        mobileNumberValidation() == true &&
+        address1Validation() == true &&
+        cityValidation() == true &&
+        genderValidate() == true &&
+        relationValidation() == true &&
+        dobValidation() == true &&
+        zipcodeValidation() == true &&
+        preferedlocationValidation() == true &&
+        departmentValidation() == true &&
+        expectedctcValidation() == true
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  </script>
+</html>

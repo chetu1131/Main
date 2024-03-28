@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+   thead{
+    background-color: #47d3b5;
+   }
+     th,td{
+        padding: 5px;
+    }
+    table , th , td {
+      text-align: center;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+    .section{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px;
+     
+    }
+    .section a,p{
+      outline: none;
+      text-decoration: none;
+      padding: 8px;
+      margin: 3px;
+      border: 2px solid black;
+      border-radius: 12px;
+      cursor: pointer;
+      background-color: #67bdb8;
+    }
+  h1{
+    text-align: center;
+  }
+ 
+ 
+ .disabled{
+  pointer-events: none;
+  opacity: 0.8;
+  background-color: rgb(151, 171, 172);
+ }
+ .hide {
+  display: none;
+  margin-top: 10px;
+}
+ 
+ 
+  </style>
+  <body>
+ 
+   <h1>Exam Result </h1>
+      <form name="ExamDetail" method="get" action="/results">
+        <div class="section">
+          <input type="text" name="search" placeholder="Get Student By ID">
+          <input type="submit" value="get result">
+          <a  onclick="myFunction()">Show More</a>
+        </div>
+      
+        <div id="myDIV" class="hide">
+          By firstname
+          <input type="text" name="firstname">
+          By lastname
+          <input type="text" name="lastname" >
+          <input type="submit" value="get result">
+        </div>
+        
+        <!-- <div class="section">
+          <% if(currentPage > 0) { %>
+            <a href="/result?page=<%=0  %>" ><<</a>
+          <a href="/result?page=<%= currentPage - 1  %>" ><</a>
+          <% } else{ %>
+            <a href="/result?page=<%=0  %>"class="disabled" ><<</a>
+            <a href="/result?page=<%= currentPage  %>" class="disabled" ><</a>
+            <% } %> 
+            <p><%= currentPage%></p>
+    
+            <% if(currentPage < 9) { %>
+              <a href="/result?page=<%= ++currentPage %>" >></a>
+              <a  href="/result?page=<%=9 %>" >>></a>
+            
+            <% } else{ %>
+              <a href="/result?page=<%= currentPage %>"class="disabled" >></a>
+              <a  href="/result?page=<%=9  %>" class="disabled">>></a>
+              <% } %> 
+         </div> -->
+     
+        <table  >
+          <thead>
+            <tr>
+              <th>Student ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th colspan="2">Terminal</th>
+                <th colspan="2" >Prelime</th>
+                <th colspan="2" >Final</th>
+                <th>Total Marks</th> 
+                <!-- <th>Percentage</th> -->
+                <!-- <th>Present</th> -->
+                <th>View Details</th>  
+            </tr>
+            <tr>
+              <td></td>
+              <td> </td>
+              <td></td>
+              <td>Total Theory Marks </td>
+              <td>Total Practical Marks   </td>
+              <td>Total Theory Marks </td>
+              <td>Total Practical Marks   </td>
+              <td>Total Theory Marks </td>
+              <td>Total Practical Marks   </td>
+              <td>Out Of 1200</td>
+              <td></td>
+          </tr>
+          </thead>
+          <tbody >
+            <tr>
+              <% for( var i=0; i<result.length; i++) { %>
+                  <tr>
+                    <td><%=result[i].StudentID%></td>
+                    <td><%=result[i].FirstName%></td>
+                    <td><%=result[i].LastName%></td>
+                    <td><%=result[i].theory%></td>  
+                    <td><%=result[i].Practical%></td>  
+                    <td><%=result2[i].theory%></td=>  
+                    <td><%=result2[i].Practical%></td>  
+                    <td><%=result3[i].theory%></td=>  
+                    <td><%=result3[i].Practical%></td>  
+                    <td><%=totalResult[i].TotalMarks%></td> 
+                    <!-- <td><%=result[i].Percentage%>%</td>  -->
+                    
+                    <td><a href="/ResultDetail?StudentID=<%= result[i].StudentID %>">View more</a></td>
+                    <!-- <td><a href="/StudentDetail?StudentID=<%= result[i].StudentID %>">View more</a></td> -->
+                  </tr>
+                 <% }%>
+          </tr>
+        </tbody>
+        </table>      
+        </form>
+        <script>
+          function myFunction() {           
+            var x = document.getElementById("myDIV");
+            if (x.classList.contains('hide')) {
+              x.classList.remove('hide');
+            } else {
+              x.classList.add('hide');
+            }
+          }
+        </script>
+  </body>
+</html>
+

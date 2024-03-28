@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch API</title>
+  </head>
+  <style>
+    th,
+    td {
+      border: 2px solid black;
+    }
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1>All Posts Details</h1>
+
+      <table id="myTable">
+        <tr>
+          <th>User Id</th>
+          <th>Id</th>
+          <th>title</th>
+          <th>Body</th>
+        </tr>
+        <tbody id="table-data"></tbody>
+      </table>
+    </div>
+
+    <div class="comments">
+      <button onclick="showcommets()" id="getcommets"  >
+        Show Comments
+      </button>
+ 
+      <p id="comment"></p>
+    </div>
+  </body>
+
+  <script>
+    let id = "<%=id%>";
+    let commentid = id.toString();
+    var api = "https://jsonplaceholder.typicode.com/posts/" + id;
+
+    const getdata = async () => {
+      try {
+        const response = await fetch(api);
+        const data = await response.json();
+        return data;
+      } catch {
+        console.error("Error fetching data");
+      }
+    };
+
+    async function getCommets(commentid) {
+      var commetsapi = "https://jsonplaceholder.typicode.com/comments/" + id;
+      try {
+        const commentsResponse = await fetch(commetsapi);
+        const commentdata = await commentsResponse.json();
+        return commentdata;
+      } catch {
+        console.error("Error while fetching data");
+      }
+      
+    }
+
+    async function Showdata() {
+      const data = await getdata();
+      let dataResult = "";
+      dataResult += `<tr>
+                <td>${data.userId}</td>
+                <td>${data.id}</td>
+                <td>${data.title}</td>
+                <td>${data.body}</td>
+              </tr>`;
+      document.getElementById("table-data").innerHTML = dataResult;
+    }
+
+
+ 
+    async function showcommets() {
+      const data = await getCommets();
+      let dataResult = "";
+      dataResult += `<tr>
+                <td>${data.body}</td>
+              </tr>`;
+      document.getElementById("comment").innerHTML = dataResult;
+    }
+    
+    Showdata();
+  </script>
+</html>
