@@ -32,23 +32,11 @@
       margin-top: 16px;
       text-decoration: none;
     }
-    .restart {
-      margin-top: 16px;
-      width: fit-content;
-      background-color: red;
-      border: 2px solid black;
-      border-radius: 4px;
-      padding: 12px;
-    }
   </style>
   <body>
     <h3>02-02-2024 - Color Cube Game - Parmar Parmeshvar</h3>
     <div><span id="score">score </span>0</div>
     <div><span id="time">time</span></div>
-
-    <p class="restart">
-      <a href="/kukucube">Restart</a>
-    </p>
     <div class="center">
       <table id="table1" cellpadding="40">
         <tr>
@@ -75,7 +63,8 @@
     time--;
     document.getElementById("time").innerHTML = time;
     if (time == 0) {
-      alert("score : " + score + " Please Restart game by clicking Restart");
+      alert("score : " + score);
+      location.reload();
       score = 0;
       time = 10;
     }
