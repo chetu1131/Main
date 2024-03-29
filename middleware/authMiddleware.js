@@ -1,15 +1,18 @@
 const jwt = require("jsonwebtoken");
 require("cookie-parser");
+
 function verifyToken(req, res, next) {
+  console.log("in middle ware");
   var token = req.cookies.token;
-  console.log(req);
-  console.log(token);
-  if (!token) return res.status(401).json({ error: "Access denied" });
-  try {
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    req.userId = decoded.id;
+  console.log("token in middleware " + token);
+
+  if (!token)
+    return res.redirect("/login").status(401).json({ error: "Access denied" });
+  if (token) {
+    const user = jwt.verify(token, "PARAM");
+    req.userId = user.id;
     next();
-  } catch (error) {
+  } else {
     res.status(401).json({ error: "Invalid token" });
   }
 }
