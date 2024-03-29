@@ -8,7 +8,7 @@ function verifyToken(req, res, next) {
   console.log("token in middleware " + token);
 
   if (!token)
-    return res.redirect("/login").status(401).json({ error: "Access denied" });
+    return res.redirect("/").status(401).json({ error: "Access denied" });
   if (token) {
     const user = jwt.verify(token, "PARAM");
     // console.log("hello " + user.id);

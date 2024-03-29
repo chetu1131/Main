@@ -177,7 +177,7 @@ app.get("/register", (req, res) => {
   res.render("registration");
 });
 
-app.post("/login",verifyToken, async (req, res) => {
+app.post("/login", async (req, res) => {
   console.log("in login post ");
   var data = req.body;
   console.log(data);
@@ -205,10 +205,14 @@ app.post("/login",verifyToken, async (req, res) => {
         console.log("password match");
         console.log("token is  " + token);
         res
-          .cookie("token", token, { httpOnly: true, sameSite: "Strict" },{ expiresIn: "180s" })
+          .cookie(
+            "token",
+            token,
+            { httpOnly: true, sameSite: "Strict" },
+            { expiresIn: "180s" }
+          )
           .send({ msg: "login" });
-          // .redirect("http://localhost:8000/home");
-         
+        // .redirect("http://localhost:8000/home");
       } else {
         res.send({ msg: "invalid" });
       }
