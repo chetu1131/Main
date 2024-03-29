@@ -2,6 +2,8 @@ const express = require("express");
 const mysql = require("mysql");
 const app = express();
 const router = express.Router();
+const verifyToken = require("../middleware/authMiddleware.js");
+
 // var bodyParser = require("body-parser");
 
 //middlewares
@@ -9,7 +11,7 @@ app.set("view engine", "ejs");
 
 const connection = require("../connection");
 
-router.get("/student", (req, res) => {
+router.get("/student",verifyToken, (req, res) => {
   res.render(__dirname+"/views/form");
 });
 
@@ -22,7 +24,7 @@ const executeQuery = (sql) => {
   });
 };
 
-router.post("/student", async (req, res) => {
+router.post("/student",verifyToken, async (req, res) => {
   var body = req.body;
   var {
     first_name,
@@ -160,7 +162,7 @@ router.post("/student", async (req, res) => {
   res.end("register succeesfully!!!! register id : " + lastid);
 });
 
-router.get("/student/:id", async (req, res) => {
+router.get("/student/:id",verifyToken, async (req, res) => {
   var id = req.params.id;
   var sql = `select * from basic_details where candidate_id ='${id}'`;
   var sql2 = `select * from education_details where candidate_id ='${id}'`;
@@ -188,7 +190,7 @@ router.get("/student/:id", async (req, res) => {
   });
 });
 
-router.post("/student/id", async (req, res) => {
+router.post("/student/id",verifyToken, async (req, res) => {
   var id = req.body.id;
   var body = req.body;
 

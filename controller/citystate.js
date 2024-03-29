@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 const connection = require("../connection");
+const verifyToken = require("../middleware/authMiddleware.js");
+
 
 //middlewares
 app.set("view engine", "ejs");
@@ -15,7 +17,7 @@ const executeQuery = (sql) => {
   });
 };
 
-router.get("/citystate", async (req, res) => {
+router.get("/citystate",verifyToken, async (req, res) => {
   var sql = `SELECT id,statename FROM states`;
   var result = await executeQuery(sql);
   res.render(__dirname + "/views/citystate", {
@@ -24,7 +26,7 @@ router.get("/citystate", async (req, res) => {
   });
 });
 
-router.get("/citystate/getcities/:id", async (req, res) => {
+router.get("/citystate/getcities/:id", verifyToken,async (req, res) => {
   var id = req.params.id;
 
   var sql2 = `SELECT name FROM cities WHERE state_id='${id}' `;

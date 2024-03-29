@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const verifyToken = require("../middleware/authMiddleware.js");
  
 const router = express.Router();
 const mysql = require("mysql");
@@ -17,15 +18,15 @@ const connection = mysql.createConnection({
 
 connection.connect(function (err) {
   if (err) {
-    console.error("Error connecting to MYSQL:", err);
+    // console.error("Error connecting to MYSQL:", err);
     return;
   }
-  console.log("Connected to MYSQL database!");
+  // console.log("Connected to MYSQL database!");
 });
 
 let q = `select * from StudentMaster limit 5000;`;
 
-router.get("/delimeter", (req, res) => {
+router.get("/delimeter",verifyToken, (req, res) => {
   connection.query(q, (err, result, fields) => {
     if (err) throw err;
     else {
@@ -35,7 +36,7 @@ router.get("/delimeter", (req, res) => {
 });
 
 let search;
-router.post("/delimeter", (req, res) => {
+router.post("/delimeter",verifyToken, (req, res) => {
   search = req.body.search;
   console.log(search);
   let arr = [],

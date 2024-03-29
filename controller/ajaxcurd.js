@@ -4,6 +4,7 @@ const app = express();
 var bodyParser = require("body-parser");
 const router = express.Router();
 const connection = require("../connection");
+const verifyToken = require("../middleware/authMiddleware");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -14,9 +15,9 @@ const hostName = "localhost";
 app.set("view engine", "ejs");
 
 // test route
-router.get("/hello",(req,res)=>{
+router.get("/hello", (req, res) => {
   res.end("arrived");
-})
+});
 router.get("/ajax", (req, res) => {
   console.log("/ get");
   id = req.query.id;
@@ -32,7 +33,7 @@ const executeQuery = (sql) => {
   });
 };
 
-router.post("/ajax", async (req, res) => {
+router.post("/ajax", verifyToken, async (req, res) => {
   console.log("/ post");
   var body = req.body;
   console.log(body);
@@ -262,7 +263,7 @@ router.post("/ajax", async (req, res) => {
   res.redirect("");
 });
 
-router.get("/ajax/data", async (req, res) => {
+router.get("/ajax/data",verifyToken,  async (req, res) => {
   return new Promise(async (resolve, reject) => {
     console.log("id get");
     var id = req.query.id;

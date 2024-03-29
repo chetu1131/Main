@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mysql = require("mysql");
 const app = express();
+const verifyToken = require("../middleware/authMiddleware.js");
 
 // var bodyParser = require("body-parser");
 
@@ -20,16 +21,16 @@ const connection = mysql.createConnection({
 
 connection.connect(function (err) {
   if (err) {
-    console.error("Error connecting to MYSQL:", err);
+    // console.error("Error connecting to MYSQL:", err);
     return;
   }
-  console.log("Connected to MYSQL database!");
+  // console.log("Connected to MYSQL database!");
 });
 
 var m, y;
 // Retive all data in views
 var attedance = {};
-router.get("/allattendance", (req, res) => {
+router.get("/allattendance", verifyToken,(req, res) => {
   connection.connect(function (err) {
     if (req.query.month || req.query.year) {
       m = req.query.month;
@@ -91,7 +92,7 @@ router.get("/allattendance", (req, res) => {
 // });
 
 var results = {};
-router.get("/results", (req, res) => {
+router.get("/results", verifyToken,(req, res) => {
   connection.connect(function (err) {
     var page = req.query.page || "0";
     var sortBy = req.query.sortBy || "1";
@@ -158,7 +159,7 @@ router.get("/results", (req, res) => {
   });
 });
 
-router.get("/ResultDetail", (req, res) => {
+router.get("/ResultDetail",verifyToken, (req, res) => {
   connection.connect(function (err) {
     // if (err) throw err;
     var StudentID = req.query.StudentID || "1";

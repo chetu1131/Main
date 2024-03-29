@@ -1,6 +1,8 @@
 const express = require("express");
 const mysql = require("mysql");
 const router = express.Router();
+const verifyToken = require("../middleware/authMiddleware.js");
+
 const app = express();
 
 var len;
@@ -20,13 +22,13 @@ const connection = mysql.createConnection({
 
 connection.connect(function (err) {
   if (err) {
-    console.error("Error connecting to MYSQL:", err);
+    // console.error("Error connecting to MYSQL:", err);
     return;
   }
-  console.log("Connected to MYSQL database!");
+  // console.log("Connected to MYSQL database!");
 });
 
-router.get("/grid", (req, res) => {
+router.get("/grid",verifyToken, (req, res) => {
   if (req.query.query) {
     if (req.body.recordperpage) recordperpage = req.body.recordperpage;
     page = req.query.page || 1;
@@ -61,7 +63,7 @@ router.get("/grid", (req, res) => {
   }
 });
 
-router.post("/query", (req, res) => {
+router.post("/query",verifyToken, (req, res) => {
   query = req.body.search;
   if (req.body.recordperpage) recordperpage = req.body.recordperpage;
   page = req.query.page || 1;
