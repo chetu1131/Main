@@ -110,7 +110,7 @@ app.post("/register", async (req, res) => {
   });
 });
 
-app.get("/data", async (req, res) => {
+app.get("/data",verifyToken, async (req, res) => {
   var id = req.query.id;
   var token = req.query.token;
   console.log("token is : " + token);
@@ -160,7 +160,7 @@ app.get("/data", async (req, res) => {
   console.log(result3);
 });
 
-app.post("/data", async (req, res) => {
+app.post("/data",verifyToken, async (req, res) => {
   var data = req.body;
   console.log("in data");
   var sql2 = `select * from users where id = '${data.id}';`;
@@ -228,7 +228,7 @@ app.get("/forgotpass", (req, res) => {
   res.render("email");
 });
 
-app.post("/getemail", async (req, res) => {
+app.post("/getemail",verifyToken, async (req, res) => {
   console.log(
     "get email and upadte token and current time stamp of that email id"
   );
@@ -247,7 +247,7 @@ app.post("/getemail", async (req, res) => {
   // 3. write a quiery for update and update the activation code and created time current time stamp default
 });
 
-app.get("/checkemail/:email", async (req, res) => {
+app.get("/checkemail/:email", verifyToken,async (req, res) => {
   console.log("email exists or not");
   var email = req.params.email;
   console.log(email);
@@ -258,14 +258,14 @@ app.get("/checkemail/:email", async (req, res) => {
   res.send(exists);
 });
 
-app.get("/forgotpass2", async (req, res) => {
+app.get("/forgotpass2",verifyToken, async (req, res) => {
   var token = req.query.code;
   q = `select id from users where token='${token}';`;
   var result = await executeQuery(q);
   res.render("forgotpass", { id: result[0].id });
 });
 
-app.post("/newpass", async (req, res) => {
+app.post("/newpass", verifyToken,async (req, res) => {
   console.log("in new password");
   var password = req.body.password;
   var id = req.body.id;
@@ -307,36 +307,36 @@ app.get("/home", verifyToken, (req, res) => {
   res.render("home");
 });
 
-app.get("/dynamictable", (req, res) => {
+app.get("/dynamictable", verifyToken,(req, res) => {
   res.render("dynamic");
 });
 
-app.get("/kukucube", (req, res) => {
+app.get("/kukucube",verifyToken, (req, res) => {
   res.render("kukucube");
 });
 
-app.get("/tictactoe", (req, res) => {
+app.get("/tictactoe", verifyToken,(req, res) => {
   res.render("tictactoe");
 });
-app.get("/eventtable", (req, res) => {
+app.get("/eventtable",verifyToken, (req, res) => {
   res.render("eventtable");
 });
-app.get("/sorting", (req, res) => {
+app.get("/sorting", verifyToken,(req, res) => {
   res.render("sorting");
 });
-app.get("/appliform", (req, res) => {
+app.get("/appliform", verifyToken,(req, res) => {
   res.render("Job_applcation");
 });
 
-app.get("/ehya", (req, res) => {
+app.get("/ehya",verifyToken, (req, res) => {
   res.sendFile(__dirname + "/htmlpage/ehya/ehya.html");
 });
 
-app.get("/success", (req, res) => {
+app.get("/success", verifyToken,(req, res) => {
   res.render("success");
 });
 
-app.get("/fail", (req, res) => {
+app.get("/fail", verifyToken,(req, res) => {
   res.render("faild");
 });
 

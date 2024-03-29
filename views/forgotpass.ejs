@@ -25,12 +25,12 @@
       text-align: center;
     }
 
-  #submit{
-    padding: 8px;
-    background-color: green;
-    border: 2px solid black;
-    border-radius: 4px;
-  }
+    #submit {
+      padding: 8px;
+      background-color: green;
+      border: 2px solid black;
+      border-radius: 4px;
+    }
   </style>
   <body>
     <form
@@ -39,6 +39,7 @@
       method="post"
       action="/newpass"
       autocomplete="on"
+      onsubmit="return validateform()"
     >
       <div class="main">
         <h2>Forgot Password</h2>
@@ -63,7 +64,12 @@
           </tr>
           <tr>
             <td>
-              <input id="submit" type="submit" value="Change pass" onclick="chagenpass()" />
+              <input
+                id="submit"
+                type="submit"
+                value="Change pass"
+                onclick="chagenpass()"
+              />
             </td>
           </tr>
         </table>
@@ -93,7 +99,7 @@
         return false;
       }
       if (pass2 == null || pass2 == "") {
-        alert("Please COmfirm required");
+        alert("Please Comfirm required");
         return false;
       }
 
