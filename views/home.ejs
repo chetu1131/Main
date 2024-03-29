@@ -6,6 +6,9 @@
     <title>Document</title>
   </head>
   <style>
+    body {
+      background-color: #81b6b8;
+    }
     h2,
     p {
       text-align: center;
@@ -16,18 +19,26 @@
       justify-content: center;
     }
     td {
-      background-color: rgb(169, 144, 197);
+      background-color: rgb(139, 99, 185);
       padding: 20px;
       border: 2px solid black;
     }
     a {
       text-decoration: none;
-      color: black;
+      
+    }
+    #logout {
+      margin-top: 6px;
+      background-color: red;
+      padding: 12px;
+      border: 2px solid black;
+      border-radius: 8px;
     }
   </style>
   <body>
     <h2>All Exrecise</h2>
     <p>Hi I'm Parmeshvar - 24DEV031 !!!</p>
+    <p>Find out all task by clicking them!</p>
     <div class="main">
       <table>
         <tr>
@@ -44,24 +55,27 @@
         </tr>
         <tr>
           <td><a href="/delimeter">7.delimeter Search </a></td>
+          <td><a href="/allattendance">14. Attendance Master </a></td>
+        </tr>
+        <tr>
           <td><a href="/grid">8. Dynamic Grid </a></td>
-        </tr>
-        <tr>
           <td><a href="/user">9. Fetch API </a></td>
-          <td><a href="/citystate">10. City State Dropdown </a></td>
         </tr>
         <tr>
-          <td><a href="/student">11. Simple Crud </a></td>
+          <td><a href="/citystate">10. City State Dropdown </a></td>
           <td><a href="/clock">12. Clock Convertor</a></td>
         </tr>
         <tr>
-          <td><a href="/ajax">13. Ajax Crud </a></td>
-          <td><a href="/allattendance">14. Attendance Master </a></td>
+          <td><a href="/student">11. Simple Crud </a></td>
+          <td><a href="/ajax">13. Ajax Crud with Multi-Step</a></td>
         </tr>
         <tr>
           <!-- <td><a href="ehya">15. Ehya</a></td> -->
         </tr>
       </table>
+    </div>
+    <div class="main">
+      <a id="logout" href="/login">Logout</a>
     </div>
   </body>
 </html>

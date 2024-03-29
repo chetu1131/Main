@@ -1,5 +1,6 @@
 const express = require("express");
 const crypto = require("crypto");
+const cors = require("cors");
 const app = express();
 var bodyParser = require("body-parser");
 const ShortUniqueId = require("short-unique-id");
@@ -11,7 +12,8 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 8000;
 const hostName = "localhost";
-// var secret_key = process.env.SECRET_KEY;
+var secret_key = process.env.SECRET_KEY;
+console.log("hrll" + secret_key);
 const verifyToken = require("./middleware/authMiddleware.js");
 // const userdetail = require("./22-02-2024_student_master_getalldetails_grid/App.js");
 const deliSearch = require("./controller/delisearch.js");
@@ -25,6 +27,7 @@ const ajaxcurd = require("./controller/ajaxcurd.js");
 const clockconvertor = require("./controller/clock.js");
 
 app.use(cookieParser());
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/public", express.static(path.join(__dirname, "public")));
 
@@ -165,15 +168,16 @@ app.post("/data", async (req, res) => {
   console.log(sql2, result2);
 });
 
-app.get("/login", verifyToken, (req, res) => {
-  console.log("in login get");
-  res.render("login");
-});
+// app.get("/login", (req, res) => {
+//   console.log("in login get");
+//   res.render("login");
+// });
+
 app.get("/register", (req, res) => {
   res.render("registration");
 });
 
-app.post("/login", async (req, res) => {
+app.post("/login",verifyToken, async (req, res) => {
   console.log("in login post ");
   var data = req.body;
   console.log(data);
@@ -194,11 +198,17 @@ app.post("/login", async (req, res) => {
         .update(password.toString())
         .digest("hex");
       console.log(md5sum, +"  " + result2[0].user_password);
+      var id = result2[0].id;
+      console.log(id);
       if (md5sum == result2[0].user_password) {
-        var token = jwt.sign({ id: result2[0].id }, "${secret_key}");
+        var token = jwt.sign({ id: id }, "PARAM");
         console.log("password match");
         console.log("token is  " + token);
-        res.send({ msg: "login" });
+        res
+          .cookie("token", token, { httpOnly: true, sameSite: "Strict" },{ expiresIn: "180s" })
+          .send({ msg: "login" });
+          // .redirect("http://localhost:8000/home");
+         
       } else {
         res.send({ msg: "invalid" });
       }
@@ -289,7 +299,7 @@ app.post("/newpass", async (req, res) => {
 </html>`);
 });
 
-app.get("/home", (req, res) => {
+app.get("/home", verifyToken, (req, res) => {
   res.render("home");
 });
 
