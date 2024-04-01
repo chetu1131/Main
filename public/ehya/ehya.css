@@ -61,12 +61,16 @@ nav ul li a {
 }
 
 .title {
+  color: #000000;
+
   font-size: 50px;
   padding: 40px 15px;
 }
 
 .subtitle {
   display: flex;
+  color: #000000;
+
   font-size: 30px;
 }
 .main-button {
@@ -144,10 +148,6 @@ nav ul li a {
   margin: 0 auto;
 }
 
-.protectin {
-  /* display: flex; */
-}
-
 .protection-text {
   text-align: center;
   padding: 18px 0;
@@ -215,8 +215,6 @@ nav ul li a {
   padding: 0 25px;
 }
 
-.reviewsimg {
-}
 .trustpilot {
   position: relative;
   top: 7px;
@@ -229,15 +227,11 @@ nav ul li a {
 .reviews {
   margin: 0 50px;
 }
-.card-reviews {
-}
+
 .reviews-text {
   text-align: center;
 }
 
-.review-image {
-  /* padding: 0 -15px; */
-}
 .footer {
   background-color: #0d2436;
   display: flex;

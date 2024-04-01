@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const crypto = require("crypto");
 const cors = require("cors");
@@ -8,12 +9,14 @@ const uid = new ShortUniqueId();
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-require("dotenv").config();
 
 const PORT = process.env.PORT || 8000;
 const hostName = "localhost";
+
 var secret_key = process.env.SECRET_KEY;
-console.log("hrll" + secret_key);
+console.log("secret key: " + secret_key);
+
+const connection = require("./connection");
 const verifyToken = require("./middleware/authMiddleware.js");
 // const userdetail = require("./22-02-2024_student_master_getalldetails_grid/App.js");
 const deliSearch = require("./controller/delisearch.js");
@@ -29,7 +32,8 @@ const clockconvertor = require("./controller/clock.js");
 app.use(cookieParser());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use(express.json())
+app.use(express.static('public'));
 
 app.use(
   citystate,
@@ -46,7 +50,6 @@ app.use(
 //middlewares
 app.set("view engine", "ejs");
 // app.use(userdetail);
-const connection = require("./connection");
 
 app.get("/", (req, res) => {
   console.log("/get");
@@ -110,7 +113,7 @@ app.post("/register", async (req, res) => {
   });
 });
 
-app.get("/data",verifyToken, async (req, res) => {
+app.get("/data", verifyToken, async (req, res) => {
   var id = req.query.id;
   var token = req.query.token;
   console.log("token is : " + token);
@@ -160,7 +163,7 @@ app.get("/data",verifyToken, async (req, res) => {
   console.log(result3);
 });
 
-app.post("/data",verifyToken, async (req, res) => {
+app.post("/data", verifyToken, async (req, res) => {
   var data = req.body;
   console.log("in data");
   var sql2 = `select * from users where id = '${data.id}';`;
@@ -179,7 +182,7 @@ app.get("/register", (req, res) => {
 
 app.post("/login", async (req, res) => {
   console.log("in login post ");
-  var data = req.body;
+  var data = req.body.email;
   console.log(data);
   // res.status(200).json({ message: "Protected route accessed" });
 
@@ -228,7 +231,7 @@ app.get("/forgotpass", (req, res) => {
   res.render("email");
 });
 
-app.post("/getemail",verifyToken, async (req, res) => {
+app.post("/getemail", verifyToken, async (req, res) => {
   console.log(
     "get email and upadte token and current time stamp of that email id"
   );
@@ -247,7 +250,7 @@ app.post("/getemail",verifyToken, async (req, res) => {
   // 3. write a quiery for update and update the activation code and created time current time stamp default
 });
 
-app.get("/checkemail/:email", verifyToken,async (req, res) => {
+app.get("/checkemail/:email", verifyToken, async (req, res) => {
   console.log("email exists or not");
   var email = req.params.email;
   console.log(email);
@@ -258,14 +261,14 @@ app.get("/checkemail/:email", verifyToken,async (req, res) => {
   res.send(exists);
 });
 
-app.get("/forgotpass2",verifyToken, async (req, res) => {
+app.get("/forgotpass2", verifyToken, async (req, res) => {
   var token = req.query.code;
   q = `select id from users where token='${token}';`;
   var result = await executeQuery(q);
   res.render("forgotpass", { id: result[0].id });
 });
 
-app.post("/newpass", verifyToken,async (req, res) => {
+app.post("/newpass", verifyToken, async (req, res) => {
   console.log("in new password");
   var password = req.body.password;
   var id = req.body.id;
@@ -307,39 +310,57 @@ app.get("/home", verifyToken, (req, res) => {
   res.render("home");
 });
 
-app.get("/dynamictable", verifyToken,(req, res) => {
+app.get("/dynamictable", verifyToken, (req, res) => {
   res.render("dynamic");
 });
 
-app.get("/kukucube",verifyToken, (req, res) => {
+app.get("/kukucube", verifyToken, (req, res) => {
   res.render("kukucube");
 });
 
-app.get("/tictactoe", verifyToken,(req, res) => {
+app.get("/tictactoe", verifyToken, (req, res) => {
   res.render("tictactoe");
 });
-app.get("/eventtable",verifyToken, (req, res) => {
+app.get("/eventtable", verifyToken, (req, res) => {
   res.render("eventtable");
 });
-app.get("/sorting", verifyToken,(req, res) => {
+app.get("/sorting", verifyToken, (req, res) => {
   res.render("sorting");
 });
-app.get("/appliform", verifyToken,(req, res) => {
+app.get("/appliform", verifyToken, (req, res) => {
   res.render("Job_applcation");
 });
 
-app.get("/ehya",verifyToken, (req, res) => {
-  res.sendFile(__dirname + "/htmlpage/ehya/ehya.html");
+app.get("/ehya", verifyToken, (req, res) => {
+  res.sendFile(path.join(__dirname, "public/ehya/ehya.html"));
 });
 
-app.get("/success", verifyToken,(req, res) => {
+app.get("/awanhoster", verifyToken, (req, res) => {
+  res.sendFile(path.join(__dirname, "public/awanhoster/index.html"));
+});
+
+app.get("/hirex", verifyToken, (req, res) => {
+  res.sendFile(path.join(__dirname, "public/hirex/index.html"));
+});
+
+app.get("/ehya", verifyToken, (req, res) => {
+  res.sendFile(path.join(__dirname, "public/ehya/ehya.html"));
+});
+
+app.get("/success", verifyToken, (req, res) => {
   res.render("success");
 });
 
-app.get("/fail", verifyToken,(req, res) => {
+app.get("/fail", verifyToken, (req, res) => {
   res.render("faild");
 });
 
+app.get("/logout", (req, res) => {
+  console.log("log out");
+  const sessionCookie = req.cookies.token;
+  console.log("cookie from browser: " + sessionCookie);
+  res.clearCookie("token").redirect("/");
+});
 app.listen(PORT, (err) => {
   if (err) {
     throw err;
