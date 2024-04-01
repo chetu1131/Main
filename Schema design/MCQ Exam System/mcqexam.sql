@@ -51,12 +51,10 @@ CREATE TABLE
 CREATE TABLE
     exams (
         id INT PRIMARY KEY AUTO_INCREMENT,
-        exam_name VARCHAR(255),
-        descriptions VARCHAR(255),
+        exam_title VARCHAR(255),
+        instructions VARCHAR(255),
         exam_date date,
-        start_time TIME,
-        -- duration INT,
-        end_time TIME,
+        duration INT,
         total_marks INT,
         passing_marks float,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -67,7 +65,9 @@ CREATE TABLE
         id INT PRIMARY KEY AUTO_INCREMENT,
         exma_id INT,
         q_title VARCHAR(255), --quetion
-        -- q_items VARCHAR(255), -- options
+        q_level VARCHAR(255),
+        -- q_items VARCHAR(255), -- options 
+        -- here changes can make a separte option table defining radio check... okay okay but what if question has multiple choices.. later on..
         opt1 VARCHAR(255),
         opt2 VARCHAR(255),
         opt3 VARCHAR(255),
