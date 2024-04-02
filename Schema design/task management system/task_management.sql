@@ -75,7 +75,7 @@ CREATE TABLE
         task_status
         SET
             ('to-do', 'in-progress', 'completed') NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES employees (id)
+        FOREIGN KEY (user_id) REFERENCES employees (id)
     );
 
 CREATE TABLE
@@ -102,9 +102,9 @@ CREATE TABLE
         deleted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         task_status
         SET
-            ('to-do', 'in-progress', 'completed') NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES employees (id),
-            FOREIGN KEY (task_id) REFERENCES tasks (id)
+            ('to do', 'in progress', 'completed') NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES employees (id),
+        FOREIGN KEY (task_id) REFERENCES tasks (id)
     );
 
 CREATE TABLE
