@@ -1,0 +1,17 @@
+Design the system by follwing guideline.
+
+User registration module.
+
+    Use secure MD5 to store PW.
+
+    Make activation link and send this to email for activation of user.
+
+    Activation code should exp in 2 hours.
+
+    use email as username.
+
+    first name, lastname , email , DOB should be basic details of registration form.
+
+    PW should exp in every 10 days.
+
+    System should keep log of the every sucussful login and unsucussful login attmet 
