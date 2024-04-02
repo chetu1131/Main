@@ -60,57 +60,64 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    attendances (
+    tasks (
         id INT PRIMARY KEY AUTO_INCREMENT,
         user_id INT,
-        is_present bool DEFAULT (0),
-        present_date date,
-        checked_in TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        checked_out TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES employees (id)
+        task_name VARCHAR(50),
+        descriptions VARCHAR(100),
+        due_date DATE,
+        priority_levels INT, -- sort order number
+        assignee_name VARCHAR(50), -- if applicable
+        -- assigned_to VARCHAR(45),
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        deleted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        task_status
+        SET
+            ('to-do', 'in-progress', 'completed') NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES employees (id)
     );
 
 CREATE TABLE
-    breaks (
+    teams (
         id INT PRIMARY KEY AUTO_INCREMENT,
         user_id INT,
-        break_in TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        break_reason VARCHAR(255), --('lunch','tea/coffee','phone calls','other') can use   drop down
-        break_out TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES employees (id)
+        user_name VARCHAR(45),
+        task_id INT,
+        team_name VARCHAR(45),
+        FOREIGN KEY (user_id) REFERENCES employees (id),
+        FOREIGN KEY (task_id) REFERENCES tasks (id)
     );
 
 CREATE TABLE
-    attendsummary (
+    activities (
         id INT PRIMARY KEY AUTO_INCREMENT,
         user_id INT,
-        present_date date,
-        entry_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        exit_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        break_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        late_arrival bool, -- monthly count 
-        early_depart bool, -- monthly count
-
-        FOREIGN KEY (user_id) REFERENCES employees (id)
-        -- total office hours - count on caledr  - month 
-        --working_hours - count on entry, break and exit
+        task_id INT,
+        task_name VARCHAR(45),
+        descriptions VARCHAR(100),
+        activity VARCHAR(100),
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        deleted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        task_status
+        SET
+            ('to-do', 'in-progress', 'completed') NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES employees (id),
+            FOREIGN KEY (task_id) REFERENCES tasks (id)
     );
 
--- CREATE TABLE
---     reports (
---         id INT PRIMARY KEY AUTO_INCREMENT,
---         user_id INT,
---         total_working_hours time,
---         late_arrival bool, -- monthly count 
---         early_depart bool, -- monthly count
---         FOREIGN KEY (user_id) REFERENCES employees (id),
---     );
 CREATE TABLE
-    audit_logs (
+    comments (
         id INT PRIMARY KEY AUTO_INCREMENT,
         user_id INT,
-        activity_type VARCHAR(255),
-        activaty_description VARCHAR(255),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES employees (id)
+        task_id INT,
+        title VARCHAR(45),
+        activity_id INT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        deleted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES employees (id),
+        FOREIGN KEY (task_id) REFERENCES tasks (id),
+        FOREIGN KEY (activity_id) REFERENCES activities (id)
     );
