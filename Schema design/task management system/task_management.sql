@@ -100,7 +100,7 @@ CREATE TABLE
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         deleted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        task_status
+        activity_status
         SET
             ('to do', 'in progress', 'completed') NOT NULL,
         FOREIGN KEY (user_id) REFERENCES employees (id),
