@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>05-02-2024 Tic Tac Toe</title>
+    <script src="./0502tictactoe.js"></script>
+  </head>
+  <style>
+    h1 {
+      color: rgb(0, 0, 0);
+      margin-bottom: -5px;
+    }
+    p {
+      margin-bottom: -10px;
+    }
+    .ui {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .row {
+      display: flex;
+    }
+    .cell {
+      border: none;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .cell:active {
+      outline: none;
+    }
+
+    #b1 {
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+    }
+
+    #b2 {
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      border-left: 1px solid black;
+    }
+
+    #b3 {
+      border-bottom: 1px solid black;
+      border-left: 1px solid black;
+    }
+
+    #b4 {
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+    }
+
+    #b5 {
+      border: 1px solid black;
+    }
+
+    #b6 {
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
+      border-left: 1px solid black;
+    }
+
+    #b7 {
+      border-top: 1px solid black;
+      border-right: 1px solid black;
+    }
+
+    #b8 {
+      border-top: 1px solid black;
+      border-right: 1px solid black;
+      border-left: 1px solid black;
+    }
+
+    #b9 {
+      border-top: 1px solid black;
+      border-left: 1px solid black;
+    }
+
+    #btn {
+      box-sizing: border-box;
+      width: 95px;
+      height: 40px;
+      border: 1px solid black;
+      margin-left: auto;
+      border-radius: 8px;
+      color: black;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    #result {
+      color: black;
+      font-size: 20px;
+    }
+
+    #main {
+      text-align: center;
+    }
+  </style>
+  <body>
+    <form action="">
+      <div id="main">
+        <h1>TIC TAC TOE</h1>
+        <h4>Parmeshvar Parmar 05-02-2024</h4>
+        <br />
+        <div class="ui">
+          <div class="row">
+            <input
+              type="text"
+              id="b1"
+              class="cell"
+              onclick="myfunc_3(); myfunc();"
+              readonly
+            />
+            <input
+              type="text"
+              id="b2"
+              class="cell"
+              onclick="myfunc_4(); myfunc();"
+              readonly
+            />
+            <input
+              type="text"
+              id="b3"
+              class="cell"
+              onclick="myfunc_5(); myfunc();"
+              readonly
+            />
+          </div>
+          <div class="row">
+            <input
+              type="text"
+              id="b4"
+              class="cell"
+              onclick="myfunc_6(); myfunc();"
+              readonly
+            />
+            <input
+              type="text"
+              id="b5"
+              class="cell"
+              onclick="myfunc_7(); myfunc();"
+              readonly
+            />
+            <input
+              type="text"
+              id="b6"
+              class="cell"
+              onclick="myfunc_8(); myfunc();"
+              readonly
+            />
+          </div>
+          <div class="row">
+            <input
+              type="text"
+              id="b7"
+              class="cell"
+              onclick="myfunc_9(); myfunc();"
+              readonly
+            />
+            <input
+              type="text"
+              id="b8"
+              class="cell"
+              onclick="myfunc_10();myfunc();"
+              readonly
+            />
+            <input
+              type="text"
+              id="b9"
+              class="cell"
+              onclick="myfunc_11();myfunc();"
+              readonly
+            />
+          </div>
+        </div>
+        <br /><br /><br />
+
+        <button id="btn" onclick="location.reload()">Reset</button>
+        <br />
+        <p id="result"></p>
+      </div>
+    </form>
+  </body>
+</html>

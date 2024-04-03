@@ -1,34 +1,12 @@
 const express = require("express");
-const mysql = require("mysql");
 const router = express.Router();
-const verifyToken = require("../middleware/authMiddleware.js");
-
-const app = express();
+const connection = require("../connection/connection1.js");
 
 var len;
 var query;
 var recordperpage = 20;
 
-//middlewares
-app.set("view engine", "ejs");
-
-const connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "Dev@123",
-  database: "StudentDb260224",
-});
-
-connection.connect(function (err) {
-  if (err) {
-    // console.error("Error connecting to MYSQL:", err);
-    return;
-  }
-  // console.log("Connected to MYSQL database!");
-});
-
-router.get("/grid",verifyToken, (req, res) => {
+const grid = (req, res) => {
   if (req.query.query) {
     if (req.body.recordperpage) recordperpage = req.body.recordperpage;
     page = req.query.page || 1;
@@ -43,7 +21,7 @@ router.get("/grid",verifyToken, (req, res) => {
         if (err) throw err;
         else if (result.fieldCount == 0) res.end("Query success");
         else
-          res.render(__dirname + "/views/query", {
+          res.render("../views/query", {
             data: false,
             result,
             fields,
@@ -53,17 +31,17 @@ router.get("/grid",verifyToken, (req, res) => {
             url: "/query",
             recordperpage,
           });
-        res.render(__dirname + "/views/query");
+        res.render("../views/query");
       }
     );
   } else {
-    res.render(__dirname + "/views/query", {
+    res.render("../views/query", {
       data: false,
     });
   }
-});
+};
 
-router.post("/query",verifyToken, (req, res) => {
+const postQuery = (req, res) => {
   query = req.body.search;
   if (req.body.recordperpage) recordperpage = req.body.recordperpage;
   page = req.query.page || 1;
@@ -87,7 +65,7 @@ router.post("/query",verifyToken, (req, res) => {
             if (err) throw err;
             else if (result.fieldCount == 0) res.end("Query success");
             else
-              res.render(__dirname + "/views/query", {
+              res.render("../views/query", {
                 data: true,
                 result,
                 fields,
@@ -115,7 +93,7 @@ router.post("/query",verifyToken, (req, res) => {
               if (err) res.end("Error : " + err.mesaage);
               else if (result.fieldCount == 0) res.end("Query Done");
               else {
-                res.render(__dirname + "/views/query", {
+                res.render("../views/query", {
                   data: true,
                   result,
                   fields,
@@ -134,35 +112,35 @@ router.post("/query",verifyToken, (req, res) => {
       res.send("please enter query");
     }
   });
+};
 
-  router.get("/query", (req, res) => {
-    console.log("hello");
-    if (req.query.recordperpage) recordperpage = req.query.recordperpage;
-    page = req.query.page || 1;
+const getQuery =  (req, res) => {
+  console.log("hello");
+  if (req.query.recordperpage) recordperpage = req.query.recordperpage;
+  page = req.query.page || 1;
 
-    if (req.query.page) page = req.query.page;
+  if (req.query.page) page = req.query.page;
 
-    connection.query(
-      query,
-      [(page - 1) * recordperpage, parseInt(recordperpage)],
-      (err, result, fields) => {
-        console.log(query);
-        if (err) throw err;
-        else if (result.fieldCount == 0) res.end("Query success");
-        else
-          res.render(__dirname + "/views/query", {
-            data: true,
-            result,
-            fields,
-            currentPage: page,
-            query,
-            len,
-            url: "/query",
-            recordperpage,
-          });
-      }
-    );
-  });
-});
+  connection.query(
+    query,
+    [(page - 1) * recordperpage, parseInt(recordperpage)],
+    (err, result, fields) => {
+      console.log(query);
+      if (err) throw err;
+      else if (result.fieldCount == 0) res.end("Query success");
+      else
+        res.render("../views/query", {
+          data: true,
+          result,
+          fields,
+          currentPage: page,
+          query,
+          len,
+          url: "/query",
+          recordperpage,
+        });
+    }
+  );
+};
 
-module.exports = router;
+module.exports = { grid, postQuery ,getQuery};

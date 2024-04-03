@@ -1,42 +1,25 @@
 const express = require("express");
-const app = express();
-const verifyToken = require("../middleware/authMiddleware.js");
- 
+
 const router = express.Router();
-const mysql = require("mysql");
-
-//middlewares
-app.set("view engine", "ejs");
-
-const connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "Dev@123",
-  database: "StudentDb260224",
-});
-
-connection.connect(function (err) {
-  if (err) {
-    // console.error("Error connecting to MYSQL:", err);
-    return;
-  }
-  // console.log("Connected to MYSQL database!");
-});
+const connection = require("../connection/connection1.js");
 
 let q = `select * from StudentMaster limit 5000;`;
 
-router.get("/delimeter",verifyToken, (req, res) => {
+const delimeter = (req, res) => {
   connection.query(q, (err, result, fields) => {
     if (err) throw err;
     else {
-      res.render(__dirname+"/views/delisearchs", { result: result, fields, search: search });
+      res.render("../views/delisearchs", {
+        result: result,
+        fields,
+        search: search,
+      });
     }
   });
-});
+};
 
 let search;
-router.post("/delimeter",verifyToken, (req, res) => {
+const postDelimeter = (req, res) => {
   search = req.body.search;
   console.log(search);
   let arr = [],
@@ -139,12 +122,12 @@ router.post("/delimeter",verifyToken, (req, res) => {
 
   connection.query(sql, function (err, result, fields) {
     if (err) throw err;
-    res.render(__dirname +"/views/search", {
+    res.render("../views/search", {
       result: result,
       fields: fields,
       search: search,
     });
   });
-});
+};
 
-module.exports = router;
+module.exports = { delimeter, postDelimeter };
