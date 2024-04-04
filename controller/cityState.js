@@ -1,9 +1,9 @@
 const express = require("express");
 const connection = require("../connection/connection.js");
 
-const executeQuery = (sql) => {
+const executeQuery = (sql, values) => {
   return new Promise((resolve, reject) => {
-    connection.query(sql, (err, result) => {
+    connection.query(sql, values, (err, result) => {
       if (err) return reject(err);
       return resolve(result);
     });
@@ -11,7 +11,7 @@ const executeQuery = (sql) => {
 };
 const cityState = async (req, res) => {
   try {
-    var sql = `SELECT id,statename FROM states`;
+    var sql = "SELECT id,statename FROM states";
     var result = await executeQuery(sql);
     res.render("../views/citystate", {
       title: "Express",
@@ -25,12 +25,12 @@ const cityState = async (req, res) => {
 const getCity = async (req, res) => {
   try {
     var id = req.params.id;
-    var sql2 = `SELECT name FROM cities WHERE state_id='${id}' `;
-    var result2 = await executeQuery(sql2);
+    var sql2 = "SELECT name FROM cities WHERE state_id= ? ";
+    var result2 = await executeQuery(sql2, id);
     // console.log(result2);
     res.send(result2);
   } catch (error) {
-    res.json(error.message)
+    res.json(error.message);
   }
 };
 

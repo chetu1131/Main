@@ -1,7 +1,3 @@
-const express = require("express");
-const router = express.Router();
-const verifyToken = require("../middleware/authMiddleware.js");
-
 const connection = require("../connection/connection1.js");
 
 const examResult = (req, res) => {
@@ -71,7 +67,7 @@ const examResult = (req, res) => {
   });
 };
 
-const ResultDetail= (req, res) => {
+const ResultDetail = (req, res) => {
   connection.connect(function (err) {
     // if (err) throw err;
     var StudentID = req.query.StudentID || "1";
@@ -114,4 +110,4 @@ const ResultDetail= (req, res) => {
   });
 };
 
-module.exports = {examResult,ResultDetail};
+module.exports = { examResult, ResultDetail };

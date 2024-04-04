@@ -5,16 +5,18 @@ CREATE TABLE
         first_name VARCHAR(255),
         last_name VARCHAR(255),
         email VARCHAR(255),
-        phone_number VARCHAR(255),        
-        gender SET ('male', 'female', 'no value') NOT NULL,
-        dob date,
-        user_address VARCHAR(255),
-        user_password VARCHAR(45),
-        pw_salt VARCHAR(45),
-        activation_token varchar(255),
-        password_token varchar(255),
-        isvalid bool default (0),
-        reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        phone_number VARCHAR(255),
+        gender
+        SET
+            ('male', 'female', 'no value') NOT NULL,
+            dob date,
+            user_address VARCHAR(255),
+            user_password VARCHAR(45),
+            pw_salt VARCHAR(45),
+            activation_token varchar(255),
+            password_token varchar(255),
+            isvalid bool default (0),
+            reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );
 
 CREATE TABLE
@@ -57,16 +59,73 @@ CREATE TABLE
         FOREIGN KEY (role_id) REFERENCES roles (id)
     );
 
-CREATE TABLE recipes(
+CREATE TABLE
+    categories (
         id INT PRIMARY KEY AUTO_INCREMENT,
-        recipe_name VARCHAR(45),
+        cat_name VARCHAR(45),
         descriptions VARCHAR(100),
         meal_type VARCHAR(100),
-        ingredients VARCHAR(100),
+        ingredients VARCHAR(100)
+    );
+
+CREATE TABLE
+    courses (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        instruction VARCHAR(100),
         cooking_method VARCHAR(255),
-        cooking_time TIME,
+        ingredient_list VARCHAR(100),
         nutritions VARCHAR(100),
-        difficulty_level SET ('easy','medium','hard','extreme hard') NOT NULL,
-        popularity 
-  
-);
+        serving_size INT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+CREATE TABLE
+    recipes (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        user_id INT,
+        recipe_name VARCHAR(45),
+        descriptions VARCHAR(100),
+        causine VARCHAR(100), ---if applicable
+        prep_time TIME,
+        cook_time TIME,
+        category_id INT,
+        course_id INT,
+        difficulty_level
+        SET
+            ('easy', 'medium', 'hard', 'extreme hard') NOT NULL,
+            -- img url VARCHAR(255),
+            FOREIGN KEY (category_id) REFERENCES categories (id),
+            FOREIGN KEY (course_id) REFERENCES courses (id),
+            FOREIGN KEY (user_id) REFERENCES users (id)
+    );
+
+CREATE TABLE
+    ingredients (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        i_name VARCHAR(45),
+        calorie VARCHAR(45),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+CREATE TABLE
+    recipe_ingredients (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        ingredient_id INT,
+        recipe_id INT,
+        quntity VARCHAR(45),
+        FOREIGN KEY (ingredient_id) REFERENCES ingredients (id),
+        FOREIGN KEY (recipe_id) REFERENCES recipes (id)
+    );
+
+CREATE TABLE
+    reviews (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        recipe_id INT,
+        user_id INT,
+        review VARCHAR(100),
+        comment VARCHAR(100),
+        rating INT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (recipe_id) REFERENCES recipes (id),
+        FOREIGN KEY (user_id) REFERENCES users (id)
+    );
