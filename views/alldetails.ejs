@@ -43,7 +43,7 @@
   <script>
     let id = "<%=id%>";
     let commentid = id.toString();
-    var api = "https://jsonplaceholder.typicode.com/posts/" + id;
+    let api = "https://jsonplaceholder.typicode.com/posts/" + id;
 
     const getdata = async () => {
       try {
@@ -56,7 +56,7 @@
     };
 
     async function getCommets(commentid) {
-      var commetsapi = "https://jsonplaceholder.typicode.com/comments/" + id;
+      let commetsapi = "https://jsonplaceholder.typicode.com/comments/" + id;
       try {
         const commentsResponse = await fetch(commetsapi);
         const commentdata = await commentsResponse.json();

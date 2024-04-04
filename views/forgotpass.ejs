@@ -78,21 +78,18 @@
   </body>
   <script>
     async function chagenpass() {
-      console.log("hello");
       const form = document.getElementById("forgotpass");
       const obj = new URLSearchParams(new FormData(form));
-      console.log(obj);
       let result1 = await fetch("/forgotpass2", {
         method: "POST",
         body: obj,
       });
-      console.log(result1);
     }
 
     // onsubmit give token link to front end
     function validateform() {
-      var pass1 = document.getElementById("password").value;
-      var pass2 = document.getElementById("compassword").value;
+      let pass1 = document.getElementById("password").value;
+      let pass2 = document.getElementById("compassword").value;
 
       if (pass1 == null || pass1 == "") {
         alert("pass required");

@@ -120,7 +120,7 @@
           </thead>
           <tbody >
             <tr>
-              <% for( var i=0; i<result.length; i++) { %>
+              <% for( let i=0; i<result.length; i++) { %>
                   <tr>
                     <td><%=result[i].StudentID%></td>
                     <td><%=result[i].FirstName%></td>
@@ -144,7 +144,7 @@
         </form>
         <script>
           function myFunction() {           
-            var x = document.getElementById("myDIV");
+            let x = document.getElementById("myDIV");
             if (x.classList.contains('hide')) {
               x.classList.remove('hide');
             } else {

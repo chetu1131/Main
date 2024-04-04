@@ -38,7 +38,7 @@ CREATE TABLE
         descriptions VARCHAR(255),
         is_active BOOL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
+    );  
 
 CREATE TABLE
     role_permissions (
@@ -61,21 +61,6 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    appointments (
-        appoint_id INT PRIMARY KEY AUTO_INCREMENT,
-        date_created TIMESTAMP,
-        customer_id INT,
-        garage_id INT,
-        start_time TIMESTAMP,
-        expected_end_time TIMESTAMP,
-        cancelled BOOL,
-        cancellation_reason VARCHAR(255),
-        FOREIGN KEY (user_id) REFERENCES users (id),
-        FOREIGN KEY (customer_id) REFERENCES users (id),
-        FOREIGN KEY (garage_id) REFERENCES garages (garage_id)
-    );
-
-CREATE TABLE
     garages (
         garage_id INT AUTO_INCREMENT PRIMARY KEY,
         garage_location VARCHAR(50),
@@ -85,6 +70,22 @@ CREATE TABLE
         --         REFERENCES registers (id),
         FOREIGN KEY (garage_id) REFERENCES users (id)
     );
+CREATE TABLE
+    appointments (
+        appoint_id INT PRIMARY KEY AUTO_INCREMENT,
+        date_created TIMESTAMP,
+        customer_id INT,
+        garage_id INT,
+        start_time TIMESTAMP,
+        expected_end_time TIMESTAMP,
+        cancelled BOOL,
+        cancellation_reason VARCHAR(255),
+ 
+        FOREIGN KEY (customer_id) REFERENCES users (id),
+        FOREIGN KEY (garage_id) REFERENCES garages (garage_id)
+    );
+
+
 
 CREATE TABLE
     vehicles (

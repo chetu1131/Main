@@ -56,7 +56,9 @@
           </tr>
           <tr>
             <td>
-              <p id="register" onclick="return validateform()">Forgot Password</p>
+              <p id="register" onclick="return validateform()">
+                Forgot Password
+              </p>
             </td>
             <td>
               <div id="notvalid"></div>
@@ -64,27 +66,26 @@
           </tr>
           <tr>
             <td>
-                <a
-                  class="acivatelink"
-                  id="acivatelink"
-                  style="display: none"
-                  onclick="valid_email()"
-                >
-                </a>
-              </td>
+              <a
+                class="acivatelink"
+                id="acivatelink"
+                style="display: none"
+                onclick="valid_email()"
+              >
+              </a>
+            </td>
           </tr>
         </table>
       </div>
     </form>
   </body>
   <script>
-    var active = document.getElementById("acivatelink");
+    let active = document.getElementById("acivatelink");
 
     async function valid_email() {
-      var email = document.getElementById("email").value;
-      var result = await fetch("http://localhost:8000/checkemail/" + email);
+      let email = document.getElementById("email").value;
+      let result = await fetch("http://localhost:8000/checkemail/" + email);
       result = await result.json();
-      console.log(result);
       if (result != true) {
         document.getElementById("notvalid").innerHTML = "email not exists";
       } else {
@@ -100,8 +101,6 @@
 
         result1 = await result1.json();
 
-        console.log(result1);
-
         active.setAttribute(
           "href",
           "http://localhost:8000/forgotpass2/?code=" + result1.code
@@ -111,12 +110,10 @@
           "http://localhost:8000/forgotpass2/?code=" +
           result1.code;
       }
-
-      console.log(result);
     }
     // onsubmit give token link to front end
     function validateform() {
-      var emailval = document.getElementById("email").value;
+      let emailval = document.getElementById("email").value;
       if (emailval == null || emailval == "") {
         alert("email required");
         return false;

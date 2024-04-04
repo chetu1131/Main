@@ -78,7 +78,7 @@
     <table id="myTable2">
       <thead>
         <tr> 
-          <% for(var i=0;i<fields.length; i++){ %>
+          <% for(let i=0;i<fields.length; i++){ %>
           <th onclick="sortTable(`<%= i %>`)"><%=fields[i].name %></th>
           <% }; %>
         </tr>
@@ -94,7 +94,7 @@
   </body>
   <script>
     function sortTable(n) {
-      var table,
+      let table,
         rows,
         switching,
         i,

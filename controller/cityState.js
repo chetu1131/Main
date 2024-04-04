@@ -11,8 +11,8 @@ const executeQuery = (sql, values) => {
 };
 const cityState = async (req, res) => {
   try {
-    var sql = "SELECT id,statename FROM states";
-    var result = await executeQuery(sql);
+    let sql = "SELECT id,statename FROM states";
+    let result = await executeQuery(sql);
     res.render("../views/citystate", {
       title: "Express",
       state_data: result,
@@ -24,10 +24,9 @@ const cityState = async (req, res) => {
 
 const getCity = async (req, res) => {
   try {
-    var id = req.params.id;
-    var sql2 = "SELECT name FROM cities WHERE state_id= ? ";
-    var result2 = await executeQuery(sql2, id);
-    // console.log(result2);
+    let id = req.params.id;
+    let sql2 = "SELECT name FROM cities WHERE state_id= ? ";
+    let result2 = await executeQuery(sql2, id);
     res.send(result2);
   } catch (error) {
     res.json(error.message);

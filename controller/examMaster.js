@@ -2,12 +2,12 @@ const connection = require("../connection/connection1.js");
 
 const examResult = (req, res) => {
   connection.connect(function (err) {
-    var page = req.query.page || "0";
-    var sortBy = req.query.sortBy || "1";
+    let page = req.query.page || "0";
+    let sortBy = req.query.sortBy || "1";
     if (page < 0) {
-      var sql = "SELECT * FROM ExamMaster1 LIMIT " + page * 0 + ",20;";
+      let sql = "SELECT * FROM ExamMaster1 LIMIT " + page * 0 + ",20;";
     } else {
-      var sql =
+      let sql =
         `select StudentMaster27.StudentID , StudentMaster27.FirstName, StudentMaster27.LastName,
         sum(ResultMaster27.Theory_marks) as theory, sum(ResultMaster27.Practical_marks)as Practical
         from ResultMaster27 join StudentMaster27 join ExamMaster27 join SubjectMaster27
@@ -45,7 +45,7 @@ const examResult = (req, res) => {
         if (err) throw err;
         connection.query(sql, "Final", function (err, result3, fields) {
           if (err) throw err;
-          var totalResult = `select StudentMaster27.StudentID, StudentMaster27.FirstName,
+          let totalResult = `select StudentMaster27.StudentID, StudentMaster27.FirstName,
             sum(ResultMaster27.Theory_marks+ResultMaster27.Practical_marks) as TotalMarks
             from 
             ResultMaster27 join StudentMaster27  join SubjectMaster27 
@@ -69,9 +69,9 @@ const examResult = (req, res) => {
 
 const ResultDetail = (req, res) => {
   connection.connect(function (err) {
-    // if (err) throw err;
-    var StudentID = req.query.StudentID || "1";
-    var sql = `select StudentMaster27.StudentID, StudentMaster27.FirstName, StudentMaster27.LastName,
+  
+    let StudentID = req.query.StudentID || "1";
+    let sql = `select StudentMaster27.StudentID, StudentMaster27.FirstName, StudentMaster27.LastName,
     SubjectMaster27.SubjectName, SubjectMaster27.SubjectID,
     sum(ResultMaster27.Theory_marks) as theory, sum(ResultMaster27.Practical_marks)as Practical
     from ResultMaster27
@@ -84,13 +84,13 @@ const ResultDetail = (req, res) => {
       connection.query(sql, "Prelime", function (err, result2) {
         connection.query(sql, "Final", function (err, result3) {
           if (err) throw err;
-          var StudentID = req.query.StudentID || "1";
-          var sql4 = `select count(distinct if(AttdenanceMaster.attendace = 'P',AttdenanceMaster.AttendDate,null))* 100/91 as PresentPercentage  
+          let StudentID = req.query.StudentID || "1";
+          let sql4 = `select count(distinct if(AttdenanceMaster.attendace = 'P',AttdenanceMaster.AttendDate,null))* 100/91 as PresentPercentage  
           from AttdenanceMaster join StudentMaster27 on StudentMaster27.StudentID = AttdenanceMaster.StudentID where StudentMaster27.StudentID = ${StudentID};`;
           connection.query(sql4, function (err, result4) {
             if (err) throw err;
-            var StudentID = req.query.StudentID || "1";
-            var sql5 = `select sum(ResultMaster27.Theory_marks+ResultMaster27.Practical_marks)* 6/100 as Percentage  
+            let StudentID = req.query.StudentID || "1";
+            let sql5 = `select sum(ResultMaster27.Theory_marks+ResultMaster27.Practical_marks)* 6/100 as Percentage  
             from StudentMaster27 join ResultMaster27 on  
             StudentMaster27.StudentID = ResultMaster27.StudentID
             where StudentMaster27.StudentID = ${StudentID}`;

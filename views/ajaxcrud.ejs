@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="icon" href="/27-03-2024_all_project/assets/smiley.gif" type="image/x-icon" /> -->
     <title>Job Application Form</title>
   </head>
   <style>
@@ -862,13 +861,13 @@
 
   <script>
     // content
-    var container = document.querySelectorAll(".form_section");
-    var btn = document.querySelectorAll(".btn");
+    let container = document.querySelectorAll(".form_section");
+    let btn = document.querySelectorAll(".btn");
     // submit
-    var submit = document.getElementById("submit");
+    let submit = document.getElementById("submit");
     submit.style.display = "none";
 
-    var i = 0;
+    let i = 0;
     if (i == 0) {
       container.forEach((element) => {
         element.style.display = "none";
@@ -882,8 +881,7 @@
       });
       container[i].style.display = "block";
     }
-    var prebtn = document.getElementById("prev");
-    console.log(prebtn);
+    let prebtn = document.getElementById("prev");
     prebtn.style.display = "none";
     function prevBtn() {
       if (i > 0) {
@@ -943,19 +941,15 @@
       showTable(i);
       container[i].style.display = "block";
     }
-    var form = document.forms["job_application"];
+    let form = document.forms["job_application"];
 
     async function ajax_fetch() {
-      var id = document.getElementById("userid").value;
+      let id = document.getElementById("userid").value;
 
       if (id) {
-        console.log(id);
       }
-      var resultfetch = await fetch("/ajax/data/?id=" + id);
-      console.log(resultfetch);
-      var resultjson = await resultfetch.json();
-
-      console.log(form);
+      let resultfetch = await fetch("/ajax/data/?id=" + id);
+      let resultjson = await resultfetch.json();
 
       //  basic details
       form.id.value = resultjson.result[0].candidate_id;
@@ -973,22 +967,21 @@
       form._dob.value = resultjson.result[0].dateofbirth;
       form._zipcode.value = resultjson.result[0].zipcode;
 
-      for (var i = 0; i < form.nameofboard.length; i++) {
+      for (let i = 0; i < form.nameofboard.length; i++) {
         form.nameofboard[i].value = resultjson.result2[i].coursename;
         form.passingyear[i].value = resultjson.result2[i].passingyear;
         form.percentage[i].value = resultjson.result2[i].percentage;
       }
 
-      for (var i = 0; i < form.companyname.length; i++) {
+      for (let i = 0; i < form.companyname.length; i++) {
         form.companyname[i].value = resultjson.result3[i].company_name;
         form.designations[i].value = resultjson.result3[i].designation;
         form.fromdate[i].value = resultjson.result3[i].from_date;
         form.todate[i].value = resultjson.result3[i].to_date;
       }
 
-      for (var i = 0; i < resultjson.result4.length; i++) {
-        var a = resultjson.result4[i].language_name;
-        console.log(a);
+      for (let i = 0; i < resultjson.result4.length; i++) {
+        let a = resultjson.result4[i].language_name;
         if (resultjson.result4[i].language_name) {
           form.languages[i].checked = true;
           if (resultjson.result4[i].lang_check.includes("read")) {
@@ -1004,9 +997,8 @@
       }
 
       // if(resultjson.result5){
-      for (var i = 0; i < resultjson.result5.length; i++) {
-        var a = resultjson.result5[i].language_name;
-        console.log(a);
+      for (let i = 0; i < resultjson.result5.length; i++) {
+        let a = resultjson.result5[i].language_name;
         if (resultjson.result5[i].language_name) {
           form.technology[i].checked = true;
           if (resultjson.result5[i].ability.includes("beginer")) {
@@ -1022,7 +1014,7 @@
       }
       // }
 
-      for (var i = 0; i < form.contactname.length; i++) {
+      for (let i = 0; i < form.contactname.length; i++) {
         form.contactname[i].value = resultjson.result6[i].contact_name;
         form.contactnumber[i].value = resultjson.result6[i].contact_number;
         form.contactrealtion[i].value = resultjson.result6[i].contact_relation;
@@ -1037,12 +1029,10 @@
     ajax_fetch();
 
     async function ajax_post() {
-      console.log("ajax post");
       const form = document.getElementById("job_application");
       const obj = new URLSearchParams(
         new FormData(document.forms["job_application"])
       );
-      console.log(obj);
       let result1 = await fetch("http://localhost:8000/ajax", {
         headers: {
           "content-Type": "application/x-www-form-urlencoded",
@@ -1050,15 +1040,13 @@
         method: "POST",
         body: obj,
       });
-      //  console.log("after");
-      //  window.location.replace("http://localhost:8000/hello");
-      console.log(result1);
+      window.location.replace("http://localhost:8000/home");
     }
 
     function addrow() {
-      var table = document.getElementById("company_table");
-      var row = document.createElement("tr");
-      var result = `
+      let table = document.getElementById("company_table");
+      let row = document.createElement("tr");
+      let result = `
            <td>
               Company Name
               <input type="text" name="companyname" id="companyname_1" />
@@ -1083,13 +1071,12 @@
     }
 
     function removerow() {
-      var table = document.getElementById("company_table");
-      var row = table.getElementsByTagName("tr");
-      console.log(row.length);
+      let table = document.getElementById("company_table");
+      let row = table.getElementsByTagName("tr");
       if (row.length <= 1) {
         return;
       }
-      var tr = table.lastElementChild;
+      let tr = table.lastElementChild;
       table.removeChild(tr);
     }
 
@@ -1111,7 +1098,7 @@
     //   e.preventDefault();
     // });
 
-    var firstnameValidation = function () {
+    let firstnameValidation = function () {
       firstnameValue = firstname.value.trim();
 
       firstNameErr = document.getElementById("first-name-err");
@@ -1128,7 +1115,7 @@
       firstnameValidation();
     };
 
-    var lastnameValidation = function () {
+    let lastnameValidation = function () {
       lastnameValue = lastname.value.trim();
       validLastName = /^[A-Za-z]+$/;
       lastNameErr = document.getElementById("last-name-err");
@@ -1148,7 +1135,7 @@
       lastnameValidation();
     };
 
-    var designationValidation = function () {
+    let designationValidation = function () {
       let designationVal = designation.value.trim();
       let designationErr = document.getElementById("designation-err");
 
@@ -1165,7 +1152,7 @@
       designationValidation();
     };
 
-    var address1Validation = function () {
+    let address1Validation = function () {
       let address1Val = address1.value.trim();
       let address1Err = document.getElementById("address1-err");
       if (address1Val == "" || address1Val == null) {
@@ -1181,7 +1168,7 @@
       address1Validation();
     };
 
-    var cityValidation = function () {
+    let cityValidation = function () {
       let cityVal = city.value.trim();
       let cityErr = document.getElementById("city-err");
       if (cityVal == "" || cityVal == null) {
@@ -1196,8 +1183,8 @@
       cityValidation();
     };
 
-    var genderValidate = function () {
-      var genders = document.getElementsByName("_gender");
+    let genderValidate = function () {
+      let genders = document.getElementsByName("_gender");
 
       genderErr = document.getElementById("gender-err");
       if (genders[0].checked == true) {
@@ -1213,7 +1200,7 @@
       return true;
     };
 
-    var emailValidation = function () {
+    let emailValidation = function () {
       emailAddressValue = emailval.value.trim();
       validEmailAddress = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       emailAddressErr = document.getElementById("email-err");
@@ -1232,7 +1219,7 @@
       emailValidation();
     };
 
-    var mobileNumberValidation = function () {
+    let mobileNumberValidation = function () {
       mobileNumberValue = mobileNumber.value.trim();
       validMobileNumber = /^[0-9]*$/;
       mobileNumberErr = document.getElementById("mobile-number-err");
@@ -1252,7 +1239,7 @@
       mobileNumberValidation();
     };
 
-    var relationValidation = function () {
+    let relationValidation = function () {
       let realtionVal = relation.value;
       let relationErr = document.getElementById("relation-err");
       if (realtionVal == 0) {
@@ -1267,11 +1254,11 @@
       relationValidation();
     };
 
-    var dobValidation = function () {
+    let dobValidation = function () {
       let dobval = dob.value;
       let dobErr = document.getElementById("dob_err");
-      var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
-      // var pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+      let pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
+      // let pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
       if (dobval == null || dobval == "" || !pattern.test(dobval)) {
         dobErr.innerHTML = "Invalid format of date of birth ";
         dob.focus();
@@ -1286,7 +1273,7 @@
       dobValidation();
     };
 
-    var zipcodeValidation = function () {
+    let zipcodeValidation = function () {
       let zipcodeVal = zipcode.value;
       let zipcodeErr = document.getElementById("zipcode-err");
       if (zipcodeVal == "" || zipcodeVal == null) {
@@ -1333,13 +1320,13 @@
 
     // education
     function eduValid() {
-      var alledu = [
+      let alledu = [
         ["sscnameofboard", "sscpassingyear", "sscpercentage"],
         ["hscboard", "hscpassingyear", "hscpercentage"],
         ["degreecoursename", "degreepassingyear", "degreepercentage"],
         ["mastercoursename", "masterpassingyear", "masterpercentage"],
       ];
-      for (var i = 0; i < alledu.length; i++) {
+      for (let i = 0; i < alledu.length; i++) {
         let a = document.getElementById(alledu[i][0]);
         let b = document.getElementById(alledu[i][1]);
         let c = document.getElementById(alledu[i][2]);
@@ -1377,7 +1364,7 @@
       var checkspeak = document.querySelector(
         'input[id="hindi_speak"]:checked'
       );
-      var hindi_err = document.getElementById("hindi_err");
+      let hindi_err = document.getElementById("hindi_err");
 
       if (checkread && !checklang) {
         hindi_err.innerHTML = "select valid input";
@@ -1408,7 +1395,7 @@
       var checkspeak = document.querySelector(
         'input[id="english_speak"]:checked'
       );
-      var english_err = document.getElementById("english_err");
+      let english_err = document.getElementById("english_err");
 
       if (checkread && !checklang) {
         english_err.innerHTML = "select valid input";
@@ -1439,7 +1426,7 @@
       var checkspeak = document.querySelector(
         'input[id="gujrati_speak"]:checked'
       );
-      var gujrati_err = document.getElementById("gujrati_err");
+      let gujrati_err = document.getElementById("gujrati_err");
 
       if (checkread && !checklang) {
         gujrati_err.innerHTML = "select valid input";
@@ -1460,11 +1447,11 @@
     function techValid() {
       // technologies
       let techarr = ["php", "mysql", "laravel", "oracle"];
-      for (var i = 0; i < techarr.length; i++) {
-        var techradio = document.querySelector(
+      for (let i = 0; i < techarr.length; i++) {
+        let techradio = document.querySelector(
           "input[name=" + techarr[i] + "]:checked"
         );
-        var techcheck = document.querySelector(
+        let techcheck = document.querySelector(
           "input[id=" + techarr[i] + "lable]:checked"
         );
 
@@ -1487,7 +1474,7 @@
       let c = document.getElementsByName("fromdate");
       let d = document.getElementsByName("todate");
 
-      for (var i = 0; i < a.length; i++) {
+      for (let i = 0; i < a.length; i++) {
         if (
           (a[i].value === "" ||
             b[i].value === "" ||
@@ -1534,7 +1521,7 @@
       let contactnumber = document.getElementsByName("contactnumber");
       let contactrealtion = document.getElementsByName("contactrealtion");
 
-      for (var i = 0; i < contactname.length; i++) {
+      for (let i = 0; i < contactname.length; i++) {
         if (
           (contactname[i].value === "" ||
             contactnumber[i].value === "" ||
@@ -1573,7 +1560,7 @@
 
     function preferenceValid() {
       const preferedlocation = document.getElementById("location");
-      var preferedlocationValidation = function () {
+      let preferedlocationValidation = function () {
         let preferedlocationVal = preferedlocation.value;
         let preferedlocationErr = document.getElementById("location_err");
         if (preferedlocationVal == 0) {
@@ -1590,7 +1577,7 @@
       };
 
       const department = document.getElementById("department");
-      var departmentValidation = function () {
+      let departmentValidation = function () {
         let departmentVal = department.value;
         let departmentErr = document.getElementById("department_err");
         if (departmentVal == 0) {
@@ -1608,7 +1595,7 @@
 
       const expectedctc = document.getElementById("expectedctc");
 
-      var expectedctcValidation = function () {
+      let expectedctcValidation = function () {
         let expectedctcVal = expectedctc.value;
 
         let expectedctcErr = document.getElementById("expectedctc_err");

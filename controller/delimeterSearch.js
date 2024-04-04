@@ -1,6 +1,5 @@
 const express = require("express");
 
-const router = express.Router();
 const connection = require("../connection/connection1.js");
 
 let q = "select * from StudentMaster limit 5000;";
@@ -12,7 +11,7 @@ const delimeter = (req, res) => {
       res.render("../views/delisearchs", {
         result: result,
         fields,
-        search: search,
+        search,
       });
     }
   });
@@ -21,7 +20,6 @@ const delimeter = (req, res) => {
 let search;
 const postDelimeter = (req, res) => {
   search = req.body.search;
-  console.log(search);
   let arr = [],
     firstname = [],
     lastname = [],
@@ -41,8 +39,6 @@ const postDelimeter = (req, res) => {
       arr.push(i);
     }
   }
-
-  console.log(arr);
 
   j = 0;
   for (let i = 0; i < search.length; i++) {
@@ -74,13 +70,7 @@ const postDelimeter = (req, res) => {
     }
   }
 
-  var sql = "SELECT * FROM StudentMaster where ";
-
-  // if (!firstname[0]) firstname[0] = "%_";
-  // if (!lastname[0]) lastname[0] = "%_";
-  // if (!email[0]) email[0] = "%_";
-  // if (!address[0]) address[0] = "%_";
-  // if (!phonenumber[0]) phonenumber[0] = "%_";
+  let sql = "SELECT * FROM StudentMaster where ";
 
   if (firstname.length >= 1) {
     for (let i = 0; i < firstname.length; i++) {
@@ -122,7 +112,6 @@ const postDelimeter = (req, res) => {
       fields: fields,
       search: search,
     });
-    console.log(sql, result, search);
   });
 };
 

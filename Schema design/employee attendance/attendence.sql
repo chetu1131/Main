@@ -81,7 +81,7 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    attendsummary (
+    attend_summary (
         id INT PRIMARY KEY AUTO_INCREMENT,
         user_id INT,
         present_date date,
@@ -90,21 +90,23 @@ CREATE TABLE
         break_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         late_arrival bool, -- monthly count 
         early_depart bool, -- monthly count
-
         FOREIGN KEY (user_id) REFERENCES employees (id)
         -- total office hours - count on caledr  - month 
         --working_hours - count on entry, break and exit
     );
 
--- CREATE TABLE
---     reports (
---         id INT PRIMARY KEY AUTO_INCREMENT,
---         user_id INT,
---         total_working_hours time,
---         late_arrival bool, -- monthly count 
---         early_depart bool, -- monthly count
---         FOREIGN KEY (user_id) REFERENCES employees (id),
---     );
+CREATE TABLE
+    attendances_reports (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        user_id INT,
+        total_days INT,
+        total_working_hours time,
+        total_worked time,
+        late_arrival bool, -- monthly count 
+        early_depart bool, -- monthly count
+        FOREIGN KEY (user_id) REFERENCES employees (id)
+    );
+
 CREATE TABLE
     audit_logs (
         id INT PRIMARY KEY AUTO_INCREMENT,

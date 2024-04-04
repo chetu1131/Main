@@ -22,7 +22,7 @@
   </body>
 
   <script>
-    var aryIanaTimeZones = Intl.supportedValuesOf("timeZone");
+    let aryIanaTimeZones = Intl.supportedValuesOf("timeZone");
     aryIanaTimeZones.forEach((element) => {
       data = ` <option value="${element}">${element}</option>`;
       time1.innerHTML += data;
@@ -31,7 +31,7 @@
     let date = new Date();
     let mytime = document.getElementById("mydate").innerHTML = "My Time : "+date;
     function changeTime1() {
-      var time1 = document.getElementById("time1").value;
+      let time1 = document.getElementById("time1").value;
       if (time1 != "default") {
         let output =
           time1 +
@@ -39,7 +39,7 @@
           date.toLocaleString("en-us", {
             timeZone: time1,
           });
-        var result1 = document.getElementById("result1");
+        let result1 = document.getElementById("result1");
         result1.innerHTML = output;
       }
     }
@@ -50,14 +50,14 @@
     });
 
     function changeTime2() {
-      var time2 = document.getElementById("time2").value;
+      let time2 = document.getElementById("time2").value;
       let output2 =
         time2 +
         " " +
         date.toLocaleString("en-us", {
           timeZone: time2,
         });
-      var result2 = document.getElementById("result2");
+      let result2 = document.getElementById("result2");
       result2.innerHTML = output2;
     }
   </script>

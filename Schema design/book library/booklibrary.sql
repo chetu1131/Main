@@ -16,17 +16,13 @@ CREATE TABLE
         reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         gender
         SET
-            ('male', 'female', 'no value') NOT NULL,
+            ('male', 'female', 'no value') NOT NULL
     );
 
 --  book cover image we have to upload images in cloud and provide links
 CREATE TABLE
     books (
         id INT PRIMARY KEY AUTO_INCREMENT,
-        author_id INT,
-        categorie_id INT,
-        publisher_id INT,
-        lang_id INT,
         title VARCHAR(255),
         author VARCHAR(255),
         genre VARCHAR(255),
@@ -35,25 +31,25 @@ CREATE TABLE
         comments VARCHAR(255),
         read_status
         SET
-            ('Read', 'Currently Reading', 'To Read') NOT NULL,
-        FOREIGN KEY (author_id) REFERENCES authors (id),
-        FOREIGN KEY (categorie_id) REFERENCES categories (id),
-        FOREIGN KEY (publisher_id) REFERENCES publishers (id),
-        FOREIGN KEY (lang_id) REFERENCES languages (id)
+            ('Read', 'Currently Reading', 'To Read') NOT NULL
     );
 
 CREATE TABLE
     categories (
         id INT PRIMARY KEY NOT NULL,
         catgry_name VARCHAR(255),
-        descriptions VARCHAR(255)
+        descriptions VARCHAR(255),
+        book_id INT,
+        FOREIGN KEY (book_id) REFERENCES books (id)
     );
-    
+
 CREATE TABLE
     languages (
         id INT PRIMARY KEY NOT NULL,
         lang_name VARCHAR(255),
-        code VARCHAR(255)
+        code VARCHAR(255),
+        book_id INT,
+        FOREIGN KEY (book_id) REFERENCES books (id)
     );
 
 CREATE TABLE
@@ -62,14 +58,41 @@ CREATE TABLE
         publi_name VARCHAR(255),
         email VARCHAR(255),
         phone VARCHAR(255),
-        address VARCHAR(255)
+        address VARCHAR(255),
+        book_id INT,
+        FOREIGN KEY (book_id) REFERENCES books (id)
     );
 
 CREATE TABLE
     authors (
         id INT PRIMARY KEY NOT NULL,
         author_name VARCHAR(255) NOT NULL,
-        auth_address VARCHAR(255)
+        auth_contact VARCHAR(255),
+        book_id INT,
+        FOREIGN KEY (book_id) REFERENCES books (id)
+    );
+
+CREATE TABLE
+    book_issue (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        user_id INT,
+        book_id INT,
+        date_issue DATETIME,
+        due_date DATETIME,
+        FOREIGN KEY (user_id) REFERENCES users (id),
+        FOREIGN KEY (book_id) REFERENCES books (id)
+    );
+
+CREATE TABLE
+    returns (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        user_id INT,
+        book_id INT,
+        date_returned DATETIME,
+        due_date DATETIME,
+        fine FLOAT,
+        FOREIGN KEY (user_id) REFERENCES users (id),
+        FOREIGN KEY (book_id) REFERENCES books (id)
     );
 
 CREATE TABLE
@@ -84,4 +107,3 @@ CREATE TABLE
         FOREIGN KEY (book_id) REFERENCES books (id),
         FOREIGN KEY (user_id) REFERENCES users (id)
     );
-

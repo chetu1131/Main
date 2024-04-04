@@ -122,8 +122,8 @@
     </form>
   </body>
   <script>
-    var json;
-    var active = document.getElementById("acivatelink");
+    let json;
+    let active = document.getElementById("acivatelink");
 
     async function ajax_post() {
       if (!validateform()) {
@@ -155,8 +155,8 @@
     }
 
     async function fetch_token() {
-      var userid = json.id;
-      var usertoken = json.token;
+      let userid = json.id;
+      let usertoken = json.token;
       console.log("id and token " + userid, usertoken);
       let data = new URLSearchParams(`id=${userid}&token=${usertoken}`);
       console.log(data);
@@ -168,11 +168,11 @@
 
     // onsubmit give token link to front end
     function validateform() {
-      var firstname = document.getElementById("firstname").value;
-      var emailval = document.getElementById("email").value;
-      var phonenumber = document.getElementById("phonenumber").value;
-      var pass1 = document.getElementById("password").value;
-      var pass2 = document.getElementById("compassword").value;
+      let firstname = document.getElementById("firstname").value;
+      let emailval = document.getElementById("email").value;
+      let phonenumber = document.getElementById("phonenumber").value;
+      let pass1 = document.getElementById("password").value;
+      let pass2 = document.getElementById("compassword").value;
 
       if (firstname == null || firstname == "") {
         alert("Name can't be blank");

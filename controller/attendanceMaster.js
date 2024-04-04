@@ -4,7 +4,6 @@ const connection = require("../connection/connection1.js");
 let m, y;
 
 const attedance = (req, res) => {
-  console.log("hello from attendence master");
   if (req.query.month || req.query.year) {
     m = req.query.month;
     y = req.query.year;

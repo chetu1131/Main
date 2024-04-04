@@ -77,7 +77,7 @@
           </thead>
           <tbody >
             <tr>
-              <% for( var i=0; i<result.length; i++) { %>
+              <% for( let i=0; i<result.length; i++) { %>
                   <tr>
 
                     <td><%=result[i].SubjectID%></td>
@@ -96,13 +96,13 @@
         </tbody>
         </table>
         <div class="section">
-          <% for( var i=0; i<result4.length; i++) { %>
+          <% for( let i=0; i<result4.length; i++) { %>
           <h4>Total Present :</h4>
           <p><%=result4[i].PresentPercentage%>%</p> 
           <% }%>
         </div>
         <div class="section">
-          <% for( var i=0; i<result5.length; i++) { %>
+          <% for( let i=0; i<result5.length; i++) { %>
             <h4>Percentage</h4>
             <p><%=result5[i].Percentage%>%</p> 
           <% }%>

@@ -1,5 +1,4 @@
 --i have to make changes
-
 CREATE TABLE
     users (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -18,7 +17,7 @@ CREATE TABLE
             activation_token varchar(255),
             password_token varchar(255),
             isvalid bool default (0),
-            reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );
 
 CREATE TABLE
@@ -57,7 +56,7 @@ CREATE TABLE
         role_id INT,
         is_success bool,
         attempt_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES employees (id),
+        FOREIGN KEY (user_id) REFERENCES users (id),
         FOREIGN KEY (role_id) REFERENCES roles (id)
     );
 
@@ -67,7 +66,7 @@ CREATE TABLE
         exam_title VARCHAR(255),
         instructions VARCHAR(255),
         exam_date date,
-        duration INT, -- times up automatic submission
+        duration INT, 
         total_marks INT,
         passing_marks float,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -77,18 +76,16 @@ CREATE TABLE
     questions (
         id INT PRIMARY KEY AUTO_INCREMENT,
         exma_id INT,
-        q_title VARCHAR(255), --quetion
+        q_title VARCHAR(255), 
         q_level VARCHAR(255),
-        -- q_items VARCHAR(255), -- options 
-        -- here changes - can make a separte option table defining radio check... okay okay but what if question has multiple choices.. later on..
-        opt1 VARCHAR(255), -- multiple choices - checkbox & single choices - radiobox or both have same - checkbox?
+        opt1 VARCHAR(255),  
         opt2 VARCHAR(255),
         opt3 VARCHAR(255),
         opt4 VARCHAR(255),
-        is_active bool, -- several questions, but for one exam perticular questions remain active at a time
+        is_active bool, 
         q_points INT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        CURRENT_TIMESTAMP FOREIGN KEY (exam_id) REFERENCES exams (id),
+        FOREIGN KEY (exma_id) REFERENCES exams (id)
     );
 
 CREATE TABLE
@@ -97,7 +94,8 @@ CREATE TABLE
         exma_id INT,
         q_id INT,
         q_ans VARCHAR(255),
-        answered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP FOREIGN KEY (exam_id) REFERENCES exams (id),
+        answered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (exma_id) REFERENCES exams (id),
         FOREIGN KEY (q_id) REFERENCES questions (id)
     );
 
@@ -122,16 +120,14 @@ CREATE TABLE
         id INT PRIMARY KEY AUTO_INCREMENT,
         particpt_id INT,
         q_id INT,
-        is_active bool, -- attempt or not
+        is_active bool,  
         ans_id INT,
-        is_correct bool, -- correct or not
-        -- is_true SMALLINT NOT NULL DEFAULT 0,
+        is_correct bool, 
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (q_id) REFERENCES questions (id),
-        FOREIGN KEY (ans_id) REFERENCES answeres (id),
+        FOREIGN KEY (ans_id) REFERENCES answers (id)
     );
 
---based on student's answers store result 
 CREATE TABLE
     results (
         id INT PRIMARY KEY NOT NULL,
@@ -142,4 +138,7 @@ CREATE TABLE
         ans_id INT,
         q_ans VARCHAR(255),
         is_correct bool,
+        FOREIGN KEY (q_id) REFERENCES questions (id),
+        FOREIGN KEY (ans_id) REFERENCES answers (id),
+        FOREIGN KEY (exam_id) REFERENCES exams (id)
     );

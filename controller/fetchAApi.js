@@ -1,6 +1,4 @@
 const express = require("express");
-const router = express.Router();
-const verifyToken = require("../middleware/authMiddleware.js");
 
 const user = (req, res) => {
   res.render("../views/fetchapi");

@@ -269,13 +269,13 @@
 
   function onChange() {
     alert("Executed the script when the value of the element is changed.");
-    var x = document.getElementById("beforechange").value;
+    let x = document.getElementById("beforechange").value;
     document.getElementById("onchange").innerHTML = "You typed: " + x;
   }
 
   function onInput() {
     alert("Trigger an event when the element gets focused. ");
-    var x = document.getElementById("beforeinput").value;
+    let x = document.getElementById("beforeinput").value;
     document.getElementById("oninput").innerHTML = "You typed: " + x;
   }
 

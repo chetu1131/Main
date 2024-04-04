@@ -1,5 +1,5 @@
 function myfunc() {
-  var b1, b2, b3, b4, b5, b6, b7, b8, b9;
+  let b1, b2, b3, b4, b5, b6, b7, b8, b9;
   b1 = document.getElementById("b1").value;
   b2 = document.getElementById("b2").value;
   b3 = document.getElementById("b3").value;
@@ -10,7 +10,7 @@ function myfunc() {
   b8 = document.getElementById("b8").value;
   b9 = document.getElementById("b9").value;
 
-  var b1btn, b2btn, b3btn, b4btn, b5btn, b6btn, b7btn, b8btn, b9btn;
+  let b1btn, b2btn, b3btn, b4btn, b5btn, b6btn, b7btn, b8btn, b9btn;
 
   b1btn = document.getElementById("b1");
   b2btn = document.getElementById("b2");

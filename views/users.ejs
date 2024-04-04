@@ -72,12 +72,12 @@
   </body>
 
   <script>
-    var itemperpage = 1;
-    var currentpage = 1;
-    var data = [];
-    var length = 0;
-    var pageno = document.getElementById("pageno");
-    var api = "https://jsonplaceholder.org/users";
+    let itemperpage = 1;
+    let currentpage = 1;
+    let data = [];
+    let length = 0;
+    let pageno = document.getElementById("pageno");
+    let api = "https://jsonplaceholder.org/users";
     const getdata = async () => {
       try {
         const response = await fetch(api);
@@ -95,9 +95,9 @@
       length = data.length;
       pageno.innerHTML = Math.ceil(currentpage);
 
-      var indexoflastpage = currentpage * itemperpage;
-      var indexoffirstpage = indexoflastpage - itemperpage;
-      var currentitems = data.slice(indexoffirstpage, indexoflastpage);
+      let indexoflastpage = currentpage * itemperpage;
+      let indexoffirstpage = indexoflastpage - itemperpage;
+      let currentitems = data.slice(indexoffirstpage, indexoflastpage);
 
       let dataResult = "";
 
@@ -157,7 +157,7 @@
     }
 
     function search() {
-      var input, filter, table, tr, td, i;
+      let input, filter, table, tr, td, i;
       input = document.getElementById("searchInput");
       filter = input.value.toUpperCase();
       table = document.getElementById("myTable");

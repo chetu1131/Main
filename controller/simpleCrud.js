@@ -10,12 +10,10 @@ const executeQuery = (sql) => {
   });
 };
 const student = (req, res) => {
-  console.log("IN STUDENT");
   res.render("../views/form");
 };
 
 const postStudent = async (req, res) => {
-  console.log("SIMPLE POST");
   let body = req.body;
   let {
     first_name,
@@ -32,12 +30,10 @@ const postStudent = async (req, res) => {
     _zipcode,
     _phonenumber,
   } = req.body;
-  console.log(_address2);
 
   let sql = `insert into basic_details(firstname,lastname,designation,address1,email,address2,phonenumber,city,gender,relationship_status,dateofbirth,state,zipcode) values ('${first_name}','${last_name}','${_designation}','${_address1}','${_email}','${_address2}','${_phonenumber}','${_city}','${_gender}','${realtionship_status}','${_dob}','${_state}','${_zipcode}')`;
 
   let result = await executeQuery(sql);
-  console.log(result);
   lastid = result.insertId;
 
   if (typeof body.nameofboard == "object") {
@@ -50,13 +46,11 @@ const postStudent = async (req, res) => {
 
     connection.query(sql2, (err, result2) => {
       if (err) throw err;
-      console.log(result2);
     });
   } else if (typeof body.nameofboard == "string") {
     let sql2 = `insert into education_details(candidate_id,coursename,passingyear,percentage) values('${lastid}','${body.nameofboard}','${body.passingyear}','${body.percentage}')`;
     connection.query(sql2, (err, result2) => {
       if (err) throw err;
-      console.log(result2);
     });
   }
 
@@ -69,14 +63,12 @@ const postStudent = async (req, res) => {
 
     connection.query(sql3, (err, result3) => {
       if (err) throw err;
-      console.log(result3);
     });
   } else if (typeof body.companyname == "string") {
     sql3 = `insert into work_experience(candidate_id,company_name,designation,from_date,to_date) values('${lastid}','${body.companyname}','${body.designation}','${body.fromdate}','${body.todate}');`;
 
     connection.query(sql3, (err, result3) => {
       if (err) throw err;
-      console.log(result3);
     });
   }
 
@@ -89,16 +81,12 @@ const postStudent = async (req, res) => {
     sql4 = sql4.slice(0, sql4.length - 1) + ";";
     connection.query(sql4, (err, result4) => {
       if (err) throw err;
-      console.log(result4);
-      console.log(result4);
     });
   } else if (typeof body.languages == "string") {
     let a = body.languages;
-    console.log(a);
     let sql4 = `insert into languages_known(candidate_id,language_name,lang_check) values ('${lastid}','${body.languages}','${body[a]}');`;
     connection.query(sql4, (err, result4) => {
       if (err) throw err;
-      console.log(result4);
     });
   }
 
@@ -111,15 +99,12 @@ const postStudent = async (req, res) => {
     sql5 = sql5.slice(0, sql5.length - 1) + ";";
     connection.query(sql5, (err, result5) => {
       if (err) throw err;
-      console.log(sql5);
     });
   } else if (typeof body.technology == "string") {
     let a = body.technology;
-    console.log(a);
     let sql5 = `insert into technologies(candidate_id,language_name,ability)values ('${lastid}','${body.technology}','${body[a]}');`;
     connection.query(sql5, (err, result5) => {
       if (err) throw err;
-      console.log(result5);
     });
   }
 
@@ -132,13 +117,11 @@ const postStudent = async (req, res) => {
 
     connection.query(sql6, (err, result6) => {
       if (err) throw err;
-      console.log(result6);
     });
   } else if (typeof req.body.contactname == "string") {
     sql6 = `insert into reference_contacts(candidate_id,contact_name,contact_number,contact_relation) values ('${lastid}','${body.contactname}','${body.contactnumber}','${body.contactrealtion}');`;
     connection.query(sql6, (err, result6) => {
       if (err) throw err;
-      console.log(result6);
     });
   }
 
@@ -146,7 +129,6 @@ const postStudent = async (req, res) => {
     let sql7 = `insert into preferences(candidate_id,prefered_location,notice_period,department,expected_ctc,current_ctc) values ('${lastid}','${body.location}','${body.noticeperiod}','${body.department}','${body.expectedctc}','${body.currentctc}');`;
     connection.query(sql7, (err, result7) => {
       if (err) throw err;
-      console.log(result7);
     });
   }
 
@@ -211,22 +193,17 @@ const updateStudent = async (req, res) => {
   let lagid = await executeQuery(lang);
   for (let i = 0; i < lagid.length; i++) {
     let a = body.languages[i];
-    console.log(a);
 
     let langup = `update languages_known set language_name = '${body.languages[i]}', lang_check = '${body[a]}' where id = '${lagid[i].id}';`;
     let langresult = await executeQuery(langup);
-    // console.log(langup);
-    // console.log(langresult);
   }
 
   let tech = `select id from technologies where candidate_id = '${id}';`;
   let techid = await executeQuery(tech);
   for (let i = 0; i < techid.length; i++) {
     let b = body.technology[i];
-    console.log(b);
     let techup = `update technologies set language_name = '${body.technology[i]}',ability = '${body[b]}' where id = '${techid[i].id}';`;
     let techresult = await executeQuery(techup);
-    // console.log(techup,techresult);
   }
 
   let refe = `select id from reference_contacts where candidate_id = '${id}';`;
@@ -234,14 +211,12 @@ const updateStudent = async (req, res) => {
   for (let i = 0; i < refid.length; i++) {
     let upref = `update reference_contacts set contact_name = '${body.contactname[i]}', contact_number = '${body.contactnumber[i]}', contact_relation = '${body.contactrealtion[i]}' where id = '${refid[i].id}'`;
     let refresult = await executeQuery(upref);
-    // console.log(refresult,upref);
   }
 
   let upapref = `update preferences
   set prefered_location = '${body.location}', notice_period = '${body.noticeperiod}', department = '${body.department}',expected_ctc = '${body.expectedctc}', current_ctc = '${body.currentctc}' where candidate_id = '${id}'`;
 
   let prefresult = await executeQuery(upapref);
-  console.log(prefresult);
   res.end("update");
 };
 

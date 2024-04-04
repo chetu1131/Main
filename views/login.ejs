@@ -90,7 +90,7 @@
   <script>
     async function login_post() {
       console.log("hello in login");
-      var obj = new URLSearchParams(new FormData(login));
+      let obj = new URLSearchParams(new FormData(login));
       console.log(obj);
       let result = await fetch("http://localhost:8000/login", {
         method: "POST",

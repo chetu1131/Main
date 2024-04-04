@@ -53,10 +53,10 @@
 </html>
 
 <script>
-  var table = document.getElementById("table1");
-  var rowCount = 2;
-  var colCount = 2;
-  var score = 0;
+  let table = document.getElementById("table1");
+  let rowCount = 2;
+  let colCount = 2;
+  let score = 0;
   time = 10;
 
   setInterval(function () {
@@ -71,7 +71,7 @@
   }, 1000);
   generateRandomCells();
   function generateRandomCells() {
-    var table = document.getElementById("table1");
+    let table = document.getElementById("table1");
     let randRow = Math.floor(Math.random() * rowCount);
     let randCol = Math.floor(Math.random() * colCount);
     let color = randomColor();
@@ -82,7 +82,7 @@
       }
     }
 
-    var col = table.rows[randRow].cells[randCol];
+    let col = table.rows[randRow].cells[randCol];
     col.style.opacity = "0.5";
     col.addEventListener("click", myFunct);
     function myFunct() {
@@ -97,31 +97,31 @@
   }
 
   function randomColor() {
-    var x = Math.floor(Math.random() * 256);
-    var y = Math.floor(Math.random() * 256);
-    var z = Math.floor(Math.random() * 256);
+    let x = Math.floor(Math.random() * 256);
+    let y = Math.floor(Math.random() * 256);
+    let z = Math.floor(Math.random() * 256);
     return "rgb(" + x + "," + y + "," + z + ")";
   }
 
   function addrow() {
-    var table = document.getElementById("table1");
-    var row_Count = table.rows.length;
-    var col_Count = table.rows[0].cells.length;
-    var rows = table.insertRow(row_Count);
-    var cell;
-    for (var i = 0; i < col_Count; i++) {
+    let table = document.getElementById("table1");
+    let row_Count = table.rows.length;
+    let col_Count = table.rows[0].cells.length;
+    let rows = table.insertRow(row_Count);
+    let cell;
+    for (let i = 0; i < col_Count; i++) {
       cell = rows.insertCell(i);
     }
     rowCount++;
   }
 
   function addcol() {
-    var table = document.getElementById("table1");
-    var row_Count = table.rows.length;
-    var col_Count = table.rows[0].cells.length;
-    var rows = table.rows;
+    let table = document.getElementById("table1");
+    let row_Count = table?.rows?.length;
+    let col_Count = table.rows[0].cells.length;
+    let rows = table.rows;
 
-    for (var i = 0; i < row_Count; i++) {
+    for (let i = 0; i < row_Count; i++) {
       rows[i].insertCell(col_Count);
     }
     colCount++;

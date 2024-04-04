@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../connection/connection1.js");
 
-var len;
-var query;
-var recordperpage = 20;
+let len;
+let query;
+let recordperpage = 20;
 
 const grid = (req, res) => {
   if (req.query.query) {
@@ -17,7 +17,6 @@ const grid = (req, res) => {
       query,
       [(page - 1) * recordperpage, parseInt(recordperpage)],
       (err, result, fields) => {
-        console.log(query);
         if (err) throw err;
         else if (result.fieldCount == 0) res.end("Query success");
         else
@@ -61,7 +60,6 @@ const postQuery = (req, res) => {
           query,
           [(page - 1) * recordperpage, parseInt(recordperpage)],
           (err, result) => {
-            console.log(query);
             if (err) throw err;
             else if (result.fieldCount == 0) res.end("Query success");
             else
@@ -80,7 +78,7 @@ const postQuery = (req, res) => {
       } else {
         connection.query(query, (err, limit) => {
           if (err) res.send(err.message);
-          var len = limit.length;
+          let len = limit.length;
           query = query.replace("limit", " limit ?,? ; ");
 
           query = query.substring(0, query.indexOf(";") + 1);
@@ -89,7 +87,6 @@ const postQuery = (req, res) => {
             (page - 1) * recordperpage,
             parseInt(recordperpage),
             (err, result) => {
-              console.log(query);
               if (err) res.end("Error : " + err.mesaage);
               else if (result.fieldCount == 0) res.end("Query Done");
               else {
@@ -115,7 +112,6 @@ const postQuery = (req, res) => {
 };
 
 const getQuery =  (req, res) => {
-  console.log("hello");
   if (req.query.recordperpage) recordperpage = req.query.recordperpage;
   page = req.query.page || 1;
 
@@ -125,7 +121,6 @@ const getQuery =  (req, res) => {
     query,
     [(page - 1) * recordperpage, parseInt(recordperpage)],
     (err, result, fields) => {
-      console.log(query);
       if (err) throw err;
       else if (result.fieldCount == 0) res.end("Query success");
       else

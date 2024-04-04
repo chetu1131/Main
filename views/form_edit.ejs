@@ -283,9 +283,9 @@
             <td>
               <label for="state">State</label>
               <select id="state" name="_state">
-                <% var options
-                =["Gujrat","Delhi","Maharastra","Goa","Karnataka"]; for ( var i
-                = 0; i < options.length; i++ ) { var selected = ( result[0].state==
+                <% let options
+                =["Gujrat","Delhi","Maharastra","Goa","Karnataka"]; for ( let i
+                = 0; i < options.length; i++ ) { let selected = ( result[0].state==
                 options[i] ) ? "selected" : ""; %>
                 <option
                 <% if (result){
@@ -307,8 +307,8 @@
                 >RelationShip Status<span class="required">*</span></label
               >
               <select name="realtionship_status" id="realtionship">
-                <% var options =["Married","Unmarried"]; for ( var i = 0; i <
-                options.length; i++ ) { var selected = (
+                <% let options =["Married","Unmarried"]; for ( let i = 0; i <
+                options.length; i++ ) { let selected = (
                 result[0].relationship_status == options[i] ) ? "selected" : ""; %>
                 <option
                 <% if (result){
@@ -1241,9 +1241,9 @@
               >
               <span id="location_err" class="red"></span>
               <select name="location" id="location" multiple>
-                <% var options
-                =["Surat","Ahmedabad","Baroda"]; for ( var i
-                = 0; i < options.length; i++ ) { var selected = ( result7[0].prefered_location==
+                <% let options
+                =["Surat","Ahmedabad","Baroda"]; for ( let i
+                = 0; i < options.length; i++ ) { let selected = ( result7[0].prefered_location==
                 options[i] ) ? "selected" : ""; %>
                 <option value="<%=options[ i ] %>" <%= selected %>
                    ><%=options[i] %>
@@ -1266,9 +1266,9 @@
                 Department<span class="required">*</span></label
               >
               <select name="department" id="department" >
-                <% var options
-                =["Developmnet","Design","Marketing"]; for ( var i
-                = 0; i < options.length; i++ ) { var selected = ( result7[0].department==
+                <% let options
+                =["Developmnet","Design","Marketing"]; for ( let i
+                = 0; i < options.length; i++ ) { let selected = ( result7[0].department==
                 options[i] ) ? "selected" : ""; %>
                 <option value="<%=options[ i ] %>" <%= selected %>
                   ><%=options[i] %>
@@ -1315,9 +1315,9 @@
  
  
     function addrow() {
-      var table = document.getElementById("company_table");
-      var row = document.createElement("tr");
-      var result = `
+      let table = document.getElementById("company_table");
+      let row = document.createElement("tr");
+      let result = `
            <td>
               Company Name
               <input type="text" name="companyname" id="companyname_1" />
@@ -1343,13 +1343,12 @@
     }
 
     function removerow() {
-      var table = document.getElementById("company_table");
-      var row = table.getElementsByTagName("tr");
-      console.log(row.length);
+      let table = document.getElementById("company_table");
+      let row = table.getElementsByTagName("tr");
       if (row.length <= 1) {
         return;
       }
-      var tr = table.lastElementChild;
+      let tr = table.lastElementChild;
       table.removeChild(tr);
     }
 
@@ -1360,20 +1359,18 @@
     const emailval = document.querySelector("#email");
     const mobileNumber = document.querySelector("#phonenumber");
     const designation = document.querySelector("#designation");
-    // const gender = document.getElementsByName("gender");
     const dob = document.querySelector("#dob");
     const address1 = document.querySelector("#address1");
     const address2 = document.querySelector("#address2");
     const city = document.querySelector("#city");
     const relation = document.querySelector("#realtionship");
     const zipcode = document.querySelector("#zipcode");
-    // const form_control = document.querySelector(".form_control");
     form.addEventListener("submit", function (e) {
       // prevent the form from submitting
       e.preventDefault();
     });
 
-    var firstnameValidation = function () {
+    let firstnameValidation = function () {
       firstnameValue = firstname.value.trim();
       validFirstName = /^[A-Za-z]+$/;
       firstNameErr = document.getElementById("first-name-err");
@@ -1393,7 +1390,7 @@
       firstnameValidation();
     };
 
-    var lastnameValidation = function () {
+    let lastnameValidation = function () {
       lastnameValue = lastname.value.trim();
       validLastName = /^[A-Za-z]+$/;
       lastNameErr = document.getElementById("last-name-err");
@@ -1413,7 +1410,7 @@
       lastnameValidation();
     };
 
-    var designationValidation = function () {
+    let designationValidation = function () {
       let designationVal = designation.value.trim();
       let designationErr = document.getElementById("designation-err");
 
@@ -1430,7 +1427,7 @@
       designationValidation();
     };
 
-    var address1Validation = function () {
+    let address1Validation = function () {
       let address1Val = address1.value.trim();
       let address1Err = document.getElementById("address1-err");
       if (address1Val == "" || address1Val == null) {
@@ -1446,7 +1443,7 @@
       address1Validation();
     };
 
-    var cityValidation = function () {
+    let cityValidation = function () {
       let cityVal = city.value.trim();
       let cityErr = document.getElementById("city-err");
       if (cityVal == "" || cityVal == null) {
@@ -1461,8 +1458,8 @@
       cityValidation();
     };
 
-    var genderValidate = function () {
-      var genders = document.getElementsByName("_gender");
+    let genderValidate = function () {
+      let genders = document.getElementsByName("_gender");
 
       genderErr = document.getElementById("gender-err");
       if (genders[0].checked == true) {
@@ -1478,7 +1475,7 @@
       return true;
     };
 
-    var emailValidation = function () {
+    let emailValidation = function () {
       emailAddressValue = emailval.value.trim();
       validEmailAddress = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       emailAddressErr = document.getElementById("email-err");
@@ -1497,7 +1494,7 @@
       emailValidation();
     };
 
-    var mobileNumberValidation = function () {
+    let mobileNumberValidation = function () {
       mobileNumberValue = mobileNumber.value.trim();
       validMobileNumber = /^[0-9]*$/;
       mobileNumberErr = document.getElementById("mobile-number-err");
@@ -1517,7 +1514,7 @@
       mobileNumberValidation();
     };
 
-    var relationValidation = function () {
+    let relationValidation = function () {
       let realtionVal = relation.value;
       let relationErr = document.getElementById("relation-err");
       if (realtionVal == 0) {
@@ -1532,11 +1529,11 @@
       relationValidation();
     };
 
-    var dobValidation = function () {
+    let dobValidation = function () {
       let dobval = dob.value;
       let dobErr = document.getElementById("dob_err");
-      var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
-      // var pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+      let pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
+      // let pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
       if (dobval == null || dobval == "" || !pattern.test(dobval)) {
         dobErr.innerHTML = "Invalid format of date of birth ";
         dob.focus();
@@ -1551,7 +1548,7 @@
       dobValidation();
     };
 
-    var zipcodeValidation = function () {
+    let zipcodeValidation = function () {
       let zipcodeVal = zipcode.value;
       let zipcodeErr = document.getElementById("zipcode-err");
       if (zipcodeVal == "" || zipcodeVal == null) {
@@ -1567,7 +1564,7 @@
     };
 
     const preferedlocation = document.getElementById("location");
-    var preferedlocationValidation = function () {
+    let preferedlocationValidation = function () {
       let preferedlocationVal = preferedlocation.value;
       let preferedlocationErr = document.getElementById("location_err");
       if (preferedlocationVal == 0) {
@@ -1583,7 +1580,7 @@
     };
 
     const department = document.getElementById("department");
-    var departmentValidation = function () {
+    let departmentValidation = function () {
       let departmentVal = department.value;
       let departmentErr = document.getElementById("department_err");
       if (departmentVal == 0) {
@@ -1600,7 +1597,7 @@
 
     const expectedctc = document.getElementById("expectedctc");
 
-    var expectedctcValidation = function () {
+    let expectedctcValidation = function () {
       let expectedctcVal = expectedctc.value;
 
       let expectedctcErr = document.getElementById("expectedctc_err");
@@ -1687,14 +1684,14 @@
       var checkread = document.querySelector(
         'input[id="english_read"]:checked'
       );
-      var checkwrite = document.querySelector(
+      let checkwrite = document.querySelector(
         'input[id="english_write"]:checked'
       );
 
-      var checkspeak = document.querySelector(
+      let checkspeak = document.querySelector(
         'input[id="english_speak"]:checked'
       );
-      var english_err = document.getElementById("english_err");
+      let english_err = document.getElementById("english_err");
 
       if (checkread && !checklang) {
         english_err.innerHTML = "select valid input";
@@ -1711,21 +1708,21 @@
       english_err.innerHTML = "";
 
       // gujrati
-      var checklang = document.querySelector(
+      let checklang = document.querySelector(
         'input[id="gujrati_lang"]:checked'
       );
 
-      var checkread = document.querySelector(
+      let checkread = document.querySelector(
         'input[id="gujrati_read"]:checked'
       );
-      var checkwrite = document.querySelector(
+      let checkwrite = document.querySelector(
         'input[id="gujrati_write"]:checked'
       );
 
-      var checkspeak = document.querySelector(
+      let checkspeak = document.querySelector(
         'input[id="gujrati_speak"]:checked'
       );
-      var gujrati_err = document.getElementById("gujrati_err");
+      let gujrati_err = document.getElementById("gujrati_err");
 
       if (checkread && !checklang) {
         gujrati_err.innerHTML = "select valid input";
@@ -1743,11 +1740,11 @@
 
       // technologies
       let techarr = ["php", "mysql", "laravel", "oracle"];
-      for (var i = 0; i < techarr.length; i++) {
-        var techradio = document.querySelector(
+      for (let i = 0; i < techarr.length; i++) {
+        let techradio = document.querySelector(
           "input[id=" + techarr[i] + "lable]:checked"
         );
-        var techcheck = document.querySelector(
+        let techcheck = document.querySelector(
           "input[name=" + techarr[i] + "]:checked"
         );
 
@@ -1760,13 +1757,13 @@
         document.getElementById("error" + techarr[i]).innerHTML = " ";
       }
       // education
-      var alledu = [
+      let alledu = [
         ["sscnameofboard", "sscpassingyear", "sscpercentage"],
         ["hscboard", "hscpassingyear", "hscpercentage"],
         ["degreecoursename", "degreepassingyear", "degreepercentage"],
         ["mastercoursename", "masterpassingyear", "masterpercentage"],
       ];
-      for (var i = 0; i < alledu.length; i++) {
+      for (let i = 0; i < alledu.length; i++) {
         let a = document.getElementById(alledu[i][0]);
         let b = document.getElementById(alledu[i][1]);
         let c = document.getElementById(alledu[i][2]);
@@ -1802,7 +1799,7 @@
       let c = document.getElementsByName("fromdate");
       let d = document.getElementsByName("todate");
 
-      for (var i = 0; i < a.length; i++) {
+      for (let i = 0; i < a.length; i++) {
         if (
           (a[i].value === "" ||
             b[i].value === "" ||
@@ -1844,7 +1841,7 @@
       let contactnumber = document.getElementsByName("contactnumber");
       let contactrealtion = document.getElementsByName("contactrealtion");
 
-      for (var i = 0; i < contactname.length; i++) {
+      for (let i = 0; i < contactname.length; i++) {
         if (
           (contactname[i].value === "" ||
             contactnumber[i].value === "" ||
