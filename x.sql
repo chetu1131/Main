@@ -80,6 +80,16 @@ CREATE TABLE
   );
 
 CREATE TABLE
+  medias (
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    tweet_id INT NOT NULL,
+    media_url VARCHAR(255),
+    media_type VARCHAR(255),
+    description VARCHAR(255),
+    FOREIGN KEY (tweet_id) REFERENCES tweets (id)
+  );
+
+CREATE TABLE
   drafts (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -122,6 +132,7 @@ CREATE TABLE
     user_id INT NOT NULL,
     comment_id INT NOT NULL,
     comment VARCHAR(255),
+    status bool,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -146,9 +157,19 @@ CREATE TABLE
     comment_id INT NOT NULL,
     user_id INT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (comment_id) REFERENCES comments (id),
+    FOREIGN KEY (comment_id) REFERENCES tweet_comments (id),
     FOREIGN KEY (user_id) REFERENCES users (id),
     PRIMARY KEY (comment_id, user_id)
+  );
+
+CREATE TABLE
+  sharings (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    tweet_id INT NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (tweet_id) REFERENCES tweets (id),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   );
 
 CREATE TABLE
@@ -215,4 +236,3 @@ CREATE TABLE
     FOREIGN KEY (sender_id) REFERENCES users (id),
     FOREIGN KEY (receiver_id) REFERENCES users (id)
   );
-
