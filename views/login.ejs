@@ -70,7 +70,7 @@
                       type="button"
                       class="btn btn-primary"
                       value="Login"
-                      onclick="return simple()"
+                      onclick="return login_post()"
                     />
                     <a id="forgot" href="/forgotpass">forgot Password</a>
                   </div>
@@ -89,9 +89,7 @@
   </body>
   <script>
     async function login_post() {
-      console.log("hello in login");
       let obj = new URLSearchParams(new FormData(login));
-      console.log(obj);
       let result = await fetch("http://localhost:8000/login", {
         method: "POST",
         withCredentials: true,
@@ -100,22 +98,17 @@
       });
 
       result = await result.json();
-      console.log(result);
 
-      if (result.msg == "login") {
+      if (result.msg === "login") {
         window.location.replace("http://localhost:8000/home");
-      } else if (result.msg == "invalid") {
+      } else if (result.msg === "invalid") {
         window.location.replace("http://localhost:8000/fail");
       }
     }
 
-    function simple() {
-      login_post();
-    }
     let data;
     async function forgotpass() {
       data = await result.json();
-      console.log(result.email);
     }
   </script>
 </html>

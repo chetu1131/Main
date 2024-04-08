@@ -59,54 +59,48 @@
 </html>
 
 <script>
-  function deleteColumn() {
-    let table = document.getElementById("table1");
-    let rowCount = table.rows.length + 1;
-    let index = 2;
-    // let index = table.rows.length-1;
+  deleteColumn = () => {
+    var table = document.getElementById("table1");
+    var rowCount = table.rows.length + 1;
+    var index = 2;
     for (let i = 0; i < rowCount; i++) {
       table.rows[i].deleteCell(index);
     }
     if (table.cells.length == 2) {
       alert("You can't delete more columns");
     }
-  }
-  function deleteRow() {
-    let tbl = document.getElementById("table1"), // table reference
-      lastRow = tbl.rows.length - 2; // set the last row index
-    let index = tbl.rows.length - 1;
-    // let index = 1;
-    // delete rows with index greater then 0
+  };
+  deleteRow = () => {
+    var tbl = document.getElementById("table1"),
+      lastRow = tbl.rows.length - 2;
+    var index = tbl.rows.length - 1;
+
     for (i = lastRow; i > 0; i--) {
       tbl.deleteRow(index);
     }
     if (tbl.rows.length <= 2) {
       alert("You can't Delete more rows");
     }
-  }
+  };
 
-  function appendRow() {
-    let tbl = document.getElementById("table1"), // table reference
-      row = tbl.insertRow(tbl.rows.length), // append table row
+  appendRow = () => {
+    var tbl = document.getElementById("table1"),
+      row = tbl.insertRow(tbl.rows.length),
       i;
-    // insert table cells to the new row
     for (i = 0; i < tbl.rows[0].cells.length; i++) {
       createCell(row.insertCell(i), "");
     }
-  }
-  function appendColumn() {
-    let tbl = document.getElementById("table1"), // table reference
-      i;
-    // open loop for each row and append cell
+  };
+  appendColumn = () => {
+    var tbl = document.getElementById("table1");
     for (i = 0; i < tbl.rows.length; i++) {
       createCell(tbl.rows[i].insertCell(tbl.rows[i].cells.length), "");
     }
-  }
-  // create TR element and append to the table cell
-  function createCell(cell, clr) {
-    let tr = document.createElement("tr"), // create TR element
-      clr = document.createTextNode(clr); // create text node
-    tr.appendChild(clr); // append text node to the TR
-    cell.appendChild(tr); // append TR to the table cell
-  }
+  };
+  createCell = (cell, clr) => {
+    var tr = document.createElement("tr"),
+      clr = document.createTextNode(clr);
+    tr.appendChild(clr);
+    cell.appendChild(tr);
+  };
 </script>

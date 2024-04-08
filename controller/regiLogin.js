@@ -116,7 +116,6 @@ router.post("/login", async (req, res) => {
       let id = result2[0].id;
       if (md5sum == result2[0].user_password) {
         let token = jwt.sign({ id: id }, secret_key);
-
         res
           .cookie("auth", token, { httpOnly: true, sameSite: "Strict" })
           .send({ msg: "login" });

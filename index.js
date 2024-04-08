@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+
 const PORT = process.env.PORT || 8000;
 const hostName = "localhost";
 
@@ -36,9 +37,12 @@ app.use(dymcGrid);
 app.use(fetchapiTask);
 app.use(attedanceMaster);
 app.use(clockConvertor);
-//middlewares
+
 app.set("view engine", "ejs");
-// app.use(userdetail);
+
+app.get("*", (req, res) => {
+  res.status(404).send("<h1>404! Page not found</h1>");
+});
 
 app.get("/home", verifyToken, (req, res) => {
   res.render("home");
@@ -62,10 +66,6 @@ app.get("/success", verifyToken, (req, res) => {
 
 app.get("/fail", verifyToken, (req, res) => {
   res.sendFile(path.join(__dirname, "public/faild.html"));
-});
-
-app.get("*", (req, res) => {
-  res.status(404).send("<h1>404! Page not found</h1>");
 });
 
 app.listen(PORT, (err) => {

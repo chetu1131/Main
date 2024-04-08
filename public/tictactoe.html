@@ -3,192 +3,139 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>05-02-2024 Tic Tac Toe</title>
-    <script src="./0502tictactoe.js"></script>
+    <title>0/X</title>
+    <style>
+      table {
+        background-color: lightblue;
+      }
+
+      tr,
+      td {
+        width: fit-content;
+        border: 2px solid black;
+      }
+      h1 {
+        text-align: center;
+      }
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
   </head>
-  <style>
-    h1 {
-      color: rgb(0, 0, 0);
-      margin-bottom: -5px;
-    }
-    p {
-      margin-bottom: -10px;
-    }
-    .ui {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .row {
-      display: flex;
-    }
-    .cell {
-      border: none;
-      width: 80px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      text-align: center;
-      cursor: pointer;
-    }
-    .cell:active {
-      outline: none;
-    }
 
-    #b1 {
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-    }
+  <body style="background-color: lightyellow">
+    <h1>
+      <b><u>Tic-Tac-Toe</u></b>
+    </h1>
 
-    #b2 {
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-      border-left: 1px solid black;
-    }
+    <br /><br /><br />
+    <table cellspacing="0" cellpadding="70" align="center">
+      <tr>
+        <td id="1" onclick="act('1')"></td>
+        <td id="2" onclick="act('2')"></td>
+        <td id="3" onclick="act('3')"></td>
+      </tr>
+      <tr>
+        <td id="4" onclick="act('4')"></td>
+        <td id="5" onclick="act('5')"></td>
+        <td id="6" onclick="act('6')"></td>
+      </tr>
+      <tr>
+        <td id="7" onclick="act('7')"></td>
+        <td id="8" onclick="act('8')"></td>
+        <td id="9" onclick="act('9')"></td>
+      </tr>
+    </table>
+    <div class="btn">
+      <button id="btn" onclick="location.reload()">Reset</button>
+    </div>
+    <script>
+      let ct = 1;
+      let zero_array = Array();
+      let x_array = Array();
 
-    #b3 {
-      border-bottom: 1px solid black;
-      border-left: 1px solid black;
-    }
+      myfunReset = () => {
+        location.reload();
+        b1 = b2 = b3 = b4 = b5 = b6 = b7 = b8 = b9 = "";
+      };
 
-    #b4 {
-      border-top: 1px solid black;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-    }
+      act = (id) => {
+        if (ct % 2 == 1) {
+          if (document.getElementById(id).innerHTML == "") {
+            document.getElementById(id).innerHTML =
+              "<font size='20px'><b>0</b></font>";
+            zero_array.push(id);
+            ct++;
+          }
+        } else {
+          if (document.getElementById(id).innerHTML == "") {
+            document.getElementById(id).innerHTML =
+              "<font size='20px'><b>X</b></font>";
+            x_array.push(id);
+            ct++;
+          }
+        }
 
-    #b5 {
-      border: 1px solid black;
-    }
-
-    #b6 {
-      border-top: 1px solid black;
-      border-bottom: 1px solid black;
-      border-left: 1px solid black;
-    }
-
-    #b7 {
-      border-top: 1px solid black;
-      border-right: 1px solid black;
-    }
-
-    #b8 {
-      border-top: 1px solid black;
-      border-right: 1px solid black;
-      border-left: 1px solid black;
-    }
-
-    #b9 {
-      border-top: 1px solid black;
-      border-left: 1px solid black;
-    }
-
-    #btn {
-      box-sizing: border-box;
-      width: 95px;
-      height: 40px;
-      border: 1px solid black;
-      margin-left: auto;
-      border-radius: 8px;
-      color: black;
-      font-size: 20px;
-      cursor: pointer;
-    }
-
-    #result {
-      color: black;
-      font-size: 20px;
-    }
-
-    #main {
-      text-align: center;
-    }
-  </style>
-  <body>
-    <form action="">
-      <div id="main">
-        <h1>TIC TAC TOE</h1>
-        <h4>Parmeshvar Parmar 05-02-2024</h4>
-        <br />
-        <div class="ui">
-          <div class="row">
-            <input
-              type="text"
-              id="b1"
-              class="cell"
-              onclick="myfunc_3(); myfunc();"
-              readonly
-            />
-            <input
-              type="text"
-              id="b2"
-              class="cell"
-              onclick="myfunc_4(); myfunc();"
-              readonly
-            />
-            <input
-              type="text"
-              id="b3"
-              class="cell"
-              onclick="myfunc_5(); myfunc();"
-              readonly
-            />
-          </div>
-          <div class="row">
-            <input
-              type="text"
-              id="b4"
-              class="cell"
-              onclick="myfunc_6(); myfunc();"
-              readonly
-            />
-            <input
-              type="text"
-              id="b5"
-              class="cell"
-              onclick="myfunc_7(); myfunc();"
-              readonly
-            />
-            <input
-              type="text"
-              id="b6"
-              class="cell"
-              onclick="myfunc_8(); myfunc();"
-              readonly
-            />
-          </div>
-          <div class="row">
-            <input
-              type="text"
-              id="b7"
-              class="cell"
-              onclick="myfunc_9(); myfunc();"
-              readonly
-            />
-            <input
-              type="text"
-              id="b8"
-              class="cell"
-              onclick="myfunc_10();myfunc();"
-              readonly
-            />
-            <input
-              type="text"
-              id="b9"
-              class="cell"
-              onclick="myfunc_11();myfunc();"
-              readonly
-            />
-          </div>
-        </div>
-        <br /><br /><br />
-
-        <button id="btn" onclick="location.reload()">Reset</button>
-        <br />
-        <p id="result"></p>
-      </div>
-    </form>
+        if (
+          (zero_array.includes("1") &&
+            zero_array.includes("2") &&
+            zero_array.includes("3")) ||
+          (zero_array.includes("4") &&
+            zero_array.includes("5") &&
+            zero_array.includes("6")) ||
+          (zero_array.includes("7") &&
+            zero_array.includes("8") &&
+            zero_array.includes("9")) ||
+          (zero_array.includes("1") &&
+            zero_array.includes("4") &&
+            zero_array.includes("7")) ||
+          (zero_array.includes("2") &&
+            zero_array.includes("5") &&
+            zero_array.includes("8")) ||
+          (zero_array.includes("3") &&
+            zero_array.includes("6") &&
+            zero_array.includes("9")) ||
+          (zero_array.includes("1") &&
+            zero_array.includes("5") &&
+            zero_array.includes("9")) ||
+          (zero_array.includes("3") &&
+            zero_array.includes("5") &&
+            zero_array.includes("7"))
+        ) {
+          alert("Zero Wins the Game");
+        } else if (
+          (x_array.includes("1") &&
+            x_array.includes("2") &&
+            x_array.includes("3")) ||
+          (x_array.includes("4") &&
+            x_array.includes("5") &&
+            x_array.includes("6")) ||
+          (x_array.includes("7") &&
+            x_array.includes("8") &&
+            x_array.includes("9")) ||
+          (x_array.includes("1") &&
+            x_array.includes("4") &&
+            x_array.includes("7")) ||
+          (x_array.includes("2") &&
+            x_array.includes("5") &&
+            x_array.includes("8")) ||
+          (x_array.includes("3") &&
+            x_array.includes("6") &&
+            x_array.includes("9")) ||
+          (x_array.includes("1") &&
+            x_array.includes("5") &&
+            x_array.includes("9")) ||
+          (x_array.includes("3") &&
+            x_array.includes("5") &&
+            x_array.includes("7"))
+        ) {
+          alert("X Wins the Game");
+        } else if (ct == 10) {
+          alert("Match is Drawn");
+        }
+      };
+    </script>
   </body>
 </html>

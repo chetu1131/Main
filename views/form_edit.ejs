@@ -283,7 +283,7 @@
             <td>
               <label for="state">State</label>
               <select id="state" name="_state">
-                <% let options
+                <%  var options
                 =["Gujrat","Delhi","Maharastra","Goa","Karnataka"]; for ( let i
                 = 0; i < options.length; i++ ) { let selected = ( result[0].state==
                 options[i] ) ? "selected" : ""; %>
@@ -307,7 +307,7 @@
                 >RelationShip Status<span class="required">*</span></label
               >
               <select name="realtionship_status" id="realtionship">
-                <% let options =["Married","Unmarried"]; for ( let i = 0; i <
+                <% var options =["Married","Unmarried"]; for ( let i = 0; i <
                 options.length; i++ ) { let selected = (
                 result[0].relationship_status == options[i] ) ? "selected" : ""; %>
                 <option
@@ -1241,10 +1241,9 @@
               >
               <span id="location_err" class="red"></span>
               <select name="location" id="location" multiple>
-                <% let options
-                =["Surat","Ahmedabad","Baroda"]; for ( let i
-                = 0; i < options.length; i++ ) { let selected = ( result7[0].prefered_location==
-                options[i] ) ? "selected" : ""; %>
+                <% var  options =["Surat","Ahmedabad","Baroda"]; 
+                for ( let i= 0; i < options.length; i++ ) { 
+                  let selected = ( result7[0].prefered_location == options[i] ) ? "selected" : ""; %>
                 <option value="<%=options[ i ] %>" <%= selected %>
                    ><%=options[i] %>
                 </option>
@@ -1266,7 +1265,7 @@
                 Department<span class="required">*</span></label
               >
               <select name="department" id="department" >
-                <% let options
+                <%  var options
                 =["Developmnet","Design","Marketing"]; for ( let i
                 = 0; i < options.length; i++ ) { let selected = ( result7[0].department==
                 options[i] ) ? "selected" : ""; %>

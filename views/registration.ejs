@@ -134,7 +134,6 @@
         const obj = new URLSearchParams(
           new FormData(document.forms["registration"])
         );
-        console.log(obj);
         let result1 = await fetch("/register", {
           method: "POST",
           body: obj,
@@ -150,16 +149,13 @@
           json.id +
           "&token=" +
           json.token;
-        console.log(json);
       }
     }
 
     async function fetch_token() {
       let userid = json.id;
       let usertoken = json.token;
-      console.log("id and token " + userid, usertoken);
       let data = new URLSearchParams(`id=${userid}&token=${usertoken}`);
-      console.log(data);
       let result2 = await fetch("/data", {
         method: "POST",
         body: data,

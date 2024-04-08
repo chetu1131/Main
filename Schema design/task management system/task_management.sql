@@ -16,7 +16,7 @@ CREATE TABLE
             activation_token varchar(255),
             password_token varchar(255),
             isvalid bool default (0),
-            reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE  
     );
 
 CREATE TABLE
