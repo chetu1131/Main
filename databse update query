@@ -1,0 +1,172 @@
+const updateBasicDetails = async (body) => {
+  const sql = `UPDATE basic_details
+               SET firstname = ?, lastname = ?, designation = ?, address1 = ?,
+                   email = ?, address2 = ?, phonenumber = ?, city = ?, gender = ?,
+                   relationship_status = ?, dateofbirth = ?, state = ?, zipcode = ?
+               WHERE candidate_id = ?`;
+
+  const values = [
+    body.first_name,
+    body.last_name,
+    body._designation,
+    body._address1,
+    body._email,
+    body._address2,
+    body._phonenumber,
+    body._city,
+    body._gender,
+    body.relationship_status,
+    body._dob,
+    body._state,
+    body._zipcode,
+    body.id
+  ];
+
+  try {
+    await executeQuery(sql, values);
+    return "Basic details updated successfully";
+  } catch (error) {
+    throw new Error("Failed to update basic details");
+  }
+};
+const updateEducationDetails = async (body, candidateId) => {
+  const updateStatements = body.nameofboard.map((_, index) => {
+    return `UPDATE education_details
+            SET coursename = ?, passingyear = ?, percentage = ?
+            WHERE candidate_id = ? AND id = ?`;
+  });
+
+  try {
+    for (let i = 0; i < body.nameofboard.length; i++) {
+      const sql = updateStatements[i];
+      const values = [
+        body.nameofboard[i],
+        body.passingyear[i],
+        body.percentage[i],
+        candidateId,
+        body.educationId[i] // Assuming you have an educationId array in req.body
+      ];
+      await executeQuery(sql, values);
+    }
+    return "Education details updated successfully";
+  } catch (error) {
+    throw new Error("Failed to update education details");
+  }
+};
+const updateWorkExperience = async (body, candidateId) => {
+  const updateStatements = body.companyname.map((_, index) => {
+    return `UPDATE work_experience
+            SET company_name = ?, designation = ?, from_date = ?, to_date = ?
+            WHERE candidate_id = ? AND id = ?`;
+  });
+
+  try {
+    for (let i = 0; i < body.companyname.length; i++) {
+      const sql = updateStatements[i];
+      const values = [
+        body.companyname[i],
+        body.designations[i],
+        body.fromdate[i],
+        body.todate[i],
+        candidateId,
+        body.workExpId[i] // Assuming you have a workExpId array in req.body
+      ];
+      await executeQuery(sql, values);
+    }
+    return "Work experience details updated successfully";
+  } catch (error) {
+    throw new Error("Failed to update work experience details");
+  }
+};
+const updateLanguagesKnown = async (body, candidateId) => {
+  const updateStatements = body.languages.map((_, index) => {
+    return `UPDATE languages_known
+            SET language_name = ?, lang_check = ?
+            WHERE candidate_id = ? AND id = ?`;
+  });
+
+  try {
+    for (let i = 0; i < body.languages.length; i++) {
+      const sql = updateStatements[i];
+      const values = [
+        body.languages[i],
+        body.languageChecks[i],
+        candidateId,
+        body.languageId[i] // Assuming you have a languageId array in req.body
+      ];
+      await executeQuery(sql, values);
+    }
+    return "Languages known details updated successfully";
+  } catch (error) {
+    throw new Error("Failed to update languages known details");
+  }
+};
+const updateTechnologies = async (body, candidateId) => {
+  const updateStatements = body.technology.map((_, index) => {
+    return `UPDATE technologies
+            SET language_name = ?, ability = ?
+            WHERE candidate_id = ? AND id = ?`;
+  });
+
+  try {
+    for (let i = 0; i < body.technology.length; i++) {
+      const sql = updateStatements[i];
+      const values = [
+        body.technology[i],
+        body.technologyAbilities[i],
+        candidateId,
+        body.technologyId[i] // Assuming you have a technologyId array in req.body
+      ];
+      await executeQuery(sql, values);
+    }
+    return "Technologies details updated successfully";
+  } catch (error) {
+    throw new Error("Failed to update technologies details");
+  }
+};
+const updateReferenceContacts = async (body, candidateId) => {
+  const updateStatements = body.contactname.map((_, index) => {
+    return `UPDATE reference_contacts
+            SET contact_name = ?, contact_number = ?, contact_relation = ?
+            WHERE candidate_id = ? AND id = ?`;
+  });
+
+  try {
+    for (let i = 0; i < body.contactname.length; i++) {
+      const sql = updateStatements[i];
+      const values = [
+        body.contactname[i],
+        body.contactnumber[i],
+        body.contactrealtion[i],
+        candidateId,
+        body.contactId[i] // Assuming you have a contactId array in req.body
+      ];
+      await executeQuery(sql, values);
+    }
+    return "Reference contacts details updated successfully";
+  } catch (error) {
+    throw new Error("Failed to update reference contacts details");
+  }
+};
+const updatePreferences = async (body, candidateId) => {
+  const sql = `UPDATE preferences
+               SET prefered_location = ?, notice_period = ?,
+                   department = ?, expected_ctc = ?, current_ctc = ?
+               WHERE candidate_id = ?`;
+
+  const values = [
+    body.location,
+    body.noticeperiod,
+    body.department,
+    body.expectedctc,
+    body.currentctc,
+    candidateId
+  ];
+
+  try {
+    await executeQuery(sql, values);
+    return "Preferences updated successfully";
+  } catch (error) {
+    throw new Error("Failed to update preferences");
+  }
+};
