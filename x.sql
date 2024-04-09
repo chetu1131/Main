@@ -21,7 +21,8 @@ CREATE TABLE
     id INT PRIMARY KEY AUTO_INCREMENT,
     role_id INT NOT NULL,
     permission_id INT NOT NULL,
-    FOREIGN KEY (role_id) REFERENCES roles (id),
+    FOREIGN KEY (role_id),
+    REFERENCES roles (id),
     FOREIGN KEY (permission_id) REFERENCES permissions (id)
   );
 
@@ -169,7 +170,7 @@ CREATE TABLE
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (tweet_id) REFERENCES tweets (id),
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
   );
 
 CREATE TABLE
