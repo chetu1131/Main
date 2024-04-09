@@ -4,15 +4,18 @@ const bodyParser = require("body-parser");
 const connection = require("../connection/connection");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
-const executeQuery = (sql) => {
+
+const executeQuery = (sql, values) => {
   return new Promise((resolve, reject) => {
-    connection.query(sql, (err, result) => {
-      if (err) return reject(err);
-      return resolve(result);
+    pool.query(sql, values, (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
     });
   });
 };
-
 const ajax = (req, res) => {
   try {
     id = req.query.id;
@@ -24,31 +27,43 @@ const ajax = (req, res) => {
 
 const ajaxPost = async (req, res) => {
   return new Promise(async (resolve, reject) => {
-    try {
-      let body = req.body;
-      if (body.id == "" || body.id == null) {
-        let sql = `insert into basic_details(firstname,lastname,designation,address1,email,address2,phonenumber,city,gender,relationship_status,dateofbirth,state,zipcode) values ('${body.first_name}','${body.last_name}','${body._designation}','${body._address1}','${body._email}','${body._address2}','${body._phonenumber}','${body._city}','${body._gender}','${body.realtionship_status}','${body._dob}','${body._state}','${body._zipcode}')`;
+   try {
+    let body = req.body;
 
-        let result = await executeQuery(sql);
-        lastid = result.insertId;
+    if (!body.id) {
+      // Insert new record into basic_details table
+      let basicSql = `INSERT INTO basic_details (firstname, lastname, designation, address1, email, address2, phonenumber, city, gender, relationship_status, dateofbirth, state, zipcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+      let basicValues = [
+        body.first_name,
+        body.last_name,
+        body._designation,
+        body._address1,
+        body._email,
+        body._address2,
+        body._phonenumber,
+        body._city,
+        body._gender,
+        body.relationship_status,
+        body._dob,
+        body._state,
+        body._zipcode
+      ];
 
-        if (typeof body.nameofboard == "object") {
-          let sql2 = `insert into education_details(candidate_id,coursename,passingyear,percentage) values`;
+      let basicResult = await executeQuery(basicSql, basicValues);
+      let lastid = basicResult.insertId;
 
-          for (let i = 0; i < body.nameofboard.length; i++) {
-            sql2 += `('${lastid}','${body.nameofboard[i]}','${body.passingyear[i]}','${body.percentage[i]}'),`;
-          }
-          sql2 = sql2.slice(0, sql2.length - 1) + ";";
 
-          connection.query(sql2, (err, result2) => {
-            if (err) throw err;
-          });
-        } else if (typeof body.nameofboard == "string") {
-          let sql2 = `insert into education_details(candidate_id,coursename,passingyear,percentage) values('${lastid}','${body.nameofboard}','${body.passingyear}','${body.percentage}')`;
-          connection.query(sql2, (err, result2) => {
-            if (err) throw err;
-          });
-        }
+  if (Array.isArray(body.nameofboard)) {
+        let eduValues = body.nameofboard.map((board, index) => [
+          candidateId,
+          board,
+          body.passingyear[index],
+          body.percentage[index]
+        ]);
+
+        let eduSql = `INSERT INTO education_details (candidate_id, coursename, passingyear, percentage) VALUES ?`;
+        await executeQuery(eduSql, [eduValues]);
+      }
 
         if (typeof body.companyname == "object") {
           let sql3 = `insert into work_experience(candidate_id,company_name,designation,from_date,to_date) values`;
@@ -133,12 +148,25 @@ const ajaxPost = async (req, res) => {
           });
         }
       } else {
-        let body = req.body;
-        let id = body.id;
-        let upadatebasic = `update basic_details
-    set firstname = '${body.first_name}', lastname = '${body.last_name}', designation = '${body._designation}',address1 = '${body._address1}', email = '${body._email}', address2 = '${body._address2}',phonenumber = '${body._phonenumber}',city = '${body._city}', gender = '${body._gender}',relationship_status = '${body.realtionship_status}',dateofbirth = '${body._dob}', state = '${body._state}', zipcode = '${body._zipcode}' where candidate_id = '${id}'`;
+         let basicUpdateSql = `UPDATE basic_details SET firstname=?, lastname=?, designation=?, address1=?, email=?, address2=?, phonenumber=?, city=?, gender=?, relationship_status=?, dateofbirth=?, state=?, zipcode=? WHERE candidate_id=?`;
+      let basicUpdateValues = [
+        body.first_name,
+        body.last_name,
+        body._designation,
+        body._address1,
+        body._email,
+        body._address2,
+        body._phonenumber,
+        body._city,
+        body._gender,
+        body.relationship_status,
+        body._dob,
+        body._state,
+        body._zipcode,
+        body.id
+      ];
 
-        let basicresult = await executeQuery(upadatebasic);
+      await executeQuery(basicUpdateSql, basicUpdateValues);
 
         let upedu = `select id from education_details where candidate_id = '${id}';`;
         let val = await executeQuery(upedu);
