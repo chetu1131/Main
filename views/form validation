@@ -1,0 +1,69 @@
+// Validation functions
+const validateRequiredField = (input, errorElement, errorMessage) => {
+  const trimmedValue = input.value.trim();
+  if (trimmedValue === "") {
+    errorElement.textContent = errorMessage;
+    return false;
+  }
+  errorElement.textContent = "";
+  return true;
+};
+
+const validateRegexPattern = (input, errorElement, pattern, errorMessage) => {
+  const trimmedValue = input.value.trim();
+  if (!pattern.test(trimmedValue)) {
+    errorElement.textContent = errorMessage;
+    return false;
+  }
+  errorElement.textContent = "";
+  return true;
+};
+
+const validateEmail = (input, errorElement) => {
+  const trimmedValue = input.value.trim();
+  const validEmailAddress = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return validateRegexPattern(input, errorElement, validEmailAddress, "Invalid email format");
+};
+
+// Event listeners for input fields
+const attachValidationListeners = () => {
+  const form = document.querySelector("#yourFormId"); // Replace with your form ID
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault(); // Prevent form submission if validation fails
+
+    const isBasicValid = validateRequiredField(firstname, firstNameErr, "First Name is required");
+    const isLastNameValid = validateRegexPattern(lastname, lastNameErr, /^[A-Za-z]+$/, "Last Name must contain only letters");
+    const isDesignationValid = validateRequiredField(designation, designationErr, "Designation is required");
+    const isAddressValid = validateRequiredField(address1, address1Err, "Address is required");
+    const isCityValid = validateRequiredField(city, cityErr, "City is required");
+    const isEmailValid = validateEmail(emailval, emailAddressErr);
+    const isMobileValid = validateRegexPattern(mobileNumber, mobileNumberErr, /^[0-9]{10}$/, "Mobile Number must have 10 digits");
+    const isGenderValid = genderValidate();
+    const isRelationValid = validateRequiredField(relation, relationErr, "Please select a relationship");
+
+    if (isBasicValid && isLastNameValid && isDesignationValid && isAddressValid && isCityValid && isEmailValid && isMobileValid && isGenderValid && isRelationValid) {
+      // Proceed with form submission
+      form.submit();
+    } else {
+      // Scroll to the first error element or display a general error message
+    }
+  });
+
+  // Add input event listeners for individual fields (similar to your existing code)
+  firstname.addEventListener("input", firstnameValidation);
+  lastname.addEventListener("input", lastnameValidation);
+  designation.addEventListener("input", designationValidation);
+  address1.addEventListener("input", address1Validation);
+  city.addEventListener("input", cityValidation);
+  emailval.addEventListener("input", emailValidation);
+  mobileNumber.addEventListener("input", mobileNumberValidation);
+  relation.addEventListener("input", relationValidation);
+  dob.addEventListener("input", dobValidation);
+  zipcode.addEventListener("input", zipcodeValidation);
+};
+
+// Initialize validation listeners
+document.addEventListener("DOMContentLoaded", () => {
+  attachValidationListeners();
+});
