@@ -6,7 +6,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 const executeQuery = (sql) => {
   return new Promise((resolve, reject) => {
-    connection.query(sql, (err, result) => {
+    connection.query(sql, values, (err, result) => {
       if (err) return reject(err);
       return resolve(result);
     });
@@ -27,131 +27,144 @@ const ajaxPost = async (req, res) => {
     try {
       let body = req.body;
       if (body.id == "" || body.id == null) {
-        let sql = `insert into basic_details(firstname,lastname,designation,address1,email,address2,phonenumber,city,gender,relationship_status,dateofbirth,state,zipcode) values ('${body.first_name}','${body.last_name}','${body._designation}','${body._address1}','${body._email}','${body._address2}','${body._phonenumber}','${body._city}','${body._gender}','${body.realtionship_status}','${body._dob}','${body._state}','${body._zipcode}')`;
+        let basicSql = ` INSERT INTO basic_details (firstname, lastname, designation, address1, email, address2, phonenumber, city, gender, relationship_status, dateofbirth, state, zipcode) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-        let result = await executeQuery(sql);
-        lastid = result.insertId;
+        let basicValues = [
+          body.first_name,
+          body.last_name,
+          body._designation,
+          body._address1,
+          body._email,
+          body._address2,
+          body._phonenumber,
+          body._city,
+          body._gender,
+          body.relationship_status,
+          body._dob,
+          body._state,
+          body._zipcode,
+        ];
+        let basicResult = await executeQuery(basicSql, basicValues);
+        let candidateId = basicResult.insertId;
 
-        if (typeof body.nameofboard == "object") {
-          let sql2 = `insert into education_details(candidate_id,coursename,passingyear,percentage) values`;
-
-          for (let i = 0; i < body.nameofboard.length; i++) {
-            sql2 += `('${lastid}','${body.nameofboard[i]}','${body.passingyear[i]}','${body.percentage[i]}'),`;
-          }
-          sql2 = sql2.slice(0, sql2.length - 1) + ";";
-
-          connection.query(sql2, (err, result2) => {
-            if (err) throw err;
-          });
-        } else if (typeof body.nameofboard == "string") {
-          let sql2 = `insert into education_details(candidate_id,coursename,passingyear,percentage) values('${lastid}','${body.nameofboard}','${body.passingyear}','${body.percentage}')`;
-          connection.query(sql2, (err, result2) => {
-            if (err) throw err;
-          });
+        for (let i = 0; i < body.nameofboard.length; i++) {
+          let eduSql = `INSERT INTO education_details (candidate_id, coursename, passingyear, percentage)
+          VALUES (?, ?, ?, ?)`;
+          const eduValues = [
+            candidateId,
+            body.nameofboard[i],
+            body.passingyear[i],
+            body.percentage[i],
+          ];
+          await executeQuery(eduSql, eduValues);
         }
 
-        if (typeof body.companyname == "object") {
-          let sql3 = `insert into work_experience(candidate_id,company_name,designation,from_date,to_date) values`;
-          for (let i = 0; i < req.body.companyname.length; i++) {
-            sql3 += `('${lastid}','${body.companyname[i]}','${body.designations[i]}','${body.fromdate[i]}','${body.todate[i]}'),`;
-          }
-          sql3 = sql3.slice(0, sql3.length - 1) + ";";
-
-          connection.query(sql3, (err, result3) => {
-            if (err) throw err;
-          });
-        } else if (typeof body.companyname == "string") {
-          sql3 = `insert into work_experience(candidate_id,company_name,designation,from_date,to_date) values('${lastid}','${body.companyname}','${body.designations}','${body.fromdate}','${body.todate}');`;
-
-          connection.query(sql3, (err, result3) => {
-            if (err) throw err;
-          });
+        for (let i = 0; i < body.companyname.length; i++) {
+          let workSql = `INSERT INTO work_experience (candidate_id, company_name, designation, from_date, to_date)
+          VALUES (?, ?, ?, ?, ?)`;
+          const workValues = [
+            candidateId,
+            body.companyname[i],
+            body.designations[i],
+            body.fromdate[i],
+            body.todate[i],
+          ];
+          await executeQuery(workSql, workValues);
         }
 
-        if (typeof body.languages == "object" && body.languages.length != 0) {
-          let sql4 = `insert into languages_known(candidate_id,language_name,lang_check)values`;
-          for (let i = 0; i < body.languages.length; i++) {
-            let a = body.languages[i];
-            sql4 += `('${lastid}','${body.languages[i]}','${body[a]}'),`;
-          }
-          sql4 = sql4.slice(0, sql4.length - 1) + ";";
-          connection.query(sql4, (err, result4) => {
-            if (err) throw err;
-          });
-        } else if (
-          typeof body.languages == "string" &&
-          body.languages.length != 0
-        ) {
-          let a = body.languages;
-          if (body.a.length != 0) {
-            let sql4 = `insert into languages_known(candidate_id,language_name,lang_check) values ('${lastid}','${body.languages}','${body.a}');`;
-          }
-          connection.query(sql4, (err, result4) => {
-            if (err) throw err;
-          });
+        for (let i = 0; i < body.languages.length; i++) {
+          const LanguageSql = `INSERT INTO languages_known (candidate_id, language_name, lang_check)
+          VALUES (?, ?, ?)`;
+          const LanguageValues = [
+            candidateId,
+            body.languages[i],
+            body.languageChecks[i],
+          ];
+          await executeQuery(LanguageSql, LanguageValues);
         }
 
-        if (typeof body.technology == "object") {
-          let sql5 = `insert into technologies(candidate_id,language_name,ability)values`;
-          for (let i = 0; i < body.technology.length; i++) {
-            let a = body.technology[i];
-            sql5 += `('${lastid}','${body.technology[i]}','${body[a]}'),`;
-          }
-          sql5 = sql5.slice(0, sql5.length - 1) + ";";
-          connection.query(sql5, (err, result5) => {
-            if (err) throw err;
-          });
-        } else if (typeof body.technology == "string") {
-          let a = body.technology;
-          let sql5 = `insert into technologies(candidate_id,language_name,ability)values ('${lastid}','${body.technology}','${body[a]}');`;
-          connection.query(sql5, (err, result5) => {
-            if (err) throw err;
-          });
+        for (let i = 0; i < body.technology.length; i++) {
+          const techSql = `INSERT INTO technologies (candidate_id, language_name, ability)
+          VALUES (?, ?, ?)`;
+          const techValues = [
+            candidateId,
+            body.technology[i],
+            body.technologyAbilities[i],
+          ];
+          await executeQuery(techSql, techValues);
         }
 
-        if (typeof body.contactname == "object") {
-          let sql6 = `insert into reference_contacts(candidate_id,contact_name,contact_number,contact_relation) values`;
-          for (let i = 0; i < body.contactname.length; i++) {
-            sql6 += `('${lastid}','${body.contactname[i]}','${body.contactnumber[i]}','${body.contactrealtion[i]}'),`;
-          }
-          sql6 = sql6.slice(0, sql6.length - 1) + ";";
-
-          connection.query(sql6, (err, result6) => {
-            if (err) throw err;
-          });
-        } else if (typeof req.body.contactname == "string") {
-          sql6 = `insert into reference_contacts(candidate_id,contact_name,contact_number,contact_relation) values ('${lastid}','${body.contactname}','${body.contactnumber}','${body.contactrealtion}');`;
-          connection.query(sql6, (err, result6) => {
-            if (err) throw err;
-          });
+        for (let i = 0; i < body.contactname.length; i++) {
+          const contactSql = `INSERT INTO reference_contacts (candidate_id, contact_name, contact_number, contact_relation)
+          VALUES (?, ?, ?, ?)`;
+          const contactValues = [
+            candidateId,
+            body.contactname[i],
+            body.contactnumber[i],
+            body.contactrealtion[i],
+          ];
+          await executeQuery(contactSql, contactValues);
         }
 
-        if (body.location) {
-          let sql7 = `insert into preferences(candidate_id,prefered_location,notice_period,department,expected_ctc,current_ctc) values ('${lastid}','${body.location}','${body.noticeperiod}','${body.department}','${body.expectedctc}','${body.currentctc}');`;
-          connection.query(sql7, (err, result7) => {
-            if (err) throw err;
-          });
-        }
+        const preferenceSql = `INSERT INTO preferences (candidate_id, prefered_location, notice_period, department, expected_ctc, current_ctc)
+        VALUES (?, ?, ?, ?, ?, ?)`;
+
+        const preferenceValues = [
+          candidateId,
+          body.location,
+          body.noticeperiod,
+          body.department,
+          body.expectedctc,
+          body.currentctc,
+        ];
+
+        await executeQuery(preferenceSql, preferenceValues);
       } else {
-        let body = req.body;
-        let id = body.id;
-        let upadatebasic = `update basic_details
-    set firstname = '${body.first_name}', lastname = '${body.last_name}', designation = '${body._designation}',address1 = '${body._address1}', email = '${body._email}', address2 = '${body._address2}',phonenumber = '${body._phonenumber}',city = '${body._city}', gender = '${body._gender}',relationship_status = '${body.realtionship_status}',dateofbirth = '${body._dob}', state = '${body._state}', zipcode = '${body._zipcode}' where candidate_id = '${id}'`;
+        const basicUpdate = `UPDATE basic_details
+        SET firstname = ?, lastname = ?, designation = ?, address1 = ?,
+            email = ?, address2 = ?, phonenumber = ?, city = ?, gender = ?,
+            relationship_status = ?, dateofbirth = ?, state = ?, zipcode = ?
+        WHERE candidate_id = ?`;
 
-        let basicresult = await executeQuery(upadatebasic);
+        const basicValuesUpdate = [
+          body.first_name,
+          body.last_name,
+          body._designation,
+          body._address1,
+          body._email,
+          body._address2,
+          body._phonenumber,
+          body._city,
+          body._gender,
+          body.relationship_status,
+          body._dob,
+          body._state,
+          body._zipcode,
+          body.id,
+        ];
+        await executeQuery(basicUpdate, basicValuesUpdate);
 
-        let upedu = `select id from education_details where candidate_id = '${id}';`;
-        let val = await executeQuery(upedu);
+        let upedu = `select id from education_details where candidate_id = ?;`;
+        let val = await executeQuery(upedu, body.id);
 
-        for (let i = 0; i < val.length; i++) {
-          let updateedu = `update education_details 
-      set coursename = '${body.nameofboard[i]}', passingyear = '${body.passingyear[i]}',
-      percentage = '${body.percentage[i]}' where id = ${val[i].id};`;
-          let resultedu = await executeQuery(updateedu);
+        for (let i = 0; i < body.nameofboard.length; i++) {
+          const eduUpdate = `UPDATE education_details
+          SET coursename = ?, passingyear = ?, percentage = ?
+          WHERE candidate_id = ? AND id = ?`;
+          const eduUpdateValues = [
+            body.nameofboard[i],
+            body.passingyear[i],
+            body.percentage[i],
+            val, // Assuming you have an educationId array in req.body
+            candidateId,
+          ];
+          await executeQuery(eduUpdate, eduUpdateValues);
         }
+  
+        let upex = `select id from work_experience where candidate_id = ?;`;
+        let exid = await executeQuery(upex, body.id);
 
-        let upex = `select id from work_experience where candidate_id = '${id}';`;
-        let exid = await executeQuery(upex);
         for (let i = 0; i < exid.length; i++) {
           let upexp = `update work_experience set company_name = '${body.companyname[i]}', designation = '${body.designations[i]}', from_date = '${body.fromdate[i]}', to_date = '${body.todate[i]}' where id = '${exid[i].id}'`;
           let exepresult = await executeQuery(upexp);
