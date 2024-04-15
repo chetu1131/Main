@@ -1,0 +1,136 @@
+const insertEducationDetails = async (body, candidateId) => {
+  try {
+    const insertStatements = body.nameofboard.map((_, index) => {
+      return `INSERT INTO education_details (candidate_id, coursename, passingyear, percentage)
+              VALUES (?, ?, ?, ?)`;
+    });
+
+    for (let i = 0; i < body.nameofboard.length; i++) {
+      const sql = insertStatements[i];
+      const values = [
+        candidateId,
+        body.nameofboard[i],
+        body.passingyear[i],
+        body.percentage[i]
+      ];
+      await executeQuery(sql, values);
+    }
+
+    return "Education details inserted successfully";
+  } catch (error) {
+    throw new Error("Failed to insert education details");
+  }
+};
+const insertWorkExperience = async (body, candidateId) => {
+  try {
+    const insertStatements = body.companyname.map((_, index) => {
+      return `INSERT INTO work_experience (candidate_id, company_name, designation, from_date, to_date)
+              VALUES (?, ?, ?, ?, ?)`;
+    });
+
+    for (let i = 0; i < body.companyname.length; i++) {
+      const sql = insertStatements[i];
+      const values = [
+        candidateId,
+        body.companyname[i],
+        body.designations[i],
+        body.fromdate[i],
+        body.todate[i]
+      ];
+      await executeQuery(sql, values);
+    }
+
+    return "Work experience details inserted successfully";
+  } catch (error) {
+    throw new Error("Failed to insert work experience details");
+  }
+};
+const insertLanguagesKnown = async (body, candidateId) => {
+  try {
+    const insertStatements = body.languages.map((_, index) => {
+      return `INSERT INTO languages_known (candidate_id, language_name, lang_check)
+              VALUES (?, ?, ?)`;
+    });
+
+    for (let i = 0; i < body.languages.length; i++) {
+      const sql = insertStatements[i];
+      const values = [
+        candidateId,
+        body.languages[i],
+        body.languageChecks[i]
+      ];
+      await executeQuery(sql, values);
+    }
+
+    return "Languages known details inserted successfully";
+  } catch (error) {
+    throw new Error("Failed to insert languages known details");
+  }
+};
+
+const insertTechnologies = async (body, candidateId) => {
+  const insertStatements = body.technology.map((_, index) => {
+    return `INSERT INTO technologies (candidate_id, language_name, ability)
+            VALUES (?, ?, ?)`;
+  });
+
+  try {
+    for (let i = 0; i < body.technology.length; i++) {
+      const sql = insertStatements[i];
+      const values = [
+        candidateId,
+        body.technology[i],
+        body.technologyAbilities[i]
+      ];
+      await executeQuery(sql, values);
+    }
+    return "Technologies details inserted successfully";
+  } catch (error) {
+    throw new Error("Failed to insert technologies details");
+  }
+};
+
+const insertReferenceContacts = async (body, candidateId) => {
+  const insertStatements = body.contactname.map((_, index) => {
+    return `INSERT INTO reference_contacts (candidate_id, contact_name, contact_number, contact_relation)
+            VALUES (?, ?, ?, ?)`;
+  });
+
+  try {
+    for (let i = 0; i < body.contactname.length; i++) {
+      const sql = insertStatements[i];
+      const values = [
+        candidateId,
+        body.contactname[i],
+        body.contactnumber[i],
+        body.contactrealtion[i]
+      ];
+      await executeQuery(sql, values);
+    }
+    return "Reference contacts details inserted successfully";
+  } catch (error) {
+    throw new Error("Failed to insert reference contacts details");
+  }
+};
+
+const insertPreferences = async (body, candidateId) => {
+  const sql = `INSERT INTO preferences (candidate_id, prefered_location, notice_period, department, expected_ctc, current_ctc)
+               VALUES (?, ?, ?, ?, ?, ?)`;
+
+  const values = [
+    candidateId,
+    body.location,
+    body.noticeperiod,
+    body.department,
+    body.expectedctc,
+    body.currentctc
+  ];
+
+  try {
+    await executeQuery(sql, values);
+    return "Preferences inserted successfully";
+  } catch (error) {
+    throw new Error("Failed to insert preferences");
+  }
+};
+
